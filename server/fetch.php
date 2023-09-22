@@ -32,21 +32,23 @@ curl_setopt($ch, CURLOPT_HEADER, false);
 $response = curl_exec($ch);
 
 // Check for cURL errors
+// Check for cURL errors
 if ($response === false) {
-    echo 'Curl error: ' . curl_error($ch);
+    echo json_encode(['error' => 'Curl error: ' . curl_error($ch)]);
 } else {
     // Parse the JSON response
     $data = json_decode($response, true);
 
     // Check if the response contains an image URL
     if (isset($data['urls']['regular'])) {
-        $image_url = $data['urls']['regular'];
-
-        // Display the image
-        echo '<img src="' . $image_url . '" alt="Unsplash Image">';
+        // Return the Unsplash API data as JSON
+        header('Content-Type: application/json');
+        echo $response;
     } else {
-        echo 'No image found for the keyword: ' . $keyword;
-        echo '<br>api_key:' . $api_key;
+         // If no image is found, return a JSON response with a local image URL
+        $localImage = ['local_image_url' => 'http://www.erniejohnson.ca/tools/local-fallback-image.jpg'];
+        header('Content-Type: application/json');
+        echo json_encode($localImage);
     }
 }
 
