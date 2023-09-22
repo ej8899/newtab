@@ -1,0 +1,22 @@
+{
+	image URL:
+	urls.full
+	or maybe urls.raw
+
+	image name:
+	description
+
+	link to:
+	links.self
+	links.html
+
+}
+
+https://unsplash.com/documentation#guidelines--crediting
+https://unsplash.com/api-terms
+
+must show:
+must attribute Unsplash, the Unsplash photographer, and contain a link back to the photographer’s Unsplash profile
+
+user.name
+user.links.html
