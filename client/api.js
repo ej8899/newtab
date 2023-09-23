@@ -4,10 +4,15 @@ fetch(
 )
   .then((response) => response.json())
   .then((imageResponse) => {
-    const imageURL = imageResponse.urls.full;
-    const imageDescription = imageResponse.description;
-    const imageAuthor = imageResponse.user.name;
-    const imageProfileURL = imageResponse.user.links.html;
+    console.log(imageResponse);
+    let imageURL = "";
+
+    if(!imageResponse.local_image_url && imageResponse) {
+      let imageURL = imageResponse.urls.full;
+      const imageDescription = imageResponse.description;
+      const imageAuthor = imageResponse.user.name;
+      const imageProfileURL = imageResponse.user.links.html;
+    }
 
     const mainElement = document.querySelector("main");
     const title = document.getElementById("title");
@@ -15,9 +20,13 @@ fetch(
     const info = document.getElementById("info");
     const currentYear = new Date().getFullYear();
 
+
+    if (!imageURL) imageURL = "default.jpg";
     mainElement.style.backgroundImage = `url(${imageURL})`;
-    title.innerHTML = imageDescription
-    description.innerHTML = imageDescription;
+
+    // need to null check below:
+    //title.innerHTML = imageDescription
+    //description.innerHTML = imageDescription;
     
     mainElement.classList.add("main-fade-in");
   })
