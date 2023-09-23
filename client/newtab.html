@@ -17,12 +17,20 @@
       rel="stylesheet"
     />
     <script src="api.js" defer></script>
+    <script src="content.js" defer></script>
+    
+
     <title>New Tab</title>
   </head>
   <body>
     <main>
       <div class="overlay"></div>
-      <input type="text" class="search-bar" placeholder="Search...">
+      <div class="search-container">
+        <form id="search-form">
+          <input type="text" id="search-input" class="search-bar" placeholder="Search Google">
+          <button type="submit" class="search-button">Google Search</button>
+      </form>
+      </div>
       <article>
         <div class="title">
           <h1 id="title">app icons</h1>

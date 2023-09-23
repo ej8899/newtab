@@ -7,8 +7,8 @@ fetch(
     console.log(imageResponse);
     let imageURL = "";
 
-    if(!imageResponse.local_image_url && imageResponse) {
-      let imageURL = imageResponse.urls.full;
+    if(imageResponse.urls.full) {
+      imageURL = imageResponse.urls.full;
       const imageDescription = imageResponse.description;
       const imageAuthor = imageResponse.user.name;
       const imageProfileURL = imageResponse.user.links.html;
