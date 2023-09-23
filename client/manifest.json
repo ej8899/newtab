@@ -18,5 +18,5 @@
     "service_worker": "form.js"
   },
   "chrome_url_overrides": { "newtab": "newtab.html" },
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab","tabs"]
 }
