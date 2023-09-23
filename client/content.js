@@ -37,18 +37,32 @@ function updateTime() {
       'August', 'September', 'October', 'November', 'December'
   ];
 
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-
   const dayOfWeek = daysOfWeek[now.getDay()];
   const month = months[now.getMonth()];
   const day = now.getDate();
   const year = now.getFullYear();
-
   const currentDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
 
-  const currentTime = `${hours}:${minutes}`;
+
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let amPm = "";
+
+  // Check the clockType configuration
+  if (configData.clockType === 12) {
+      // Convert to 12-hour format
+      amPm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12;
+  } else {
+      // Use 24-hour format (default)
+      amPm = ""; // No AM/PM indicator in 24-hour format
+  }
+
+  // Add leading zeros to minutes if needed
+  if (minutes < 10) {
+      minutes = "0" + minutes;
+  }
+  const currentTime = `${hours}:${minutes} ${amPm}`;
   
 
   timeElement.textContent = currentTime;
@@ -64,9 +78,17 @@ updateTime(); // Initial update
 
 
 //
-// notepad wiget
+// notepad widget
 //
 document.addEventListener('DOMContentLoaded', function () {
+  todoWidget();
+  notesWidget();
+});
+
+//
+//
+//
+function notesWidget() {
   const openModalIcon = document.getElementById('open-modal-icon');
   const closeModalIcon = document.getElementById('close-modal-icon');
   const modal = document.getElementById('modal');
@@ -117,5 +139,59 @@ document.addEventListener('DOMContentLoaded', function () {
           openModal();
       }
   });
-  
-});
+}
+
+//
+// TO-DO LIST WIDGET
+//
+function todoWidget() {
+  const openTodoList = document.getElementById('open-tasks-icon');
+  const closeTodoList = document.getElementById('close-todo-list');
+  const todoModal = document.getElementById('todo-modal');
+  const taskInput = document.getElementById('task');
+  const addTaskButton = document.getElementById('add-task');
+  const taskList = document.getElementById('task-list');
+
+  // Load tasks from local storage on page load
+  const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  savedTasks.forEach(task => addTaskToUI(task));
+
+  openTodoList.addEventListener('click', function () {
+      todoModal.style.display = 'block';
+  });
+
+  closeTodoList.addEventListener('click', function () {
+      todoModal.style.display = 'none';
+  });
+
+  addTaskButton.addEventListener('click', function () {
+      const taskText = taskInput.value.trim();
+      if (taskText !== '') {
+          const task = { text: taskText, completed: false };
+          savedTasks.push(task);
+          localStorage.setItem('tasks', JSON.stringify(savedTasks));
+          addTaskToUI(task);
+          taskInput.value = '';
+      }
+  });
+
+  function addTaskToUI(task) {
+      const taskItem = document.createElement('li');
+      taskItem.innerHTML = `
+          <span class="task-text">${task.text}</span>
+          <span class="delete-button">&times;</span>
+      `;
+      taskList.appendChild(taskItem);
+
+      // Add event listener to delete a task
+      const deleteButton = taskItem.querySelector('.delete-button');
+      deleteButton.addEventListener('click', function () {
+          const index = savedTasks.indexOf(task);
+          if (index !== -1) {
+              savedTasks.splice(index, 1);
+              localStorage.setItem('tasks', JSON.stringify(savedTasks));
+              taskItem.remove();
+          }
+      });
+  }
+};

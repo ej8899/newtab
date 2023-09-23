@@ -181,7 +181,9 @@ article {
 
 
 
-
+/*
+  NOTES WIDGET STYLES
+*/
 .modal {
   display: none;
   position: fixed;
@@ -230,3 +232,45 @@ textarea {
   resize: none;
 }
 
+
+
+/*
+TO-DO LIST WIDGET STYLES
+*/
+#task {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#add-task {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+#task-list .task-text {
+  flex-grow: 1;
+}
+
+#task-list .delete-button {
+  color: red;
+  cursor: pointer;
+}
