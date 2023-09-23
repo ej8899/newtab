@@ -59,6 +59,7 @@ article {
   transform: translateX(-100px);
   transition: opacity 1s ease, transform 1s ease;
   z-index: 1;
+  align-items: center;
 }
 
 .main-fade-in article {
@@ -69,6 +70,15 @@ article {
 .icon {
   display: block; /* Display each icon on its own line */
   margin-bottom: 10px; /* Add space between the items (adjust as needed) */
+}
+
+.app-icon {
+  font-size: 3vw;
+  padding: 5px;
+  transition: all var(--transitionTime);
+}
+.app-icon:hover {
+  color: orange;
 }
 
 
@@ -237,40 +247,44 @@ textarea {
 /*
 TO-DO LIST WIDGET STYLES
 */
-#task {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#add-task {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 #task-list {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
+/* Task list items */
 #task-list li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.2s ease-in-out;
 }
 
+/* Hover effect */
+#task-list li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Task text */
 #task-list .task-text {
   flex-grow: 1;
+  font-size: 16px;
+  color: #333;
 }
 
+/* Delete button */
 #task-list .delete-button {
-  color: red;
+  color: #e74c3c;
   cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Delete button hover effect */
+#task-list .delete-button:hover {
+  color: #c0392b;
 }

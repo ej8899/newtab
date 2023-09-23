@@ -83,6 +83,7 @@ updateTime(); // Initial update
 document.addEventListener('DOMContentLoaded', function () {
   todoWidget();
   notesWidget();
+  aboutWidget();
 });
 
 //
@@ -140,6 +141,20 @@ function notesWidget() {
       }
   });
 }
+
+function aboutWidget() {
+  const openAboutIcon = document.getElementById('open-about-icon');
+  const closeAboutModal = document.getElementById('close-about-modal');
+  const aboutModal = document.getElementById('about-modal');
+
+  openAboutIcon.addEventListener('click', function () {
+      aboutModal.style.display = 'block';
+  });
+
+  closeAboutModal.addEventListener('click', function () {
+      aboutModal.style.display = 'none';
+  });
+};
 
 //
 // TO-DO LIST WIDGET
