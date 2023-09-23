@@ -1,4 +1,10 @@
 <?php
+// Enable CORS headers to allow requests from your extension's origin
+header("Access-Control-Allow-Origin: *"); // You can replace * with your extension's origin if possible
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization");
+
+
 /* 
 usage:
 http://yourwebsite.com/fetch_image.php?keyword=your_keyword_here (default is nature)
