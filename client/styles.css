@@ -2,6 +2,7 @@
   --widgetOpacity: 0.3;
   --vignetteOpacity: 0.9;
   --transitionTime: 0.3s;
+  --textColor: orange;
 }
 
 * {
@@ -51,7 +52,7 @@ article {
   left: 0px;
   bottom: 0px;
   height: 100%;
-  color: white;
+  color: var(--textColor);
   width: 100px;
   opacity: 0;
   background-color: rgba(0, 0, 0, var(--widgetOpacity));
@@ -107,7 +108,7 @@ article {
   bottom: 10px; /* Adjust the distance from the bottom as needed */
   right: 10px; /* Adjust the distance from the right as needed */
   background-color: rgba(0, 0, 0, var(--widgetOpacity)); /* Background color with opacity */
-  color: white;
+  color: var(--textColor);
   padding: 10px;
   border-radius: 5px;
 }
@@ -118,12 +119,13 @@ article {
 
 /* Style links when hovered */
 .image-info a:hover {
-  color: white; /* Change the link color to white on hover */
+  color: var(--textColor); /* Change the link color to white on hover */
+  transform: scale(1.2);
 }
 
 /* Style links when clicked */
 .image-info a:active {
-  color: white; /* Change the link color to white when clicked */
+  color: var(--textColor); /* Change the link color to white when clicked */
 }
 
 .search-container {
@@ -177,12 +179,12 @@ article {
 
 .clock {
   font-size: 10vw;
-  color:white;
+  color:var(--textColor);
 }
 
 .date {
   font-size: 2vw;
-  color: white;
+  color: var(--textColor);
 }
 
 
