@@ -66,11 +66,18 @@ article {
   transform: translateX(0);
 }
 
+.icon {
+  display: block; /* Display each icon on its own line */
+  margin-bottom: 10px; /* Add space between the items (adjust as needed) */
+}
+
+
 .title {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   width: max-content;
+  flex-direction: column;
 }
 
 #title {
@@ -222,3 +229,4 @@ textarea {
   border-radius: 5px;
   resize: none;
 }
+
