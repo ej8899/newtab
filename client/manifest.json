@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "NewTab!",
+  "description": "Generates a random wildlife background, allow for fixed links when user opens a new browser tab.",
+  "version": "0.0.1",
+  "author": "Ernie Johnson",
+  "action": {
+    "default_icon": { "16": "icon16.png", "32": "icon32.png" },
+    "default_title": "NewTab!"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "chrome_url_overrides": { "newtab": "newtab.html" },
+  "permissions": ["activeTab"]
+}
