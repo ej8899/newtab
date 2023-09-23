@@ -30,7 +30,7 @@ main {
   height: 100%;
   background-image: url('vignette.png'); /* Set the PNG vignette image URL */
   background-size: cover; /* Resize the overlay to cover the entire container */
-  opacity: 0.5; /* Adjust the opacity as desired */
+  opacity: 0.9; /* Adjust the opacity as desired */
 }
 
 .main-fade-in {
@@ -50,7 +50,6 @@ article {
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1rem;
-  border-radius: 1rem;
   transform: translateX(-100px);
   transition: opacity 1s ease, transform 1s ease;
   z-index: 1;
@@ -139,7 +138,7 @@ article {
 }
 
 .clock {
-  font-size: 32px;
+  font-size: 62px;
   color:white;
   margin-bottom: 18px;
 }
