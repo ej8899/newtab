@@ -1,5 +1,9 @@
 // content.js
 
+
+//
+// search widget
+//
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
 searchInput.value = "";
@@ -16,7 +20,9 @@ searchForm.addEventListener("submit", function (event) {
 
 
 
-
+//
+// clock widget
+//
 function updateTime() {
   const now = new Date();
   const timeElement = document.getElementById('clock-time');
@@ -51,3 +57,65 @@ function updateTime() {
 
 setInterval(updateTime, 1000); // Update every second
 updateTime(); // Initial update
+
+
+
+
+
+
+//
+// notepad wiget
+//
+document.addEventListener('DOMContentLoaded', function () {
+  const openModalIcon = document.getElementById('open-modal-icon');
+  const closeModalIcon = document.getElementById('close-modal-icon');
+  const modal = document.getElementById('modal');
+  const notesTextarea = document.getElementById('notes');
+  let isModalOpen = false; // Track whether the modal is open
+
+
+  // Check if there are existing notes in local storage
+  const existingNotes = localStorage.getItem('notes');
+  if (existingNotes) {
+      notesTextarea.value = existingNotes;
+  }
+
+  // Function to open the modal
+  function openModal() {
+    modal.style.display = 'block';
+    // Center the modal on the screen
+    document.body.style.overflow = 'hidden'; // Prevent scrolling of the background content
+    isModalOpen = true;
+  }
+
+  // Function to close the modal
+  function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restore scrolling of the background content
+      isModalOpen = false;
+  }
+
+  // Event listener to open the modal
+  openModalIcon.addEventListener('click', openModal);
+
+  // Event listener to close the modal
+  closeModalIcon.addEventListener('click', closeModal);
+
+  // Event listener to save notes in local storage
+  notesTextarea.addEventListener('input', function () {
+      const notes = notesTextarea.value;
+      localStorage.setItem('notes', notes);
+  });
+
+  // Close the modal by default
+  closeModal();
+
+  // Prevent modal from resetting position when re-opened
+  window.addEventListener('resize', function () {
+      if (isModalOpen) {
+          // Re-center the modal when the window is resized
+          openModal();
+      }
+  });
+  
+});

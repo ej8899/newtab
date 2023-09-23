@@ -74,7 +74,7 @@ function fetchDataAndUpdateStorage() {
   }
 
   // Fetch new data if no data is present or it's outdated
-  fetch(`https://erniejohnson.ca/tools/fetch.php?keyword=husky`)
+  fetch(`https://erniejohnson.ca/tools/fetch.php?keyword=${configData.backgroundTheme}`)
     .then((response) => response.json())
     .then((imageResponse) => {
       // Update local storage with new data and timestamp
