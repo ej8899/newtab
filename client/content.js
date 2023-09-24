@@ -124,8 +124,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const rootDomain = extractRootDomain(website);
         const websiteImage = document.createElement("img");
         websiteImage.src = `https://shaggy-chocolate-llama.faviconkit.com/${rootDomain}/64`;
-        websiteImage.width = 45;
-        websiteImage.height = 45;
+        websiteImage.width = 25;
+        websiteImage.height = 25;
 
         const websiteLink = document.createElement("a");
         websiteLink.href = website;

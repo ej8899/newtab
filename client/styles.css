@@ -305,9 +305,9 @@ TO-DO LIST WIDGET STYLES
 }
 
 .website-item {
-  width: 75px; /* Adjust the width to accommodate the 55x55 images */
-  height: 75px; /* Adjust the height to accommodate the 55x55 images */
-  background-color: orange;
+  width: 55px; /* Adjust the width to accommodate the 55x55 images */
+  height: 55px; /* Adjust the height to accommodate the 55x55 images */
+  background-color: rgba(0, 0, 0, var(--widgetOpacity));
   border-radius: 50%; /* Create a round shape with border-radius */
   display: flex;
   align-items: center;

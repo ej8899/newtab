@@ -91,5 +91,30 @@ function handleImageData(imageResponse) {
     mainElement.classList.add("main-fade-in");
 }
 
+function fetchNews() {
+  // Specify the URL of your PHP file
+  const phpUrl = 'https://erniejohnson.ca/tools/newtab-version.php';
+
+  // Make a GET request to the PHP file
+  fetch(phpUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(jsonData => {
+    // Process the JSON data
+    console.log(jsonData);
+    // You can access the JSON data as an object here
+  })
+  .catch(error => {
+    console.error('Fetch error:', error);
+  });
+}
+
+// any news from the server?
+fetchNews();
+
 // Call the function to fetch data and update storage
 fetchDataAndUpdateStorage();
