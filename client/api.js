@@ -107,6 +107,7 @@ function fetchNews() {
     // Process the JSON data
     console.log(jsonData);
     // You can access the JSON data as an object here
+    checkForUpdatesOncePerDay(jsonData, configData);
   })
   .catch(error => {
     console.error('Fetch error:', error);

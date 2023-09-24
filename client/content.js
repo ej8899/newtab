@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
   notesWidget();
   aboutWidget();
   calendarWidget();
+  processUpdates();
 
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
@@ -369,5 +370,95 @@ function calendarWidget() {
     calendarHTML += '</table>';
 
     return calendarHTML;
+  }
+}
+
+function processUpdates() {
+  if (configData.runningDebug) console.log('in processUpdates-newVersion:',configData.newVersion);
+  if (!configData.newVersion) return;
+  if (configData.runningDebug) console.log('in processUpdates');
+  const iconElement = document.getElementById('open-about-icon');
+  if (iconElement) {
+    // Check if the badge element already exists, and if not, create it
+    let badgeElement = iconElement.querySelector('.badge');
+    if (!badgeElement) {
+      badgeElement = document.createElement('span');
+      badgeElement.className = 'badge';
+      badgeElement.textContent = '*';
+      iconElement.appendChild(badgeElement);
+    }
+  }
+}
+
+
+
+// Function to compare two version numbers (e.g., "1.2.0" > "1.1.0")
+function compareVersions(versionA, versionB) {
+  const partsA = versionA.split('.').map(Number);
+  const partsB = versionB.split('.').map(Number);
+
+  for (let i = 0; i < partsA.length; i++) {
+    if (partsA[i] > partsB[i]) {
+      return 1;
+    }
+    if (partsA[i] < partsB[i]) {
+      return -1;
+    }
+  }
+
+  return 0; // Versions are equal
+}
+
+
+// Function to check for updates only once per day
+function checkForUpdatesOncePerDay(jsonData, configData) {
+  // Get the current date
+  const currentDate = new Date();
+
+  // Check if local storage contains the last check date
+  const lastCheckDateStr = localStorage.getItem('lastCheckDate');
+
+  if (lastCheckDateStr) {
+    // Parse the last check date from local storage
+    const lastCheckDate = new Date(lastCheckDateStr);
+
+    // Calculate the time difference in milliseconds
+    const timeDifference = currentDate - lastCheckDate;
+
+    // Calculate the number of milliseconds in a day (24 hours)
+    const oneDayMilliseconds = 24 * 60 * 60 * 1000;
+
+    // Check if it has been at least one day since the last check
+    if (timeDifference <= oneDayMilliseconds) { // for LIVE >=
+      // Perform the update check
+      if (jsonData && jsonData.appVersions && jsonData.appVersions.length > 0) {
+        // Get the latest version from the JSON data (assuming versions are sorted in descending order)
+        const latestVersion = jsonData.appVersions[0].versionNumber;
+
+        // Compare the latest version with the app's configured version
+        if (compareVersions(latestVersion, configData.appVersion) > 0) {
+          console.log('Update available',latestVersion);
+          configData.newVersion =  latestVersion;
+        } else {
+          console.log('No update available:' + latestVersion + 'this version:' + configData.appVersion);
+        }
+
+        // Update the last check date to the current date
+        localStorage.setItem('lastCheckDate', currentDate.toISOString());
+      } else {
+        console.error('Invalid JSON data');
+      }
+    } else {
+      console.log('Not checking for updates; less than one day since last check.');
+    }
+  } else {
+    // If there's no last check date in local storage, perform the update check
+    console.log('Performing initial update check.');
+
+    // Perform the update check as before
+    // ...
+
+    // Update the last check date to the current date
+    localStorage.setItem('lastCheckDate', currentDate.toISOString());
   }
 }

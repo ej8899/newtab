@@ -1,7 +1,8 @@
-const configData = {
+let configData = {
   appVersion: "1.0.0",
   appDeveloper: "ErnieJohnson.ca",
   runningDebug: true,
+  newVersion: "0.0.0", // set this to the next version available if one exists
 
   textColor: 'white', // TODO - implement & tie to css variable
   backgroundTheme: 'husky',
@@ -11,6 +12,7 @@ const configData = {
   showTasks: false, // TODO - implement this feature
   showNotes: false, // TODO - implement this feature
   showSearch: true, // TODO - implement this feature
+  showTopten: true, // TODO - implement this feature (top 10 exists, just conditionally render)
   appBarSticky: true, // TODO - implement this -- true is app bar always open, otherwise slide open when mouse is 50px(?) within left edge
   clockType: 12, // or 12 for 12h format
   imageTimer: 5,  // changes every x minutes
@@ -26,5 +28,4 @@ const configData = {
   dropboxLink: '',
   amazonLink: '',
   googledriveLink: '',
-  
-}
+};
