@@ -74,12 +74,13 @@ article {
 }
 
 .app-icon {
-  font-size: 3vw;
-  padding: 5px;
+  font-size: 2vw;
+  padding: 10px;
   transition: all var(--transitionTime);
 }
 .app-icon:hover {
   color: orange;
+  transform: scale(1.2);
 }
 
 
@@ -178,7 +179,7 @@ article {
 }
 
 .clock {
-  font-size: 10vw;
+  font-size: 5vw;
   color:var(--textColor);
 }
 
