@@ -1,56 +1,13 @@
 
-// fetch(
-//   `https://erniejohnson.ca/tools/fetch.php?keyword=wolf`
-// )
-//   .then((response) => response.json())
-//   .then((imageResponse) => {
-//     console.log(imageResponse);
-//     let imageURL = "";
-
-//     if(imageResponse.urls.full) {
-//       imageURL = imageResponse.urls.full;
-//       const imageDescription = imageResponse.description;
-//       const imageAuthor = imageResponse.user.name;
-//       const imageProfileURL = imageResponse.user.links.html;
-//     }
-
-//     const mainElement = document.querySelector("main");
-//     const title = document.getElementById("title");
-//     const description = document.getElementById("description");
-//     const info = document.getElementById("info");
-//     const currentYear = new Date().getFullYear();
-
-
-//     if (!imageURL) imageURL = "default.jpg";
-//     mainElement.style.backgroundImage = `url(${imageURL})`;
-
-//     const imageInfoDiv = document.querySelector('.image-info');
-
-//     // Assuming you have the following variables
-//     const imageDescription = imageResponse.description;
-//     const imageAuthor = imageResponse.user.name;
-//     const imageProfileURL = imageResponse.user.links.html;
-    
-//     // Create a new paragraph element to hold the image description
-//     const descriptionParagraph = document.createElement('p');
-//     descriptionParagraph.textContent = imageDescription;
-    
-//     // Create a new anchor element to link to the author's profile URL
-//     const authorLink = document.createElement('a');
-//     authorLink.textContent = imageAuthor;
-//     authorLink.href = imageProfileURL;
-//     authorLink.target = '_blank'; // Open in a new tab
-    
-//     // Append the description and author link to the imageInfoDiv
-//     imageInfoDiv.appendChild(descriptionParagraph);
-//     imageInfoDiv.appendChild(authorLink);
-    
-
-//     mainElement.classList.add("main-fade-in");
-//   })
-//   .catch((err) => console.error(err));
-
-
+function cropDescription(description, maxLength) {
+  if (!description) return;
+  if (description.length > maxLength) {
+      const croppedDescription = description.slice(0, maxLength);
+      return croppedDescription + '...';
+  } else {
+      return description; // Description is already within maxLength
+  }
+}
 
 
 // Function to fetch data and handle storage
@@ -66,7 +23,7 @@ function fetchDataAndUpdateStorage() {
 
     if (minutesPassed < configData.imageTimer) {
       // Data is recent, use it
-      console.log('using: cached image data');
+      if (configData.runningDebug) console.log('using: cached image data');
       const imageResponse = JSON.parse(storedData);
       handleImageData(imageResponse);
       return;
@@ -80,7 +37,7 @@ function fetchDataAndUpdateStorage() {
       // Update local storage with new data and timestamp
       localStorage.setItem('imageData', JSON.stringify(imageResponse));
       localStorage.setItem('timestamp', currentTimestamp.toString());
-      console.log("using: fetched new image");
+      if (configData.runningDebug) console.log("using: fetched new image");
       handleImageData(imageResponse);
     })
     .catch((err) => console.error(err));
@@ -88,7 +45,7 @@ function fetchDataAndUpdateStorage() {
 
 // Function to handle image data
 function handleImageData(imageResponse) {
-  console.log(imageResponse);
+  if (configData.runningDebug) console.log('image data:',imageResponse);
     let imageURL = "";
 
     if(imageResponse.urls.full) {
@@ -104,7 +61,6 @@ function handleImageData(imageResponse) {
     const info = document.getElementById("info");
     const currentYear = new Date().getFullYear();
 
-
     if (!imageURL) imageURL = "default.jpg";
     mainElement.style.backgroundImage = `url(${imageURL})`;
 
@@ -117,7 +73,9 @@ function handleImageData(imageResponse) {
     
     // Create a new paragraph element to hold the image description
     const descriptionParagraph = document.createElement('p');
-    descriptionParagraph.textContent = imageDescription;
+    // TODO - adjust the length based on size of screen - 30 is lots on our portrait mode, but v.small in landscape
+    // TODO - also adjust font of image info box to vw units
+    descriptionParagraph.textContent = cropDescription(imageDescription,30); 
     
     // Create a new anchor element to link to the author's profile URL
     const authorLink = document.createElement('a');

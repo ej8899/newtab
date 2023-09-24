@@ -1,6 +1,7 @@
 const configData = {
-  appVersion: "1.0",
+  appVersion: "1.0.0",
   appDeveloper: "ErnieJohnson.ca",
+  runningDebug: true,
 
   textColor: 'white', // TODO - implement & tie to css variable
   backgroundTheme: 'husky',
@@ -16,4 +17,14 @@ const configData = {
   widgetTransparency: 0.5, // TODO - global for the transparency level of all widgets / see CSS vars for now
   showTimeandDate: true,  // TODO - not yet implemented - date & time always on
   vignetteLevel: 0, // TODO - this should adjust the opacity of our vignette mask / see CSS vars for now
+
+  newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
+
+
+  gitLink: '',
+  calendarLink: '',  // TODO - if blank show basic calendar, otherwise 'none' for no calendar, or URL to google etc.
+  dropboxLink: '',
+  amazonLink: '',
+  googledriveLink: '',
+  
 }

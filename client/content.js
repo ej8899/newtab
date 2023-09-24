@@ -1,6 +1,16 @@
 // content.js
 
 
+
+
+//
+// what country is user in?
+// TODO - this doesn't work well (if at all) - need to use by IP.
+//
+const userCountry = window.navigator.language || window.navigator.userLanguage;
+if (configData.runningDebug) console.log('User is in:', userCountry);
+
+
 //
 // search widget
 //
@@ -13,7 +23,7 @@ searchForm.addEventListener("submit", function (event) {
 
     // Get the user's search query
     const query = searchInput.value.trim();
-    console.log("in form submit - query is:",query);
+    if (configData.runningDebug) console.log("in form submit - query is:",query);
     // Send a message to the background script (service worker)
     chrome.runtime.sendMessage({ action: "performSearch", query });
 });
@@ -72,9 +82,21 @@ function updateTime() {
 setInterval(updateTime, 1000); // Update every second
 updateTime(); // Initial update
 
-
-
-
+//
+// Function to extract the root domain from a URL
+//
+function extractRootDomain(url) {
+  let domain = '';
+  // Find & remove protocol (http, ftp, etc.) and get domain
+  if (url.indexOf("://") > -1) {
+      domain = url.split('/')[2];
+  } else {
+      domain = url.split('/')[0];
+  }
+  // Find & remove port number
+  domain = domain.split(':')[0];
+  return domain;
+}
 
 
 //
@@ -84,6 +106,46 @@ document.addEventListener('DOMContentLoaded', function () {
   todoWidget();
   notesWidget();
   aboutWidget();
+  calendarWidget();
+
+  // Send a message to the background script to trigger the function
+  chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
+    // Handle the response, which contains the top 10 websites
+    if (response && response.length > 0) {
+      const top10Container = document.getElementById("top10Container");
+
+      // Create a grid layout with 5 columns and 2 rows
+      top10Container.style.display = "grid";
+      top10Container.style.gridTemplateColumns = "repeat(5, 1fr)";
+      top10Container.style.gridGap = "20px";
+
+      // Loop through the top 10 websites and create elements for each
+      response.forEach(function (website, index) {
+        const rootDomain = extractRootDomain(website);
+        const websiteImage = document.createElement("img");
+        websiteImage.src = `https://shaggy-chocolate-llama.faviconkit.com/${rootDomain}/64`;
+        websiteImage.width = 45;
+        websiteImage.height = 45;
+
+        const websiteLink = document.createElement("a");
+        websiteLink.href = website;
+        websiteLink.target = "_blank"; // Open in a new tab
+        //websiteLink.textContent = website;
+        websiteLink.appendChild(websiteImage);
+
+        // Create a container div for each website link
+        const websiteContainer = document.createElement("div");
+        websiteContainer.className = "website-item"; // You can style this class as needed
+        websiteContainer.appendChild(websiteLink);
+
+        // Append the website container to the top10Container
+        top10Container.appendChild(websiteContainer);
+      });
+    } else {
+      console.error('Failed to retrieve top 10 websites.');
+    }
+  });
+
 });
 
 //
@@ -210,3 +272,102 @@ function todoWidget() {
       });
   }
 };
+
+
+
+//
+// calendar widget
+//
+function calendarWidget() {
+  const openCalendarLink = document.getElementById('open-calendar-icon');
+  const closeCalendarModal = document.getElementById('close-calendar-modal');
+  const calendarModal = document.getElementById('calendar-modal');
+  const calendar = document.getElementById('calendar');
+
+  openCalendarLink.addEventListener('click', function () {
+      // Create a date object for the current month
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      // Create a new date object for the first day of the current month
+      const firstDay = new Date(year, month, 1);
+
+      // Generate the HTML for the calendar
+      const calendarHTML = generateCalendarHTML(firstDay);
+
+      // Set the calendar HTML content
+      calendar.innerHTML = calendarHTML;
+
+      // Show the calendar modal
+      calendarModal.style.display = 'block';
+  });
+
+  closeCalendarModal.addEventListener('click', function () {
+      // Close the calendar modal
+      calendarModal.style.display = 'none';
+  });
+
+  // Function to generate the HTML for the calendar
+  function generateCalendarHTML(firstDay) {
+    const daysInMonth = new Date(firstDay.getFullYear(), firstDay.getMonth() + 1, 0).getDate();
+    const startDay = firstDay.getDay(); // 0 (Sunday) to 6 (Saturday)
+
+    // Define an array of month names for display purposes
+    const monthNames = [
+        "January", "February", "March", "April",
+        "May", "June", "July", "August",
+        "September", "October", "November", "December"
+    ];
+
+    // Generate the table header with the month and year
+    let calendarHTML = `
+        <table>
+            <caption>${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}</caption>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+    `;
+
+    // Initialize variables for tracking the day and row
+    let currentDay = 1;
+    let currentRow = 2; // Start from the second row
+
+    // Loop through each row
+    for (let row = 1; row <= 6; row++) {
+        // Start a new row
+        calendarHTML += '<tr>';
+
+        // Loop through each column (day of the week)
+        for (let col = 0; col < 7; col++) {
+            if ((row === 1 && col < startDay) || currentDay > daysInMonth) {
+                // Empty cells before the start of the month or after the end of the month
+                calendarHTML += '<td></td>';
+            } else {
+                // Display the current day
+                calendarHTML += `<td>${currentDay}</td>`;
+                currentDay++;
+            }
+        }
+
+        // End the current row
+        calendarHTML += '</tr>';
+
+        if (currentDay > daysInMonth) {
+            // Exit the loop if all days have been displayed
+            break;
+        }
+    }
+
+    // Close the table
+    calendarHTML += '</table>';
+
+    return calendarHTML;
+  }
+}
