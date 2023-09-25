@@ -1,4 +1,4 @@
-let configData = {
+const configData = {
   appVersion: "1.0.0",
   appDeveloper: "ErnieJohnson.ca",
   runningDebug: true,

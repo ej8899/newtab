@@ -2,14 +2,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "performSearch") {
       // Get the search query from the message
       const query = message.query;
-      if (configData.runningDebug) console.log('performing search:',message.query);
+      console.log('performing search:',message.query);
       // Perform the search (replace with your search logic)
       if (query) {
           // Construct the search URL
           const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
           // Open a new tab with the search results
-          chrome.tabs.create({ url: searchUrl });
+          //chrome.tabs.create({ url: searchUrl });
+
+          // Get the currently active tab in the current window
+          chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            if (tabs.length > 0) {
+              // Get the active tab's ID
+              const activeTabId = tabs[0].id;
+
+              // Update the URL of the active tab
+              chrome.tabs.update(activeTabId, { url: searchUrl });
+            }
+          });
       }
   }
   if (message.action === 'processHistory') {

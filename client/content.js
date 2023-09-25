@@ -242,16 +242,26 @@ function todoWidget() {
       todoModal.style.display = 'none';
   });
 
-  addTaskButton.addEventListener('click', function () {
-      const taskText = taskInput.value.trim();
-      if (taskText !== '') {
-          const task = { text: taskText, completed: false };
-          savedTasks.push(task);
-          localStorage.setItem('tasks', JSON.stringify(savedTasks));
-          addTaskToUI(task);
-          taskInput.value = '';
-      }
-  });
+  addTaskButton.addEventListener('click', addTaskFromInput);
+  taskInput.addEventListener('keydown', handleTaskInput);
+
+  function handleTaskInput(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        addTaskFromInput();
+    }
+  }
+
+  function addTaskFromInput() {
+    const taskText = taskInput.value.trim();
+    if (taskText !== '') {
+        const task = { text: taskText, completed: false };
+        savedTasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(savedTasks));
+        addTaskToUI(task);
+        taskInput.value = '';
+    }
+}
 
   function addTaskToUI(task) {
       const taskItem = document.createElement('li');
@@ -324,7 +334,7 @@ function calendarWidget() {
     // Generate the table header with the month and year
     let calendarHTML = `
         <table>
-            <caption>${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}</caption>
+            <caption class="calendar-heading">${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}</caption>
             <tr>
                 <th>Sun</th>
                 <th>Mon</th>
@@ -352,7 +362,7 @@ function calendarWidget() {
                 calendarHTML += '<td></td>';
             } else {
                 // Display the current day
-                calendarHTML += `<td>${currentDay}</td>`;
+                calendarHTML += `<td class="calendar-day">${currentDay}</td>`;
                 currentDay++;
             }
         }
