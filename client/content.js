@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //
-//
+// NOTES widget
 //
 function notesWidget() {
   const openModalIcon = document.getElementById('open-modal-icon');
@@ -186,6 +186,38 @@ function notesWidget() {
 
   // Event listener to close the modal
   closeModalIcon.addEventListener('click', closeModal);
+
+  const copyNotesButton = document.getElementById('copy-notes-button');
+  copyNotesButton.addEventListener('click', copyAllNotesToClipboard);
+
+  const eraseNotesButton = document.getElementById('erase-notes-button');
+  eraseNotesButton.addEventListener('click', eraseNotes);
+
+  // Function to copy all notes to the clipboard
+  function copyAllNotesToClipboard() {
+    if (notesTextarea) {
+        // Create a temporary textarea element to copy text to clipboard
+        const tempTextarea = document.createElement('textarea');
+        tempTextarea.value = notesTextarea.value;
+        document.body.appendChild(tempTextarea);
+        tempTextarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextarea);
+        alert('Notes copied to clipboard');
+    } else {
+        alert('There are no notes to copy.');
+    }
+  }
+
+  // Function to erase notes
+  function eraseNotes() {
+    // const notesTextArea = document.getElementById('text');
+    if (confirm('Are you sure you want to erase all notes?')) {
+        notesTextarea.value = '';
+        const notes = notesTextarea.value;
+        localStorage.setItem('notes', notes);
+    }
+  }
 
   // Event listener to save notes in local storage
   notesTextarea.addEventListener('input', function () {
