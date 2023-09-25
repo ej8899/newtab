@@ -9,6 +9,7 @@ const configData = {
   backgroundStyle: 'landscape', // TODO - implement this feature
   showIconLabels: true, // TODO - implement this feature (label under the app bar icons)
   showClock: true, // TODO - implement this feature
+  showWeather: true, // TODO - implement this feature
   showTasks: false, // TODO - implement this feature
   showNotes: false, // TODO - implement this feature
   showSearch: true, // TODO - implement this feature

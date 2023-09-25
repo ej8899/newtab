@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
   aboutWidget();
   calendarWidget();
   processUpdates();
+  weatherWidget();
 
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
@@ -453,8 +454,10 @@ function compareVersions(versionA, versionB) {
   return 0; // Versions are equal
 }
 
-
+//
 // Function to check for updates only once per day
+// TODO - fix this - we need to fetch the update data only once a day - not check locally once a day!
+//
 function checkForUpdatesOncePerDay(jsonData, configData) {
   // Get the current date
   const currentDate = new Date();
@@ -505,4 +508,84 @@ function checkForUpdatesOncePerDay(jsonData, configData) {
     // Update the last check date to the current date
     localStorage.setItem('lastCheckDate', currentDate.toISOString());
   }
+}
+
+
+//
+// weather widget- get our location, get weather, display weather
+//
+//
+function weatherWidget() {
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+
+function success(pos) {
+  let lat = pos.coords.latitude;
+  let long = pos.coords.longitude;
+  if(configData.runningDebug) console.log(lat,long);
+  // TODO - only fetch weather once every 30 mins
+  // TODO - cache weather in localstorage for 30 mins
+  weather(lat, long);
+}
+
+function error() {
+  console.log("There was an error fetching user location");
+}
+
+function weather(lat, long) {
+  let URL = `https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${long}`;
+  
+  fetch(URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      display(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+
+function display(data) {
+  let city = data.name.toUpperCase();
+  let temp =
+    Math.round(data.main.temp_max) +
+    "&deg; C | " +
+    Math.round(Math.round(data.main.temp_max) * 1.8 + 32) +
+    "&deg; F";
+  let desc = data.weather[0].description;
+
+  let font_color;
+  let bg_color;
+  if (Math.round(data.main.temp_max) > 25) {
+    font_color = "#d36326";
+    bg_color = "#f3f5d2";
+  } else {
+    font_color = "#44c3de";
+    bg_color = "#eff3f9";
+  }
+
+  const weathercon = document.querySelector(".weathercon");
+  const location = document.querySelector(".location");
+  const tempElement = document.querySelector(".temp");
+  
+  // TODO - expand weather types
+  // https://github.com/freeCodeCamp/freeCodeCamp/issues/15767
+  // https://fcc-weather-api.freecodecamp.repl.co/
+  // https://openweathermap.org/weather-conditions
+  if (data.weather[0].main == "Sunny" || data.weather[0].main == "sunny") {
+    weathercon.innerHTML = "<i class='fas fa-sun' style='color: #d36326;'></i>";
+  } else {
+    weathercon.innerHTML = "<i class='fas fa-cloud' style='color: #44c3de;'></i>";
+  }
+
+  location.textContent = city;
+  tempElement.innerHTML = temp;
+  location.style.color = font_color;
+  tempElement.style.color = font_color;
 }
