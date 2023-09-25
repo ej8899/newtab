@@ -578,11 +578,55 @@ function display(data) {
   // https://github.com/freeCodeCamp/freeCodeCamp/issues/15767
   // https://fcc-weather-api.freecodecamp.repl.co/
   // https://openweathermap.org/weather-conditions
-  if (data.weather[0].main == "Sunny" || data.weather[0].main == "sunny") {
-    weathercon.innerHTML = "<i class='fas fa-sun' style='color: #d36326;'></i>";
-  } else {
-    weathercon.innerHTML = "<i class='fas fa-cloud' style='color: #44c3de;'></i>";
-  }
+ // Convert weather main to lowercase
+const weatherMain = data.weather[0].main.toLowerCase();
+
+// Variables to store the weather icon and color
+let weatherIcon = "";
+let iconColor = "";
+
+// Determine the weather icon based on weatherMain
+switch (weatherMain) {
+  case "sunny":
+    weatherIcon = "<i class='fas fa-sun' style='color: #d36326;'></i>";
+    break;
+  case "rain":
+    weatherIcon = "<i class='fa-solid fa-cloud-rain'></i>";
+    break;
+  case "thunderstorm":
+    weatherIcon = "<i class='fa-solid fa-cloud-bolt'></i>";
+    break;
+  case "drizzle":
+    weatherIcon = "<i class='fa-solid fa-cloud-sun-rain'></i>";
+    break;
+  case "snow":
+    weatherIcon = "<i class='fa-solid fa-snowflake'></i>";
+    break;
+  case "fog":
+  case "smoke":
+  case "haze":
+  case "dust":
+  case "sand":
+    weatherIcon = "<i class='fa-solid fa-smog'></i>";
+    break;
+  case "tornado":
+    weatherIcon = "<i class='fa-solid fa-tornado'></i>";
+    break;
+  case "ash":
+    weatherIcon = "<i class='fa-solid fa-volcano'></i>";
+    break;
+  case "clouds":
+    weatherIcon = "<i class='fa-solid fa-cloud'></i>";
+    break;
+  case "clear":
+    weatherIcon = "<i class='fa-solid fa-sun'></i>";
+    break;
+  default:
+    weatherIcon = "<i class='fas fa-question'></i>";
+    break;
+}
+
+  weathercon.innerHTML = weatherIcon;
 
   location.textContent = city;
   tempElement.innerHTML = temp;
