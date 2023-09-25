@@ -1,0 +1,31 @@
+{
+  "appVersions": [
+    {
+      "versionNumber": "1.2.0",
+      "versionDate": "2023-11-05",
+      "versionNotes": [
+        "Added support for multiple languages.",
+        "Enhanced search functionality.",
+        "Resolved compatibility issues with older devices."
+      ]
+    },
+    {
+      "versionNumber": "1.1.0",
+      "versionDate": "2023-10-15",
+      "versionNotes": [
+        "Added new feature: User profile management.",
+        "Improved user interface and design.",
+        "Fixed security vulnerabilities."
+      ]
+    },
+    {
+      "versionNumber": "1.0.0",
+      "versionDate": "2023-09-30",
+      "versionNotes": [
+        "Initial release of the app.",
+        "Added basic features and functionalities.",
+        "Bug fixes and performance improvements."
+      ]
+    }
+  ]
+}
