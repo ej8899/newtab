@@ -208,21 +208,23 @@ function notesWidget() {
         alert('There are no notes to copy.');
     }
   }
+  function updateNotes() {
+    const notes = notesTextarea.value;
+    localStorage.setItem('notes', notes);
+  }
 
   // Function to erase notes
   function eraseNotes() {
     // const notesTextArea = document.getElementById('text');
     if (confirm('Are you sure you want to erase all notes?')) {
         notesTextarea.value = '';
-        const notes = notesTextarea.value;
-        localStorage.setItem('notes', notes);
+        updateNotes();
     }
   }
 
   // Event listener to save notes in local storage
   notesTextarea.addEventListener('input', function () {
-      const notes = notesTextarea.value;
-      localStorage.setItem('notes', notes);
+      updateNotes();
   });
 
   // Close the modal by default

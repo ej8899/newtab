@@ -177,7 +177,11 @@ article {
   color: black;
 }
 
-
+#clock-time {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-top: 0;
+  padding-top: 0;
+}
 
 .clock-date-container {
   position: fixed;
@@ -186,7 +190,7 @@ article {
   transform: translateX(-50%); /* Center horizontally */
   background-color: rgba(0, 0, 0, var(--widgetOpacity));
   padding: 1rem;
-  padding-bottom: 2rem;
+  
   display: flex;
   flex-direction: column; /* Stack elements vertically */
   align-items: center; /* Center the content horizontally */
