@@ -372,3 +372,40 @@ TO-DO LIST WIDGET STYLES
   border-radius: 10px;
   cursor: default;
 }
+
+
+/* 
+  weather widget style
+*/
+.weatherbox {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  padding: 10px; /* Add padding for spacing */
+  
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: rgba(0, 0, 0, var(--widgetOpacity));
+}
+
+.weathercon {
+  font-size: 24px; /* Adjust the icon size as needed */
+  margin-right: 10px; /* Add spacing between icon and info */
+}
+
+.info {
+  text-align: right; /* Align text to the right side */
+}
+
+.location {
+  margin: 0; /* Remove default margin */
+  font-size: 18px; /* Adjust font size as needed */
+}
+
+.temp {
+  margin: 0; /* Remove default margin */
+  font-size: 24px; /* Adjust font size as needed */
+}
