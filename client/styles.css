@@ -243,6 +243,7 @@ article {
   display: flex;
   justify-content: center; /* Horizontally center child elements */
   flex-direction: column;
+  z-index: 10;
 }
 
 .close-button {
@@ -325,7 +326,7 @@ TO-DO LIST WIDGET STYLES
 
 #top10Container {
   max-width: 600px;
-  z-index: 2;
+  z-index: 1;
   color: var(--textColor);
   padding-top: 5vw;
 }
