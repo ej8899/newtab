@@ -66,16 +66,19 @@
       <div id="modal" class="modal" style="display: none;">
         <div class="modal-content">
           <span class="close-button" id="close-modal-icon">&times;</span>
+          <h2>Quick Notes</h2>
           <textarea id="notes" placeholder="Type your notes here..."></textarea>
         </div>
       </div>
 
       <div id="todo-modal" class="modal" style="display: none;"">
-        <div class="modal-content">
+        <div class="todo-content modal-content">
           <span class="close-button" id="close-todo-list">&times;</span>
           <h2>To-Do List</h2>
-          <input type="text" id="task" placeholder="Enter a new task">
-          <button id="add-task">Add Task</button>
+          <div>
+            <input type="text" id="task" placeholder="Enter a new task" class="search-bar">
+            <button id="add-task" class="add-task search-button">Add Task</button>
+          </div>
           <ul id="task-list"></ul>
         </div>
     </div>

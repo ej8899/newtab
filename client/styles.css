@@ -274,6 +274,7 @@ TO-DO LIST WIDGET STYLES
   padding: 0;
   margin: 0;
   font-family: Arial, sans-serif;
+  padding-top: 10px;
 }
 
 /* Task list items */
@@ -293,7 +294,7 @@ TO-DO LIST WIDGET STYLES
 
 /* Task text */
 #task-list .task-text {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   font-size: 16px;
   color: #333;
 }
@@ -303,14 +304,23 @@ TO-DO LIST WIDGET STYLES
   color: #e74c3c;
   cursor: pointer;
   font-size: 18px;
-  transition: color 0.2s ease-in-out;
+  
+  transition: all var(--transitionTime);
 }
 
 /* Delete button hover effect */
 #task-list .delete-button:hover {
-  color: #c0392b;
+  color: blue;
+  transform: scale(1.3);
 }
 
+#add-task {
+  margin-left: 10px;
+}
+
+.todo-content {
+  width: 560px;
+}
 
 
 #top10Container {
