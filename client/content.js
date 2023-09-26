@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
   calendarWidget();
   processUpdates();
   weatherWidget();
+  blacklistBackgrounds();
 
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
@@ -632,4 +633,40 @@ switch (weatherMain) {
   tempElement.innerHTML = temp;
   location.style.color = font_color;
   tempElement.style.color = font_color;
+}
+
+//
+// blacklist any backgrounds the user wants to 
+//
+function blacklistBackgrounds() {
+  const mainElement = document.querySelector("main");
+  const blacklistButton = document.getElementById("blacklistimage");
+  
+  // Check if the blacklist object exists in localStorage
+  const blacklist = JSON.parse(localStorage.getItem("blacklist")) || {};
+  
+  // Add a click event listener to the button
+  blacklistButton.addEventListener("click", function () {
+    // Get the current background image URL of the mainElement
+    const computedStyle = getComputedStyle(mainElement);
+    const backgroundImageUrl = computedStyle.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+  
+    // Check if the URL is already in the blacklist
+    if (!blacklist[backgroundImageUrl]) {
+      // Add the URL to the blacklist object
+      blacklist[backgroundImageUrl] = true;
+  
+      // Save the updated blacklist object back to localStorage
+      localStorage.setItem("blacklist", JSON.stringify(blacklist));
+  
+      // Optionally, you can apply a new background image or perform other actions here
+      // mainElement.style.backgroundImage = `url(NEW_BACKGROUND_IMAGE_URL)`;
+  
+      // Optionally, you can display a message or perform other actions here
+      console.log("Image blacklisted:",backgroundImageUrl);
+    } else {
+      // URL is already in the blacklist, so you can show a message or do nothing
+      console.log("Image is already blacklisted.");
+    }
+  });
 }
