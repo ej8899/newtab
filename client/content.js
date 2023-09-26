@@ -116,6 +116,18 @@ document.addEventListener('DOMContentLoaded', function () {
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
     // Handle the response, which contains the top 10 websites
     if (response && response.length > 0) {
+
+      // Load the blacklist from localStorage
+      const blacklist = JSON.parse(localStorage.getItem('browserhistoryBlacklist')) || {};
+      const newList = [];
+      response.forEach(function (item) {
+        if (!blacklist.includes(item)) {
+          newList.push(item);
+        }
+      });
+      // Get the top 10 most visited websites
+      const top10Websites = newList.slice(0, 10);
+
       const top10Container = document.getElementById("top10Container");
 
       // Create a grid layout with 5 columns and 2 rows
@@ -124,27 +136,48 @@ document.addEventListener('DOMContentLoaded', function () {
       top10Container.style.gridGap = "20px";
 
       // Loop through the top 10 websites and create elements for each
-      response.forEach(function (website, index) {
+      top10Websites.forEach(function (website, index) {
         const rootDomain = extractRootDomain(website);
         const websiteImage = document.createElement("img");
         websiteImage.src = `https://shaggy-chocolate-llama.faviconkit.com/${rootDomain}/64`;
         websiteImage.width = 25;
         websiteImage.height = 25;
-
+      
         const websiteLink = document.createElement("a");
         websiteLink.href = website;
         websiteLink.target = "_blank"; // Open in a new tab
         //websiteLink.textContent = website;
         websiteLink.appendChild(websiteImage);
-
+      
+        // Create a badge element and add it to the website container
+        const badge = document.createElement('span');
+        badge.classList.add('badge');
+        badge.innerText = 'Block';
+        websiteLink.appendChild(badge);
+      
+        // Attach an event listener to the badge to handle blacklist functionality
+        badge.addEventListener('click', function (event) {
+          event.stopPropagation(); // Prevent the link from being triggered
+          // Add the URL to the browserhistoryBlacklist object in local storage
+          const blacklist = JSON.parse(localStorage.getItem('browserhistoryBlacklist')) || [];
+          if (!blacklist.includes(website)) {
+            blacklist.push(website);
+            localStorage.setItem('browserhistoryBlacklist', JSON.stringify(blacklist));
+            console.log(`${website} has been added to the blacklist.`);
+          } else {
+            console.log(`${website} is already in the blacklist.`);
+          }
+        });
+      
         // Create a container div for each website link
         const websiteContainer = document.createElement("div");
         websiteContainer.className = "website-item"; // You can style this class as needed
         websiteContainer.appendChild(websiteLink);
-
+      
         // Append the website container to the top10Container
         top10Container.appendChild(websiteContainer);
       });
+      
     } else {
       console.error('Failed to retrieve top 10 websites.');
     }
@@ -408,7 +441,6 @@ function calendarWidget() {
         calendarHTML += '</tr>';
 
         if (currentDay > daysInMonth) {
-            // Exit the loop if all days have been displayed
             break;
         }
     }

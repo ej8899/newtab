@@ -36,20 +36,20 @@ function processHistory(callback) {
   chrome.history.search({ text: '', startTime: 0, maxResults: 2000 }, function (historyItems) {
       // Process and log the history items here
       const visitCounts = {};
-
+    
       function isTypicalWebsite(url) {
         // Add additional checks as needed
         const nonWebsitePatterns = [
             /^https?:\/\/localhost/,
             /^https?:\/\/\d+\.\d+\.\d+\.\d+/
         ];
-
         return !nonWebsitePatterns.some(pattern => pattern.test(url));
       }
 
       // Iterate through the history items and update visit counts
       historyItems.forEach(function (item) {
           const url = item.url;
+
           if (isTypicalWebsite(url)) {
             if (url in visitCounts) {
                 visitCounts[url] += item.visitCount;
@@ -65,7 +65,7 @@ function processHistory(callback) {
       });
   
       // Get the top 10 most visited websites
-      const top10Websites = sortedUrls.slice(0, 10);
+      const top10Websites = sortedUrls.slice(0, 20);
   
       // Log the top 10 most visited websites
       // console.log('Top 10 Most Visited Websites:');
