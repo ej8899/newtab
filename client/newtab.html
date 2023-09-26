@@ -69,6 +69,7 @@
 
       <div class="image-info">
         <i class="fa-regular fa-images"></i> images via unsplash:
+        <i class="fa-solid fa-square-xmark"></i>
       </div>
 
 
@@ -113,6 +114,19 @@
         </div>
       </div>
     </div>
+
+    <div id="imageModal" class="modal" style="display:none">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <img id="modalImage" src="" alt="Blacklisted Image">
+        <a id="removeFromBlacklist" href="#">Remove from Blacklist</a>
+        <div class="navigation">
+          <button id="prevButton">Previous</button>
+          <button id="nextButton">Next</button>
+        </div>
+      </div>
+    </div>
+    
 
     </main>
   </body>
