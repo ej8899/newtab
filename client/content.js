@@ -730,6 +730,10 @@ function reviewBlacklistBackgrounds() {
   if (localStorage.getItem("blacklist")) {
     blacklist = JSON.parse(localStorage.getItem("blacklist"));
     blacklistUrls = Object.keys(blacklist);
+    console.log('blacklistUrls:',blacklistUrls)
+  } else  {
+    console.log('no photos in blacklist')
+    return;
   }
 
 
