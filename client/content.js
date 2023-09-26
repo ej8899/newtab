@@ -119,12 +119,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Load the blacklist from localStorage
       const blacklist = JSON.parse(localStorage.getItem('browserhistoryBlacklist')) || {};
-      const newList = [];
-      response.forEach(function (item) {
-        if (!blacklist.includes(item)) {
-          newList.push(item);
-        }
-      });
+      let newList = [];
+      if(blacklist.length > 0) {
+        response.forEach(function (item) {
+          if (!blacklist.includes(item)) {
+            newList.push(item);
+          }
+        });
+      } else {
+        newList = response;
+      }
       // Get the top 10 most visited websites
       const top10Websites = newList.slice(0, 10);
 
