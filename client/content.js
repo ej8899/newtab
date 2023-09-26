@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
   processUpdates();
   weatherWidget();
   blacklistBackgrounds();
+  reviewBlacklistBackgrounds();
 
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
@@ -644,13 +645,19 @@ function blacklistBackgrounds() {
   
   // Check if the blacklist object exists in localStorage
   const blacklist = JSON.parse(localStorage.getItem("blacklist")) || {};
-  
+  // TODO return if no blacklist items
+
   // Add a click event listener to the button
   blacklistButton.addEventListener("click", function () {
     // Get the current background image URL of the mainElement
     const computedStyle = getComputedStyle(mainElement);
     const backgroundImageUrl = computedStyle.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
-  
+    // TODO - strip the other stuff off this - should be just this:
+    // https://images.unsplash.com/photo-1612273320616-3498071b307d
+    // and not above, plus this:
+    // ?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1MDM5Mzh8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTU2ODkzODR8&ixlib=rb-4.0.3&q=85
+    // TODO we might have to pass all this thru our API midlayer to get the images back for rendering
+
     // Check if the URL is already in the blacklist
     if (!blacklist[backgroundImageUrl]) {
       // Add the URL to the blacklist object
@@ -667,6 +674,89 @@ function blacklistBackgrounds() {
     } else {
       // URL is already in the blacklist, so you can show a message or do nothing
       console.log("Image is already blacklisted.");
+    }
+  });
+}
+
+function reviewBlacklistBackgrounds() {
+  const imageModal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+  const removeFromBlacklist = document.getElementById("removeFromBlacklist");
+  const prevButton = document.getElementById("prevButton");
+  const nextButton = document.getElementById("nextButton");
+  const closeModal = document.getElementById("closeModal");
+  const blacklistreviewButton = document.getElementById("blacklistreviewButton");
+
+  let blacklistUrls = [];
+  let currentImageIndex = 0;
+
+  // Load blacklist URLs from localStorage
+  if (localStorage.getItem("blacklist")) {
+    blacklist = JSON.parse(localStorage.getItem("blacklist"));
+    blacklistUrls = Object.keys(blacklist);
+  }
+
+
+  // Add a click event listener to open the modal
+  blacklistreviewButton.addEventListener("click", function () {
+    // Get the URLs from the blacklist object
+    blacklistUrls = Object.keys(blacklist);
+
+    if (blacklistUrls.length > 0) {
+      currentImageIndex = 0;
+      showImage();
+      imageModal.style.display = "block";
+    }
+  });
+
+  // Add a click event listener to close the modal
+  closeModal.addEventListener("click", function () {
+    imageModal.style.display = "none";
+  });
+
+  // Function to show the current image
+  function showImage() {
+    modalImage.src = blacklistUrls[currentImageIndex];
+  }
+
+  // Add a click event listener to remove the current image from the blacklist
+  removeFromBlacklist.addEventListener("click", function () {
+    const imageUrlToRemove = blacklistUrls[currentImageIndex];
+    delete blacklist[imageUrlToRemove];
+    localStorage.setItem("blacklist", JSON.stringify(blacklist));
+    // Optionally, update your UI or take other actions
+    // For example, you can remove the image from the modal
+    // and update the UI to reflect the change
+    blacklistUrls.splice(currentImageIndex, 1);
+    if (blacklistUrls.length === 0) {
+      imageModal.style.display = "none";
+    } else {
+      if (currentImageIndex >= blacklistUrls.length) {
+        currentImageIndex = blacklistUrls.length - 1;
+      }
+      showImage();
+    }
+  });
+
+  // Add click event listeners for navigation buttons
+  prevButton.addEventListener("click", function () {
+    if (currentImageIndex > 0) {
+      currentImageIndex--;
+      showImage();
+    }
+  });
+
+  nextButton.addEventListener("click", function () {
+    if (currentImageIndex < blacklistUrls.length - 1) {
+      currentImageIndex++;
+      showImage();
+    }
+  });
+
+  // Close the modal when the user clicks outside the modal content
+  window.addEventListener("click", function (event) {
+    if (event.target === imageModal) {
+      imageModal.style.display = "none";
     }
   });
 }
