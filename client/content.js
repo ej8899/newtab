@@ -150,26 +150,32 @@ document.addEventListener('DOMContentLoaded', function () {
         const websiteLink = document.createElement("a");
         websiteLink.href = website.url;
         websiteLink.target = "_blank"; // Open in a new tab
-        
+
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
         badge.classList.add('block-badge');
         badge.innerText = '-';
-        websiteLink.appendChild(badge);
+        
       
-        // Create a container div for each website link
+        // create a container div for each website block
         const websiteContainer = document.createElement("div");
         websiteContainer.className = "website-item"; // You can style this class as needed
+
+        // Create a container div for each website icon
+        const websiteContainerRound = document.createElement("div");
+        websiteContainerRound.className = "website-item-round"; // You can style this class as needed
         
         // Create a title element (limited to 15 characters)
         const websiteTitle = document.createElement("div");
-        const truncatedTitle = website.title.length > 15 ? website.title.substring(0, 15) + "..." : website.title;
+        const truncatedTitle = website.title.length > 10 ? website.title.substring(0, 10) + "..." : website.title;
         websiteTitle.textContent = truncatedTitle;
         
         // Append the website components to the website container
-        websiteContainer.appendChild(websiteImage);
-        websiteContainer.appendChild(websiteTitle);
-        websiteContainer.appendChild(websiteLink);
+        websiteContainer.appendChild(websiteContainerRound);
+          websiteContainerRound.appendChild(websiteLink);
+            websiteLink.appendChild(websiteImage);
+          websiteContainer.appendChild(websiteTitle);
+          websiteContainer.appendChild(badge);
         
         // Attach an event listener to the badge to handle blacklist functionality
         badge.addEventListener('click', function (event) {

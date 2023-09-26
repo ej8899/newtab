@@ -336,16 +336,22 @@ TO-DO LIST WIDGET STYLES
 }
 .website-item {
   position: relative;
-  width: 55px; /* Adjust the width to accommodate the 55x55 images */
-  height: 55px; /* Adjust the height to accommodate the 55x55 images */
-  background-color: rgba(0, 0, 0, var(--widgetOpacity));
-  border-radius: 50%; /* Create a round shape with border-radius */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: transform 0.3s; /* Add a smooth transition for the hover effect */
   margin: 5px; /* Add some margin for spacing */
   overflow: hidden;
+}
+.website-item-round {
+  display: flex;
+  width: 55px; /* Adjust the width to accommodate the 55x55 images */
+  height: 55px; /* Adjust the height to accommodate the 55x55 images */
+  background-color: rgba(0, 0, 0, var(--widgetOpacity));
+  border-radius: 50%; /* Create a round shape with border-radius */
+  align-items: center;
+  justify-content: center;
 }
 
 /* Define the hover effect */
