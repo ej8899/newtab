@@ -116,13 +116,12 @@ document.addEventListener('DOMContentLoaded', function () {
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
     // Handle the response, which contains the top 10 websites
     if (response && response.length > 0) {
-
       // Load the blacklist from localStorage
       const blacklist = JSON.parse(localStorage.getItem('browserhistoryBlacklist')) || {};
       let newList = [];
       if(blacklist.length > 0) {
         response.forEach(function (item) {
-          if (!blacklist.includes(item)) {
+          if (!blacklist.includes(item.url)) {
             newList.push(item);
           }
         });
@@ -141,42 +140,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Loop through the top 10 websites and create elements for each
       top10Websites.forEach(function (website, index) {
-        const rootDomain = extractRootDomain(website);
+        
+        const rootDomain = extractRootDomain(website.url);
         const websiteImage = document.createElement("img");
         websiteImage.src = `https://shaggy-chocolate-llama.faviconkit.com/${rootDomain}/64`;
         websiteImage.width = 25;
         websiteImage.height = 25;
       
         const websiteLink = document.createElement("a");
-        websiteLink.href = website;
+        websiteLink.href = website.url;
         websiteLink.target = "_blank"; // Open in a new tab
-        //websiteLink.textContent = website;
-        websiteLink.appendChild(websiteImage);
-      
+        
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
         badge.classList.add('block-badge');
         badge.innerText = '-';
         websiteLink.appendChild(badge);
       
+        // Create a container div for each website link
+        const websiteContainer = document.createElement("div");
+        websiteContainer.className = "website-item"; // You can style this class as needed
+        
+        // Create a title element (limited to 15 characters)
+        const websiteTitle = document.createElement("div");
+        const truncatedTitle = website.title.length > 15 ? website.title.substring(0, 15) + "..." : website.title;
+        websiteTitle.textContent = truncatedTitle;
+        
+        // Append the website components to the website container
+        websiteContainer.appendChild(websiteImage);
+        websiteContainer.appendChild(websiteTitle);
+        websiteContainer.appendChild(websiteLink);
+        
         // Attach an event listener to the badge to handle blacklist functionality
         badge.addEventListener('click', function (event) {
           event.stopPropagation(); // Prevent the link from being triggered
           // Add the URL to the browserhistoryBlacklist object in local storage
           const blacklist = JSON.parse(localStorage.getItem('browserhistoryBlacklist')) || [];
-          if (!blacklist.includes(website)) {
-            blacklist.push(website);
+          if (!blacklist.includes(website.url)) {
+            blacklist.push(website.url);
             localStorage.setItem('browserhistoryBlacklist', JSON.stringify(blacklist));
-            console.log(`${website} has been added to the blacklist.`);
+            console.log(`${website.url} has been added to the blacklist.`);
           } else {
-            console.log(`${website} is already in the blacklist.`);
+            console.log(`${website.url} is already in the blacklist.`);
           }
         });
-      
-        // Create a container div for each website link
-        const websiteContainer = document.createElement("div");
-        websiteContainer.className = "website-item"; // You can style this class as needed
-        websiteContainer.appendChild(websiteLink);
       
         // Append the website container to the top10Container
         top10Container.appendChild(websiteContainer);
