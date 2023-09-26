@@ -151,8 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
       
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
-        badge.classList.add('badge');
-        badge.innerText = 'Block';
+        badge.classList.add('block-badge');
+        badge.innerText = '-';
         websiteLink.appendChild(badge);
       
         // Attach an event listener to the badge to handle blacklist functionality

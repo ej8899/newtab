@@ -335,6 +335,7 @@ TO-DO LIST WIDGET STYLES
   padding-top: 5vw;
 }
 .website-item {
+  position: relative;
   width: 55px; /* Adjust the width to accommodate the 55x55 images */
   height: 55px; /* Adjust the height to accommodate the 55x55 images */
   background-color: rgba(0, 0, 0, var(--widgetOpacity));
@@ -408,4 +409,19 @@ TO-DO LIST WIDGET STYLES
 .temp {
   margin: 0; /* Remove default margin */
   font-size: 24px; /* Adjust font size as needed */
+}
+
+
+.block-badge {
+  position: absolute;
+  top: 0; /* Align the badge to the top of the parent */
+  right: 0; /* Align the badge to the right of the parent */
+  background-color: red; /* Customize the badge background color */
+  color: white; /* Customize the badge text color */
+  padding: 5px 10px; /* Add some padding for the badge content */
+  border-radius: 50%; /* Make the badge a circle */
+  font-size: 14px; /* Customize the font size */
+}
+.block-badge:hover {
+  color:orange;
 }
