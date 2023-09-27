@@ -212,7 +212,7 @@ function notesWidget() {
   const modal = document.getElementById('modal');
   const notesTextarea = document.getElementById('notes');
   let isModalOpen = false; // Track whether the modal is open
-
+  const tabTitle = document.title;
 
   // Check if there are existing notes in local storage
   const existingNotes = localStorage.getItem('notes');
@@ -226,6 +226,7 @@ function notesWidget() {
     // Center the modal on the screen
     document.body.style.overflow = 'hidden'; // Prevent scrolling of the background content
     isModalOpen = true;
+    document.title = 'Notes - ' + tabTitle;
   }
 
   // Function to close the modal
@@ -233,6 +234,7 @@ function notesWidget() {
       modal.style.display = 'none';
       document.body.style.overflow = 'auto'; // Restore scrolling of the background content
       isModalOpen = false;
+      document.title = tabTitle;
   }
 
   // Event listener to open the modal
@@ -317,6 +319,7 @@ function todoWidget() {
   const taskInput = document.getElementById('task');
   const addTaskButton = document.getElementById('add-task');
   const taskList = document.getElementById('task-list');
+  const tabTitle = document.title;
 
   // Load tasks from local storage on page load
   const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -324,10 +327,12 @@ function todoWidget() {
 
   openTodoList.addEventListener('click', function () {
       todoModal.style.display = 'block';
+      document.title = "Tasks - " + tabTitle;
   });
 
   closeTodoList.addEventListener('click', function () {
       todoModal.style.display = 'none';
+      document.title = tabTitle;
   });
 
   addTaskButton.addEventListener('click', addTaskFromInput);
@@ -819,12 +824,15 @@ function configModal() {
   const configModal = document.getElementById('configModal');
   const openConfigIcon = document.getElementById("open-config-icon");
   const closeModal = document.getElementById("closeConfigModal");
+  const tabTitle = document.title;
 
   openConfigIcon.addEventListener('click', () => {
     configModal.style.display = 'block';
+    document.title = "Configure - " + tabTitle;
   });
   closeModal.addEventListener("click", function () {
     configModal.style.display = "none";
+    document.title = tabTitle;
   });
 
 }
