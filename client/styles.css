@@ -178,8 +178,9 @@ article {
 }
 
 #clock-time {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Oswald', sans-serif;
   margin-top: 0;
+  margin-bottom: 10px;
   padding-top: 0;
   line-height: 1;
 }
@@ -411,12 +412,12 @@ TO-DO LIST WIDGET STYLES
 
 .location {
   margin: 0; /* Remove default margin */
-  font-size: 18px; /* Adjust font size as needed */
+  font-size: 1.5vw; /* Adjust font size as needed */
 }
 
 .temp {
   margin: 0; /* Remove default margin */
-  font-size: 18px; /* Adjust font size as needed */
+  font-size: 1.5vw; /* Adjust font size as needed */
 }
 
 

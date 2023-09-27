@@ -61,7 +61,7 @@ function updateTime() {
   // Check the clockType configuration
   if (configData.clockType === 12) {
       // Convert to 12-hour format
-      amPm = hours >= 12 ? "PM" : "AM";
+      amPm = hours >= 12 ? "pm" : "am";
       hours = hours % 12 || 12;
   } else {
       // Use 24-hour format (default)
@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
   weatherWidget();
   blacklistBackgrounds();
   reviewBlacklistBackgrounds();
+  configModal();
 
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
@@ -812,4 +813,18 @@ function reviewBlacklistBackgrounds() {
       imageModal.style.display = "none";
     }
   });
+}
+
+function configModal() {
+  const configModal = document.getElementById('configModal');
+  const openConfigIcon = document.getElementById("open-config-icon");
+  const closeModal = document.getElementById("closeConfigModal");
+
+  openConfigIcon.addEventListener('click', () => {
+    configModal.style.display = 'block';
+  });
+  closeModal.addEventListener("click", function () {
+    configModal.style.display = "none";
+  });
+
 }

@@ -24,7 +24,7 @@ const configData = {
   newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
 
 
-  gitLink: '',
+  gitLink: '',  // TODO - github link
   calendarLink: '',  // TODO - if blank show basic calendar, otherwise 'none' for no calendar, or URL to google etc.
   dropboxLink: '',
   amazonLink: '',
