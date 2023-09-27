@@ -113,6 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
   reviewBlacklistBackgrounds();
   configModal();
 
+  const imageInfo = document.querySelector('.image-info');
+  imageInfo.addEventListener('mouseover', function () {
+    imageInfo.classList.add('active');
+  });
+
+  imageInfo.addEventListener('mouseout', function () {
+    imageInfo.classList.remove('active');
+  });
+
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
     // Handle the response, which contains the top 10 websites
@@ -609,6 +618,7 @@ function weather(lat, long) {
 
 
 function display(data) {
+  console.log("WEAHTER:",data)
   let city = data.name.toUpperCase();
   let temp =
     Math.round(data.main.temp_max) +
