@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
         badge.classList.add('block-badge');
-        badge.innerText = '-';
+        badge.innerText = 'x';
         
       
         // create a container div for each website block
