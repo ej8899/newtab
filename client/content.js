@@ -164,19 +164,20 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
         badge.classList.add('block-badge');
-        badge.innerText = 'x';
+        badge.innerText = '-';
         
       
         // create a container div for each website block
         const websiteContainer = document.createElement("div");
-        websiteContainer.className = "website-item"; // You can style this class as needed
+        websiteContainer.className = "website-item"; 
 
         // Create a container div for each website icon
         const websiteContainerRound = document.createElement("div");
-        websiteContainerRound.className = "website-item-round"; // You can style this class as needed
+        websiteContainerRound.className = "website-item-round"; 
         
         // Create a title element (limited to 15 characters)
         const websiteTitle = document.createElement("div");
+        websiteTitle.className = "topten-text";
         const truncatedTitle = website.title.length > 10 ? website.title.substring(0, 10) + "..." : website.title;
         websiteTitle.textContent = truncatedTitle;
         
@@ -736,6 +737,7 @@ function blacklistBackgrounds() {
   
       // Optionally, you can display a message or perform other actions here
       console.log("Image blacklisted:",backgroundImageUrl);
+      reviewBlacklistBackgrounds();
     } else {
       // URL is already in the blacklist, so you can show a message or do nothing
       console.log("Image is already blacklisted.");
@@ -759,7 +761,7 @@ function reviewBlacklistBackgrounds() {
   if (localStorage.getItem("blacklist")) {
     blacklist = JSON.parse(localStorage.getItem("blacklist"));
     blacklistUrls = Object.keys(blacklist);
-    console.log('blacklistUrls:',blacklistUrls)
+    // console.log('blacklistUrls:',blacklistUrls)
   } else  {
     console.log('no photos in blacklist')
     return;
@@ -793,9 +795,7 @@ function reviewBlacklistBackgrounds() {
     const imageUrlToRemove = blacklistUrls[currentImageIndex];
     delete blacklist[imageUrlToRemove];
     localStorage.setItem("blacklist", JSON.stringify(blacklist));
-    // Optionally, update your UI or take other actions
-    // For example, you can remove the image from the modal
-    // and update the UI to reflect the change
+ 
     blacklistUrls.splice(currentImageIndex, 1);
     if (blacklistUrls.length === 0) {
       imageModal.style.display = "none";

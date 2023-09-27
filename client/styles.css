@@ -382,6 +382,9 @@ TO-DO LIST WIDGET STYLES
   justify-content: center;
   transition: transform 0.3s; /* Add a smooth transition for the hover effect */
 }
+.topten-text {
+  color: white;
+}
 
 /* Define the hover effect */
 .website-item-round:hover {
@@ -451,7 +454,7 @@ TO-DO LIST WIDGET STYLES
   position: absolute;
   top: 0; /* Align the badge to the top of the parent */
   right: 0; /* Align the badge to the right of the parent */
-  background-color: red; /* Customize the badge background color */
+  
   color: white; /* Customize the badge text color */
   padding: 5px 5px; /* Add some padding for the badge content */
   border-radius: 50%; /* Make the badge a circle */
