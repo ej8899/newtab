@@ -7,7 +7,6 @@ $directory = __DIR__;
 $files = scandir($directory);
 $files = array_diff($files, array('.', '..'));
 
-// Remove "privatephotos.php" from the list
 if (($key = array_search("privatephotos.php", $files)) !== false) {
     unset($files[$key]);
 }
