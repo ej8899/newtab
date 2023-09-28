@@ -468,6 +468,7 @@ TO-DO LIST WIDGET STYLES
 }
 .block-badge:hover {
   color:black;
+  background-color: orange;
 }
 
 .wxinfo {
