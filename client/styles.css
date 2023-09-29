@@ -3,6 +3,7 @@
   --vignetteOpacity: 0.9;
   --transitionTime: 0.3s;
   --textColor: orange;
+  --clockText: rgba(255, 166, 0, 0.7);
 }
 
 * {
@@ -221,19 +222,20 @@ article {
   align-items: center; /* Center the content horizontally */
   border-radius: 1rem;
   transition: all var(--transitionTime);
+  color:var(--clockText);
 }
 .clock-date-container:hover {
   background-color: black;
+  color:var(--textColor);
 }
 
 .clock {
   font-size: 4.5vw;
-  color:var(--textColor);
 }
+
 
 .date {
   font-size: 2vw;
-  color: var(--textColor);
 }
 
 
