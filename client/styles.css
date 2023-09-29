@@ -229,7 +229,7 @@ article {
   transition: all var(--transitionTime);
   color:var(--clockText);
 }
-.clock-date-container:hover {
+.clock-date-container:hover  {
   background-color: black;
   color:var(--textColor);
 }
@@ -455,6 +455,14 @@ TO-DO LIST WIDGET STYLES
   margin: 0; /* Remove default margin */
   font-size: 1.5vw; /* Adjust font size as needed */
 }
+.wxinfo {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+
 
 
 .block-badge {
@@ -478,8 +486,3 @@ TO-DO LIST WIDGET STYLES
   background-color: orange;
 }
 
-.wxinfo {
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-}
