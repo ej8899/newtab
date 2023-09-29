@@ -615,65 +615,58 @@ function display(data) {
 
   let font_color;
   if (Math.round(data.main.temp_max) > 25) {
-    font_color = "#d36326";
+    font_color = "rgba(211,99,38,.7)";
   } else {
-    font_color = "#44c3de";
+    font_color = "rgba(68,195,222,.7)";
   }
 
   const weathercon = document.querySelector(".weathercon");
   const location = document.querySelector(".location");
   const tempElement = document.querySelector(".temp");
   
-  // TODO - expand weather types
-  // https://github.com/freeCodeCamp/freeCodeCamp/issues/15767
-  // https://fcc-weather-api.freecodecamp.repl.co/
-  // https://openweathermap.org/weather-conditions
- // Convert weather main to lowercase
-const weatherMain = data.weather[0].main.toLowerCase();
+  const weatherMain = data.weather[0].main.toLowerCase();
+  let weatherIcon = "";
 
-// Variables to store the weather icon and color
-let weatherIcon = "";
-
-// Determine the weather icon based on weatherMain
-switch (weatherMain) {
-  case "sunny":
-    weatherIcon = `<i class='fas fa-sun' style='color: ${font_color};'></i>`;
-    break;
-  case "rain":
-    weatherIcon = `<i class='fa-solid fa-cloud-rain' style='color: ${font_color};'></i>`;
-    break;
-  case "thunderstorm":
-    weatherIcon = `<i class='fa-solid fa-cloud-bolt' style='color: ${font_color};'></i>`;
-    break;
-  case "drizzle":
-    weatherIcon = `<i class='fa-solid fa-cloud-sun-rain' style='color: ${font_color};'></i>`;
-    break;
-  case "snow":
-    weatherIcon = `<i class='fa-solid fa-snowflake' style='color: ${font_color};'></i>`;
-    break;
-  case "fog":
-  case "smoke":
-  case "haze":
-  case "dust":
-  case "sand":
-    weatherIcon = `<i class='fa-solid fa-smog' style='color: ${font_color};'></i>`;
-    break;
-  case "tornado":
-    weatherIcon = `<i class='fa-solid fa-tornado' style='color: ${font_color};'></i>`;
-    break;
-  case "ash":
-    weatherIcon = `<i class='fa-solid fa-volcano' style='color: ${font_color};'></i>`;
-    break;
-  case "clouds":
-    weatherIcon = `<i class='fa-solid fa-cloud' style='color: ${font_color};'></i>`;
-    break;
-  case "clear":
-    weatherIcon = `<i class='fa-solid fa-sun' style='color: ${font_color};'></i>`;
-    break;
-  default:
-    weatherIcon = `<i class='fas fa-question' style='color: ${font_color};'></i>`;
-    break;
-}
+  // Determine the weather icon based on weatherMain
+  switch (weatherMain) {
+    case "sunny":
+      weatherIcon = `<i class='fas fa-sun' style='color: ${font_color};'></i>`;
+      break;
+    case "rain":
+      weatherIcon = `<i class='fa-solid fa-cloud-rain' style='color: ${font_color};'></i>`;
+      break;
+    case "thunderstorm":
+      weatherIcon = `<i class='fa-solid fa-cloud-bolt' style='color: ${font_color};'></i>`;
+      break;
+    case "drizzle":
+      weatherIcon = `<i class='fa-solid fa-cloud-sun-rain' style='color: ${font_color};'></i>`;
+      break;
+    case "snow":
+      weatherIcon = `<i class='fa-solid fa-snowflake' style='color: ${font_color};'></i>`;
+      break;
+    case "fog":
+    case "smoke":
+    case "haze":
+    case "dust":
+    case "sand":
+      weatherIcon = `<i class='fa-solid fa-smog' style='color: ${font_color};'></i>`;
+      break;
+    case "tornado":
+      weatherIcon = `<i class='fa-solid fa-tornado' style='color: ${font_color};'></i>`;
+      break;
+    case "ash":
+      weatherIcon = `<i class='fa-solid fa-volcano' style='color: ${font_color};'></i>`;
+      break;
+    case "clouds":
+      weatherIcon = `<i class='fa-solid fa-cloud' style='color: ${font_color};'></i>`;
+      break;
+    case "clear":
+      weatherIcon = `<i class='fa-solid fa-sun' style='color: ${font_color};'></i>`;
+      break;
+    default:
+      weatherIcon = `<i class='fas fa-question' style='color: ${font_color};'></i>`;
+      break;
+  }
 
   weathercon.innerHTML = weatherIcon;
 
