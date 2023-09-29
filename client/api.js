@@ -64,35 +64,29 @@ function handleImageData(imageResponse) {
     if (!imageURL) imageURL = "default.jpg";
     mainElement.style.backgroundImage = `url(${imageURL})`;
 
-    const imageInfoDiv = document.querySelector('.image-info');
+    const imageInfoDiv = document.querySelector('.main-content');
 
     // Assuming you have the following variables
     const imageDescription = imageResponse.description;
-    const imageAuthor = imageResponse.user.name;
+    const imageAuthor = 'by: ' + imageResponse.user.name;
     const imageProfileURL = imageResponse.user.links.html;
     
     // Create a new paragraph element to hold the image description
     const descriptionParagraph = document.createElement('p');
-    // TODO - adjust the length based on size of screen - 30 is lots on our portrait mode, but v.small in landscape
-    // TODO - also adjust font of image info box to vw units
-    descriptionParagraph.textContent = cropDescription(imageDescription,30); 
-    
     // Create a new anchor element to link to the author's profile URL
     const authorLink = document.createElement('a');
     authorLink.textContent = imageAuthor;
     authorLink.href = imageProfileURL;
     authorLink.target = '_blank'; // Open in a new tab
-    
-    // Append the description and author link to the imageInfoDiv
-    imageInfoDiv.appendChild(descriptionParagraph);
     imageInfoDiv.appendChild(authorLink);
-    
-
+    descriptionParagraph.textContent = cropDescription(imageDescription,90);
+    if (imageDescription) imageInfoDiv.appendChild(descriptionParagraph);
+    imageInfoDiv.appendChild(document.createElement('br'));
     mainElement.classList.add("main-fade-in");
 }
 
+// API end point for app updates / change-log
 function fetchNews() {
-  // Specify the URL of your PHP file
   const phpUrl = 'https://erniejohnson.ca/tools/newtab-version.php';
 
   // Make a GET request to the PHP file
@@ -114,8 +108,8 @@ function fetchNews() {
   });
 }
 
-// any news from the server?
+// any news/updates from the server?
 fetchNews();
 
-// Call the function to fetch data and update storage
+// Call the function to fetch data and update storage (for the bg image)
 fetchDataAndUpdateStorage();

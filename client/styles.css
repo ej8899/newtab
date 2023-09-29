@@ -127,20 +127,25 @@ article {
 
   transition: all 0.6s;
   width: 17vw;
+  height: 4vw;
   overflow: hidden;
 }
 .image-info:hover {
-  width: 30vw;
+  height: 20vw;
   background-color: black;
 }
+.extra-content {
+  display:flex;
+  flex-direction: column;
+}
 .image-info .extra-content {
-  display: none;
-  opacity: 0;
+  display: visible;
+  opacity: 0.8;
 }
 
 .image-info.active .main-content {
-  display: none;
-  opacity: 0;
+  display: visible;
+  opacity: 01;
 }
 
 .image-info.active .extra-content {
