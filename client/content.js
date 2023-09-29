@@ -105,7 +105,6 @@ function extractRootDomain(url) {
 document.addEventListener('DOMContentLoaded', function () {
   todoWidget();
   notesWidget();
-  aboutWidget();
   calendarWidget();
   processUpdates();
   weatherWidget();
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
         const websiteLink = document.createElement("a");
         websiteLink.href = website.url;
-        websiteLink.target = "_blank"; // Open in a new tab
+        if (configData.newTabs) websiteLink.target = "_blank"; // Open in a new tab
 
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
@@ -305,20 +304,6 @@ function notesWidget() {
   });
 }
 
-function aboutWidget() {
-  const openAboutIcon = document.getElementById('open-about-icon');
-  const closeAboutModal = document.getElementById('close-about-modal');
-  const aboutModal = document.getElementById('about-modal');
-
-  openAboutIcon.addEventListener('click', function () {
-      aboutModal.style.display = 'block';
-  });
-
-  closeAboutModal.addEventListener('click', function () {
-      aboutModal.style.display = 'none';
-  });
-};
-
 //
 // TO-DO LIST WIDGET
 //
@@ -437,7 +422,7 @@ function calendarWidget() {
     // Generate the table header with the month and year
     let calendarHTML = `
         <table>
-            <caption class="calendar-heading">${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}</caption>
+            <caption class="calendar-heading">${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}<br>&nbsp;</caption>
             <tr>
                 <th>Sun</th>
                 <th>Mon</th>
@@ -489,7 +474,7 @@ function processUpdates() {
   if (configData.runningDebug) console.log('in processUpdates-newVersion:',configData.newVersion);
   if (!configData.newVersion) return;
   if (configData.runningDebug) console.log('in processUpdates');
-  const iconElement = document.getElementById('open-about-icon');
+  const iconElement = document.getElementById('open-config-icon');
   if (iconElement) {
     // Check if the badge element already exists, and if not, create it
     let badgeElement = iconElement.querySelector('.badge');
