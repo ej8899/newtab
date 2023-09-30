@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "NewTab!",
+  "name": "YourTab!",
   "description": "Generates a random wildlife background, allow for fixed links when user opens a new browser tab.",
   "version": "0.0.1",
   "author": "Ernie Johnson",

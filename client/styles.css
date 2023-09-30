@@ -309,7 +309,9 @@ textarea {
   resize: none;
 }
 
-
+.modal-buttons {
+  padding-top: 10px;
+}
 
 /*
 TO-DO LIST WIDGET STYLES

@@ -592,6 +592,7 @@ function wxSuccess(pos) {
   // TODO - cache weather in localstorage for 30 mins
 
   setTimeout(function() {
+    console.log("fetching wx at lat:",lat);
     weather(lat, long);
   }, 5000);
 }
