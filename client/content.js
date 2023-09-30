@@ -627,7 +627,7 @@ function display(data) {
   // let desc = data.weather[0].description;
 
   let font_color;
-  if (Math.round(data.main.temp_max) > 25) {
+  if (Math.round(data.main.temp_max) > 23) {
     font_color = "rgba(211,99,38,.7)";
   } else {
     font_color = "rgba(68,195,222,.7)";
@@ -785,7 +785,7 @@ function reviewBlacklistBackgrounds() {
     const imageUrlToRemove = blacklistUrls[currentImageIndex];
     delete blacklist[imageUrlToRemove];
     localStorage.setItem("blacklist", JSON.stringify(blacklist));
- 
+    blacklistBackgrounds(); // refresh
     blacklistUrls.splice(currentImageIndex, 1);
     if (blacklistUrls.length === 0) {
       imageModal.style.display = "none";
