@@ -488,3 +488,9 @@ TO-DO LIST WIDGET STYLES
   background-color: orange;
 }
 
+
+
+.blacklistimage-preview {
+  height: 200px;
+  width: auto;
+}
