@@ -137,15 +137,17 @@ article {
 .extra-content {
   display:flex;
   flex-direction: column;
+  opacity: 0;
+  transition: all 1.6s;
 }
 .image-info .extra-content {
-  display: visible;
-  opacity: 0.8;
+  display: hidden;
+  opacity: 0;
 }
 
 .image-info.active .main-content {
   display: visible;
-  opacity: 01;
+  opacity: 1;
 }
 
 .image-info.active .extra-content {
