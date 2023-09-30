@@ -761,7 +761,7 @@ function reviewBlacklistBackgrounds() {
 
   // Function to show the current image
   function showImage() {
-    modalImage.src = blacklistUrls[currentImageIndex];
+    modalImage.src = blacklistUrls[currentImageIndex] + '?q=75&w=400&fit=max';
   }
 
   // Add a click event listener to remove the current image from the blacklist
