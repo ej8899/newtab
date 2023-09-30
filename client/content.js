@@ -108,12 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
   setInterval(updateTime, 1000);
 
 
-
+  // image info dynamic html show/hide
   const imageInfo = document.querySelector('.image-info');
   imageInfo.addEventListener('mouseover', function () {
     imageInfo.classList.add('active');
   });
-
   imageInfo.addEventListener('mouseout', function () {
     imageInfo.classList.remove('active');
   });
@@ -169,9 +168,9 @@ function fetchTopTen() {
         // Create a badge element and add it to the website container
         const badge = document.createElement('span');
         badge.classList.add('block-badge');
-        badge.innerText = '-';
-        
-      
+        badge.innerHTML = '<i class="fa-solid fa-minus fa-2xs"></i>';
+       
+       
         // create a container div for each website block
         const websiteContainer = document.createElement("div");
         websiteContainer.className = "website-item"; 
@@ -192,7 +191,17 @@ function fetchTopTen() {
             websiteLink.appendChild(websiteImage);
           websiteContainer.appendChild(websiteTitle);
           websiteContainer.appendChild(badge);
-        
+   
+         // top ten dynamic html show/hide (blacklist badge)
+         //const badgeToggle= document.querySelector('.website-item');
+         websiteContainer.addEventListener('mouseover', function () {
+           badge.classList.add('block-badge-active');
+         });
+ 
+         websiteContainer.addEventListener('mouseout', function () {
+           badge.classList.remove('block-badge-active');
+         });
+       
         // Attach an event listener to the badge to handle blacklist functionality
         badge.addEventListener('click', function (event) {
           event.stopPropagation(); // Prevent the link from being triggered
@@ -226,7 +235,6 @@ function notesWidget() {
   const modal = document.getElementById('modal');
   const notesTextarea = document.getElementById('notes');
   let isModalOpen = false; // Track whether the modal is open
-  const tabTitle = document.title;
 
   // Check if there are existing notes in local storage
   const existingNotes = localStorage.getItem('notes');
@@ -240,7 +248,7 @@ function notesWidget() {
     // Center the modal on the screen
     document.body.style.overflow = 'hidden'; // Prevent scrolling of the background content
     isModalOpen = true;
-    document.title = 'Notes - ' + tabTitle;
+    setTabTitle('notes');
   }
 
   // Function to close the modal
@@ -248,7 +256,7 @@ function notesWidget() {
       modal.style.display = 'none';
       document.body.style.overflow = 'auto'; // Restore scrolling of the background content
       isModalOpen = false;
-      document.title = tabTitle;
+      setTabTitle('reset');
   }
 
   // Event listener to open the modal
@@ -319,7 +327,6 @@ function todoWidget() {
   const taskInput = document.getElementById('task');
   const addTaskButton = document.getElementById('add-task');
   const taskList = document.getElementById('task-list');
-  const tabTitle = document.title;
 
   // Load tasks from local storage on page load
   const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -327,12 +334,12 @@ function todoWidget() {
 
   openTodoList.addEventListener('click', function () {
       todoModal.style.display = 'block';
-      document.title = "Tasks - " + tabTitle;
+      setTabTitle('tasks');
   });
 
   closeTodoList.addEventListener('click', function () {
       todoModal.style.display = 'none';
-      document.title = tabTitle;
+      setTabTitle('reset');
   });
 
   addTaskButton.addEventListener('click', addTaskFromInput);
@@ -405,11 +412,13 @@ function calendarWidget() {
 
       // Show the calendar modal
       calendarModal.style.display = 'block';
+      setTabTitle('calendar');
   });
 
   closeCalendarModal.addEventListener('click', function () {
       // Close the calendar modal
       calendarModal.style.display = 'none';
+      setTabTitle('reset');
   });
 
   // Function to generate the HTML for the calendar
@@ -732,7 +741,7 @@ function reviewBlacklistBackgrounds() {
   const nextButton = document.getElementById("nextButton");
   const closeModal = document.getElementById("closeModal");
   const blacklistreviewButton = document.getElementById("blacklistreviewButton");
-
+  
   let blacklistUrls = [];
   let currentImageIndex = 0;
 
@@ -751,7 +760,7 @@ function reviewBlacklistBackgrounds() {
   blacklistreviewButton.addEventListener("click", function () {
     // Get the URLs from the blacklist object
     blacklistUrls = Object.keys(blacklist);
-
+    setTabTitle('review blacklisted images');
     if (blacklistUrls.length > 0) {
       currentImageIndex = 0;
       showImage();
@@ -762,8 +771,10 @@ function reviewBlacklistBackgrounds() {
   // Add a click event listener to close the modal
   closeModal.addEventListener("click", function () {
     imageModal.style.display = "none";
+    setTabTitle('reset');
   });
 
+  
   // Function to show the current image
   function showImage() {
     modalImage.src = blacklistUrls[currentImageIndex] + '?q=75&w=400&fit=max';
@@ -805,6 +816,7 @@ function reviewBlacklistBackgrounds() {
   window.addEventListener("click", function (event) {
     if (event.target === imageModal) {
       imageModal.style.display = "none";
+      setTabTitle('reset');
     }
   });
 }
@@ -813,15 +825,23 @@ function configModal() {
   const configModal = document.getElementById('configModal');
   const openConfigIcon = document.getElementById("open-config-icon");
   const closeModal = document.getElementById("closeConfigModal");
-  const tabTitle = document.title;
 
   openConfigIcon.addEventListener('click', () => {
     configModal.style.display = 'block';
-    document.title = "Configure - " + tabTitle;
+    setTabTitle('configure');
   });
   closeModal.addEventListener("click", function () {
     configModal.style.display = "none";
-    document.title = tabTitle;
+    setTabTitle('reset');
   });
 
+}
+
+function setTabTitle(newTitle) {
+  const tabTitle = document.title;
+  if (newTitle === 'reset') {
+    document.title = configData.appName;
+    return;
+  }
+  document.title = newTitle + " - " + configData.appName;
 }

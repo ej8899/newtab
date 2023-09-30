@@ -1,6 +1,7 @@
 const configData = {
   appVersion: "1.0.0",
   appDeveloper: "ErnieJohnson.ca",
+  appName: "YourTab!",
   runningDebug: true,
   newVersion: "0.0.0", // set this to the next version available if one exists
 

@@ -377,15 +377,20 @@ TO-DO LIST WIDGET STYLES
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s; /* Add a smooth transition for the hover effect */
+  border-radius: 5px;
   margin: 5px; /* Add some margin for spacing */
   overflow: visible;
+  transition: all var(--transitionTime);
 }
+.website-item:hover {
+  background-color: rgba(0, 0, 0, var(--widgetOpacity));
+}
+
 .website-item-round {
   display: flex;
   width: 55px; /* Adjust the width to accommodate the 55x55 images */
   height: 55px; /* Adjust the height to accommodate the 55x55 images */
-  background-color: rgba(0, 0, 0, var(--widgetOpacity));
+  
   border-radius: 50%; /* Create a round shape with border-radius */
   align-items: center;
   justify-content: center;
@@ -397,7 +402,7 @@ TO-DO LIST WIDGET STYLES
 
 /* Define the hover effect */
 .website-item-round:hover {
-  transform: scale(1.2); /* Scale up by 1.2 times on hover */
+  transform: scale(1.4); /* Scale up by 1.2 times on hover */
 }
 
 .calendar-wrapper {
@@ -472,21 +477,27 @@ TO-DO LIST WIDGET STYLES
   top: 0; /* Align the badge to the top of the parent */
   right: 0; /* Align the badge to the right of the parent */
   
-  color: white; /* Customize the badge text color */
+  color:black; /* Customize the badge text color */
   padding: 5px 5px; /* Add some padding for the badge content */
   border-radius: 50%; /* Make the badge a circle */
   font-size: 14px; /* Customize the font size */
-  width: 20px; /* Adjust the size as needed */
-  height: 20px; /* Adjust the size as needed */
+  width: 15px; /* Adjust the size as needed */
+  height: 15px; /* Adjust the size as needed */
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: orange;
+  transition: all 0.3s;
+  opacity: 0;
 }
 .block-badge:hover {
-  color:black;
-  background-color: orange;
+  transform: scale(1.2);
 }
+.block-badge-active {
+  opacity: 0.8;
+}
+
 
 
 
