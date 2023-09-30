@@ -99,7 +99,7 @@ function fetchNews() {
   })
   .then(jsonData => {
     // Process the JSON data
-    console.log(jsonData);
+    console.log("in api fetchnews:",jsonData);
     // You can access the JSON data as an object here
     checkForUpdatesOncePerDay(jsonData, configData);
   })
@@ -107,6 +107,10 @@ function fetchNews() {
     console.error('Fetch error:', error);
   });
 }
+
+//
+// run our API calls
+//
 
 // any news/updates from the server?
 fetchNews();
