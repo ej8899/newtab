@@ -590,7 +590,10 @@ function wxSuccess(pos) {
   let long = pos.coords.longitude;
   if(configData.runningDebug) console.log(lat,long);
   // TODO - cache weather in localstorage for 30 mins
-  weather(lat, long);
+
+  setTimeout(function() {
+    weather(lat, long);
+  }, 5000);
 }
 
 function wxError() {

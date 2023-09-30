@@ -81,6 +81,7 @@ article {
   font-size: 2vw;
   padding: 10px;
   transition: all var(--transitionTime);
+  position: relative;
 }
 .app-icon:hover {
   color: orange;
@@ -93,6 +94,8 @@ article {
   position: absolute;
   font-size: 1.5vw;
   font-weight: bold;
+  top: 0.2vw;
+  left: 2.5vw;
 }
 
 .title {
