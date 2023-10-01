@@ -79,8 +79,7 @@ function updateTime() {
   dateElement.textContent = currentDate;
 }
 
-setInterval(updateTime, 1000); // Update every second
-updateTime(); // Initial update
+
 
 //
 // Function to extract the root domain from a URL
@@ -100,7 +99,7 @@ function extractRootDomain(url) {
 
 
 //
-// notepad widget
+// DOM loaded - so let's setup everything.
 //
 document.addEventListener('DOMContentLoaded', function () {
   todoWidget();
@@ -111,6 +110,13 @@ document.addEventListener('DOMContentLoaded', function () {
   blacklistBackgrounds();
   reviewBlacklistBackgrounds();
   configModal();
+  updateTime(); 
+
+  const twentyMinutes = 20 * 60 * 1000; // 20 minutes in milliseconds
+  setInterval(weatherWidget, twentyMinutes);
+  setInterval(updateTime, 1000);
+
+
 
   const imageInfo = document.querySelector('.image-info');
   imageInfo.addEventListener('mouseover', function () {
