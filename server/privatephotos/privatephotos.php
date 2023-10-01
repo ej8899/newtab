@@ -1,7 +1,7 @@
 <?php
 /* 
 self hosted private images to use -- put this PHP in your folder with the images 
- - adjust client code as required
+- adjust client code as required
 */
 $directory = __DIR__;
 $files = scandir($directory);
