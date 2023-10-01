@@ -3,6 +3,13 @@
 self hosted private images to use -- put this PHP in your folder with the images 
 - adjust client code as required
 */
+
+// Enable CORS headers to allow requests from your extension's origin
+header("Access-Control-Allow-Origin: *"); // You can replace * with your extension's origin if possible
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization");
+
+
 $directory = __DIR__;
 $files = scandir($directory);
 $files = array_diff($files, array('.', '..'));
