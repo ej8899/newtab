@@ -1,4 +1,4 @@
-const configData = {
+let configData = {
   appVersion: "1.0.0",
   appDeveloper: "ErnieJohnson.ca",
   appName: "YourTab!",
@@ -27,7 +27,7 @@ const configData = {
 
   gitLink: '',  // TODO - github link
   calendarLink: '',  // TODO - if blank show basic calendar, otherwise 'none' for no calendar, or URL to google etc.
-  dropboxLink: '',
-  amazonLink: '',
+  dropboxLink: 'yes',
+  amazonLink: 'yes',
   googledriveLink: '',
 };

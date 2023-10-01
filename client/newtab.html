@@ -18,9 +18,9 @@
     />
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
     <script src="config.js" defer></script>
-    <script src="api.js" defer></script>
     <script src="content.js" defer></script>
-    
+    <script src="api.js" defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
 
     <title>YourTab!</title>
@@ -36,15 +36,15 @@
       </div>
       <article>
         <div class="title">
-          <div id="icon-container"><i class="fa-brands fa-github app-icon"></i></div>
-          <div id="icon-container"><i class="fa-solid fa-calendar-days app-icon" id="open-calendar-icon"></i></div>
-          <div id="icon-container"><i class="fa-brands fa-dropbox app-icon"></i></div>
-          <div id="icon-container"><i class="fa-brands fa-amazon app-icon"></i></div>
-          <div id="icon-container"><i class="fa-brands fa-google-drive app-icon"></i></div>
-          <div id="icon-container"><i class="fa-solid fa-note-sticky app-icon" id="open-modal-icon"></i></div>
-          <div id="icon-container"><i class="fa-solid fa-circle-check app-icon" id="open-tasks-icon"></i></div>
-          <div id="icon-container"><i class="fa-solid fa-gear app-icon" id="open-config-icon"></i></div>
-          <div id="icon-container"><i class="fa-solid fa-circle-question app-icon" id="open-about-icon"></i></div>
+          <div id="app-github" class="icon-container"><a href="http://www.github.com"><i class="fa-brands fa-github app-icon"></i></a></div>
+          <div id="app-dropbox" class="icon-container"><a href="http://www.dropbox.com"><i class="fa-brands fa-dropbox app-icon"></i></a></div>
+          <div id="app-amazon"  class="icon-container"><a href="https://amzn.to/3tfu5TJ"><i class="fa-brands fa-amazon app-icon"></i></a></div>
+          <div id="app-gdrive"  class="icon-container"><a href="https://drive.google.com"><i class="fa-brands fa-google-drive app-icon"></i></a></div>
+          <div class="icon-container"><i class="fa-solid fa-calendar-days app-icon" id="open-calendar-icon"></i></div>
+          <div class="icon-container"><i class="fa-solid fa-note-sticky app-icon" id="open-modal-icon"></i></div>
+          <div class="icon-container"><i class="fa-solid fa-circle-check app-icon" id="open-tasks-icon"></i></div>
+          <div class="icon-container"><i class="fa-solid fa-gear app-icon" id="open-config-icon"></i></div>
+          <div class="icon-container"><i class="fa-solid fa-circle-question app-icon" id="open-about-icon"></i></div>
         </div>
       </article>
 
@@ -97,7 +97,9 @@
           <div>
             <input type="text" id="task" placeholder="Enter a new task" class="search-bar">
             <button id="add-task" class="add-task search-button">Add Task</button>
+            
           </div>
+          <hr class="mtop10">
           <ul id="task-list"></ul>
         </div>
     </div>
@@ -148,76 +150,14 @@
         <hr>
         <form id="configForm">
           <br>
-          <!-- Text Color -->
-          <label for="textColor">Text Color:</label>
-          <input type="text" id="textColor" name="textColor" value="white"><br><br>
 
           <!-- Background Theme -->
           <label for="backgroundTheme">Background Theme:</label>
-          <input type="text" id="backgroundTheme" name="backgroundTheme" value="husky"><br><br>
-
-          <!-- Background Style -->
-          <label for="backgroundStyle">Background Style:</label>
-          <input type="text" id="backgroundStyle" name="backgroundStyle" value="landscape"><br><br>
-
-          <!-- Show Icon Labels -->
-          <label for="showIconLabels">Show Icon Labels:</label>
-          <input type="checkbox" id="showIconLabels" name="showIconLabels" checked><br><br>
-
-          <!-- Show Clock -->
-          <label for="showClock">Show Time:</label>
-          <input type="checkbox" id="showClock" name="showClock" checked><br><br>
-
-          <!-- Show Weather -->
-          <label for="showWeather">Show Weather:</label>
-          <input type="checkbox" id="showWeather" name="showWeather" checked><br><br>
-
-          <!-- Show Tasks -->
-          <label for="showTasks">Show Tasks:</label>
-          <input type="checkbox" id="showTasks" name="showTasks" checked><br><br>
-
-          <!-- Show Notes -->
-          <label for="showNotes">Show Notes:</label>
-          <input type="checkbox" id="showNotes" name="showNotes" checked><br><br>
-
-          <!-- Show Search -->
-          <label for="showSearch">Show Search:</label>
-          <input type="checkbox" id="showSearch" name="showSearch" checked><br><br>
-
-          <!-- Show Top Ten -->
-          <label for="showTopten">Show Top Ten:</label>
-          <input type="checkbox" id="showTopten" name="showTopten" checked><br><br>
-
-          <!-- AppBar Sticky -->
-          <label for="appBarSticky">App Bar Sticky:</label>
-          <input type="checkbox" id="appBarSticky" name="appBarSticky" checked><br><br>
-
-          <!-- Clock Type -->
-          <label for="clockType">Clock Type:</label>
-          <select id="clockType" name="clockType">
-            <option value="12">12-hour format</option>
-            <option value="24">24-hour format</option>
-          </select><br><br>
+          <input type="text" id="backgroundTheme" name="backgroundTheme" value=""><br><br>
 
           <!-- Image Timer -->
           <label for="imageTimer">Image Timer (minutes):</label>
           <input type="number" id="imageTimer" name="imageTimer" value="5"><br><br>
-
-          <!-- Widget Transparency -->
-          <label for="widgetTransparency">Widget Transparency:</label>
-          <input type="number" id="widgetTransparency" name="widgetTransparency" value="0.5"><br><br>
-
-          <!-- Show Time and Date -->
-          <label for="showTimeandDate">Show Date:</label>
-          <input type="checkbox" id="showTimeandDate" name="showTimeandDate" checked><br><br>
-
-          <!-- Vignette Level -->
-          <label for="vignetteLevel">Vignette Level:</label>
-          <input type="number" id="vignetteLevel" name="vignetteLevel" value="0"><br><br>
-
-          <!-- New Tabs -->
-          <label for="newTabs">Open New Tabs:</label>
-          <input type="checkbox" id="newTabs" name="newTabs"><br><br>
 
           <!-- GitHub Link -->
           <label for="gitLink">GitHub Link:</label>

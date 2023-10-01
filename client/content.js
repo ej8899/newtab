@@ -1,5 +1,5 @@
 // content.js
-
+loadConfig();
 
 //
 // search widget
@@ -92,6 +92,7 @@ function extractRootDomain(url) {
 // DOM loaded - so let's setup everything.
 //
 document.addEventListener('DOMContentLoaded', function () {
+  setAppDrawer();
   todoWidget();
   notesWidget();
   calendarWidget();
@@ -119,6 +120,69 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+
+//
+// load config data or set it if not there
+//
+function loadConfig() {
+  // Check if the object exists in localStorage
+  if (localStorage.getItem('configData') === null) {
+    // If not, save configData to localStorage
+    saveConfig();
+  } else {
+    // If it exists, retrieve and update configData from localStorage
+    configData = JSON.parse(localStorage.getItem('configData'));
+    if(configData.runningDebug) console.log("loading config data...");
+    console.log('new config data:',configData)
+  }
+}
+
+function saveConfig() {
+  localStorage.setItem('configData', JSON.stringify(configData));
+}
+
+//
+// setAppDrawer - read config and set any applications available
+//
+function setAppDrawer() {
+  const gitApp = document.querySelector('#app-github');
+  const dropboxApp = document.querySelector('#app-dropbox');
+  const googledriveApp = document.querySelector('#app-gdrive');
+  const amazonApp = document.querySelector('#app-amazon');
+
+  if (configData.gitLink) {
+    gitApp.classList.add('app-available');
+    gitApp.classList.remove('app-hidden');
+  } else {
+    gitApp.classList.remove('app-available');
+    gitApp.classList.add('app-hidden');
+  }
+
+  if (configData.dropboxLink) {
+    dropboxApp.classList.add('app-available');
+    dropboxApp.classList.remove('app-hidden');
+  } else {
+    dropboxApp.classList.remove('app-available');
+    dropboxApp.classList.add('app-hidden');
+  }
+
+  if (configData.googledriveLinkLink) {
+    googledriveApp.classList.add('app-available');
+    googledriveApp.classList.remove('app-hidden');
+  } else {
+    googledriveApp.classList.remove('app-available');
+    googledriveApp.classList.add('app-hidden');
+  }
+
+  if (configData.amazonLink) {
+    amazonApp.classList.add('app-available');
+    amazonApp.classList.remove('app-hidden');
+  } else {
+    amazonApp.classList.remove('app-available');
+    amazonApp.classList.add('app-hidden');
+  }
+
+}
 
 //
 // grab top 10 web sites visited, scan blacklist, etc.
@@ -851,6 +915,7 @@ function configModal() {
   const configModal = document.getElementById('configModal');
   const openConfigIcon = document.getElementById("open-config-icon");
   const closeModal = document.getElementById("closeConfigModal");
+  const saveButton = document.getElementById('saveConfig');
 
   openConfigIcon.addEventListener('click', () => {
     configModal.style.display = 'block';
@@ -859,6 +924,21 @@ function configModal() {
   closeModal.addEventListener("click", function () {
     configModal.style.display = "none";
     setTabTitle('reset');
+  });
+
+  // process form save
+  saveButton.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    const formElement = document.getElementById('configForm'); // Replace 'yourFormId' with your actual form ID
+    const formData = new FormData(formElement);
+
+    // Access form fields and values
+    configData.backgroundTheme = formData.get('backgroundTheme'); // Replace 'fieldName' with the actual field name
+
+    // TODO error checking
+    // TODO save to localstorage
+    saveConfig();
   });
 
 }

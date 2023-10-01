@@ -12,7 +12,7 @@ function cropDescription(description, maxLength) {
 
 // Function to fetch data and handle storage
 function fetchDataAndUpdateStorage() {
-
+  console.log(configData.backgroundTheme);
   if (configData.backgroundTheme === 'meetguinness') {
     fetch(`https://erniejohnson.ca/apps/yourtab/meetguinness/privatephotos.php`)
     .then((response) => response.json())

@@ -82,11 +82,16 @@ article {
   padding: 10px;
   transition: all var(--transitionTime);
   position: relative;
+  color: orange !important;
 }
 .app-icon:hover {
   color: orange;
   transform: scale(1.2);
 }
+a:visited {
+  color: orange;
+}
+
 .badge {
   color: rgb(251, 81, 51); /* You can adjust the text color as needed */
   padding: 0px 0px; /* Adjust the padding to control the badge size */
@@ -534,4 +539,17 @@ TO-DO LIST WIDGET STYLES
 .image-info-button:hover {
   color: black;
   background-color: #4285f4;
+}
+
+
+.app-hidden {
+  display: none !important;
+}
+.app-available {
+  display:flex;
+}
+
+
+.mtop10 {
+  margin-top: 10px;
 }
