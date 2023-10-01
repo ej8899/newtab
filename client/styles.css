@@ -398,6 +398,9 @@ TO-DO LIST WIDGET STYLES
 }
 .topten-text {
   color: white;
+  padding-left: 0.25vw;
+  padding-right: 0.25vw;
+  padding-bottom: 0.25vw;
 }
 
 /* Define the hover effect */
@@ -492,7 +495,7 @@ TO-DO LIST WIDGET STYLES
   opacity: 0;
 }
 .block-badge:hover {
-  transform: scale(1.2);
+  transform: scale(1.4);
 }
 .block-badge-active {
   opacity: 0.8;
@@ -502,6 +505,7 @@ TO-DO LIST WIDGET STYLES
 
 
 .blacklistimage-preview {
-  height: 200px;
+  height: 300px;
   width: auto;
+  max-width: 100%;
 }
