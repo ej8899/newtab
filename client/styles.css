@@ -219,7 +219,7 @@ article {
 .clock-date-container {
   position: fixed;
   bottom: 10px;
-  left: 50%;
+  left: calc(50%);
   transform: translateX(-50%); /* Center horizontally */
   background-color: rgba(0, 0, 0, var(--widgetOpacity));
   padding: 1rem;
@@ -505,7 +505,5 @@ TO-DO LIST WIDGET STYLES
 
 
 .blacklistimage-preview {
-  height: 300px;
-  width: auto;
-  max-width: 100%;
+
 }

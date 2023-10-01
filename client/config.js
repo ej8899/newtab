@@ -6,7 +6,7 @@ const configData = {
   newVersion: "0.0.0", // set this to the next version available if one exists
 
   textColor: 'white', // TODO - implement & tie to css variable
-  backgroundTheme: 'husky',
+  backgroundTheme: 'meetguinness',
   backgroundStyle: 'landscape', // TODO - implement this feature
   showIconLabels: true, // TODO - implement this feature (label under the app bar icons)
   showClock: true, // TODO - implement this feature

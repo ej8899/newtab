@@ -12,35 +12,56 @@ function cropDescription(description, maxLength) {
 
 // Function to fetch data and handle storage
 function fetchDataAndUpdateStorage() {
-  // Check if data exists in local storage and the timestamp is within the last 60 minutes
-  const storedData = localStorage.getItem('imageData');
-  const storedTimestamp = localStorage.getItem('timestamp');
-  const currentTimestamp = new Date().getTime();
 
-  if (storedData && storedTimestamp) {
-    const timeDiff = currentTimestamp - parseInt(storedTimestamp, 10);
-    const minutesPassed = timeDiff / (1000 * 60);
-
-    if (minutesPassed < configData.imageTimer) {
-      // Data is recent, use it
-      if (configData.runningDebug) console.log('using: cached image data');
-      const imageResponse = JSON.parse(storedData);
-      handleImageData(imageResponse);
-      return;
-    }
-  }
-
-  // Fetch new data if no data is present or it's outdated
-  fetch(`https://erniejohnson.ca/tools/fetch.php?keyword=${configData.backgroundTheme}`)
+  if (configData.backgroundTheme === 'meetguinness') {
+    fetch(`https://erniejohnson.ca/apps/yourtab/meetguinness/privatephotos.php`)
     .then((response) => response.json())
     .then((imageResponse) => {
-      // Update local storage with new data and timestamp
-      localStorage.setItem('imageData', JSON.stringify(imageResponse));
-      localStorage.setItem('timestamp', currentTimestamp.toString());
-      if (configData.runningDebug) console.log("using: fetched new image");
-      handleImageData(imageResponse);
+      const jsonObject = {
+        urls: {
+          full: 'https://erniejohnson.ca/apps/yourtab/meetguinness/'+imageResponse
+        },
+        user: {
+          name: 'Guinness!',
+          links: {
+            html: 'http://www.meetguinness.com',
+          }
+        }
+      };
+      console.log(jsonObject);
+      handleImageData(jsonObject);
     })
     .catch((err) => console.error(err));
+  } else {
+      // Check if data exists in local storage and the timestamp is within the last 60 minutes
+      const storedData = localStorage.getItem('imageData');
+      const storedTimestamp = localStorage.getItem('timestamp');
+      const currentTimestamp = new Date().getTime();
+
+      if (storedData && storedTimestamp) {
+        const timeDiff = currentTimestamp - parseInt(storedTimestamp, 10);
+        const minutesPassed = timeDiff / (1000 * 60);
+
+        if (minutesPassed < configData.imageTimer) {
+          // Data is recent, use it
+          if (configData.runningDebug) console.log('using: cached image data');
+          const imageResponse = JSON.parse(storedData);
+          handleImageData(imageResponse);
+          return;
+        }
+      }
+    // Fetch new data if no data is present or it's outdated
+    fetch(`https://erniejohnson.ca/tools/fetch.php?keyword=${configData.backgroundTheme}`)
+      .then((response) => response.json())
+      .then((imageResponse) => {
+        // Update local storage with new data and timestamp
+        localStorage.setItem('imageData', JSON.stringify(imageResponse));
+        localStorage.setItem('timestamp', currentTimestamp.toString());
+        if (configData.runningDebug) console.log("using: fetched new image");
+        handleImageData(imageResponse);
+      })
+      .catch((err) => console.error(err));
+  }
 }
 
 // Function to handle image data
