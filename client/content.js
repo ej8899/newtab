@@ -653,6 +653,7 @@ function display(data) {
     case "haze":
     case "dust":
     case "sand":
+    case "mist":
       weatherIcon = `<i class='fa-solid fa-smog' style='color: ${font_color};'></i>`;
       break;
     case "tornado":
