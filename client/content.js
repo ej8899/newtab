@@ -1,16 +1,6 @@
 // content.js
 
 
-
-
-//
-// what country is user in?
-// TODO - this doesn't work well (if at all) - need to use by IP.
-//
-const userCountry = window.navigator.language || window.navigator.userLanguage;
-if (configData.runningDebug) console.log('User is in:', userCountry);
-
-
 //
 // search widget
 //
@@ -111,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
   reviewBlacklistBackgrounds();
   configModal();
   updateTime(); 
+  fetchTopTen();
 
   const twentyMinutes = 20 * 60 * 1000; // 20 minutes in milliseconds
   setInterval(weatherWidget, twentyMinutes);
@@ -126,7 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
   imageInfo.addEventListener('mouseout', function () {
     imageInfo.classList.remove('active');
   });
+});
 
+
+//
+// grab top 10 web sites visited, scan blacklist, etc.
+//
+function fetchTopTen() {
   // Send a message to the background script to trigger the function
   chrome.runtime.sendMessage({ action: "processHistory" }, function (response) {
     // Handle the response, which contains the top 10 websites
@@ -147,6 +144,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const top10Websites = newList.slice(0, 10);
 
       const top10Container = document.getElementById("top10Container");
+      while (top10Container.firstChild) {
+        top10Container.removeChild(top10Container.firstChild);
+      }
 
       // Create a grid layout with 5 columns and 2 rows
       top10Container.style.display = "grid";
@@ -215,8 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('Failed to retrieve top 10 websites.');
     }
   });
-
-});
+}
 
 //
 // NOTES widget
@@ -574,19 +573,18 @@ function checkForUpdatesOncePerDay(jsonData, configData) {
 //
 //
 function weatherWidget() {
-  navigator.geolocation.getCurrentPosition(success, error);
+  navigator.geolocation.getCurrentPosition(wxSuccess, wxError);
 }
 
-function success(pos) {
+function wxSuccess(pos) {
   let lat = pos.coords.latitude;
   let long = pos.coords.longitude;
   if(configData.runningDebug) console.log(lat,long);
-  // TODO - only fetch weather once every 30 mins
   // TODO - cache weather in localstorage for 30 mins
   weather(lat, long);
 }
 
-function error() {
+function wxError() {
   console.log("There was an error fetching user location");
 }
 
