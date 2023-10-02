@@ -100,7 +100,7 @@ function handleImageData(imageResponse) {
     authorLink.href = imageProfileURL;
     authorLink.target = '_blank'; // Open in a new tab
     imageInfoDiv.appendChild(authorLink);
-    descriptionParagraph.textContent = cropDescription(imageDescription,90);
+    // descriptionParagraph.textContent = cropDescription(imageDescription,90);
     if (imageDescription) imageInfoDiv.appendChild(descriptionParagraph);
     imageInfoDiv.appendChild(document.createElement('br'));
     mainElement.classList.add("main-fade-in");

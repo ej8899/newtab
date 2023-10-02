@@ -130,22 +130,23 @@ article {
 
   transition: all 0.6s;
   width: 17vw;
-  height: 4vw;
+  height: auto;
   overflow: hidden;
 }
 .image-info:hover {
-  height: 20vw;
   background-color: black;
 }
 .extra-content {
   display:flex;
   flex-direction: column;
-  opacity: 0;
+  opacity: 0.2;
   transition: all 1.6s;
+  padding-bottom: 5px;
+
 }
 .image-info .extra-content {
   display: hidden;
-  opacity: 0;
+  opacity: 0.2;
 }
 
 .image-info.active .main-content {
