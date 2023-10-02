@@ -513,3 +513,21 @@ TO-DO LIST WIDGET STYLES
 .blacklistimage-preview {
 
 }
+
+
+
+.image-info-button {
+  background-color: #4286f4d1;
+  color: white;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 0.8vw;
+  transition: all var(--transitionTime);
+  margin-top:5px;
+}
+.image-info-button:hover {
+  color: black;
+  background-color: #4285f4;
+}
