@@ -122,7 +122,51 @@ function fetchNews() {
     // Process the JSON data
     console.log("in api fetchnews:",jsonData);
     // You can access the JSON data as an object here
-    checkForUpdatesOncePerDay(jsonData, configData);
+    // checkForUpdatesOncePerDay(jsonData, configData);
+
+    const appNewsContent = document.getElementById("app-news-content");
+    const latestVersion = jsonData.appVersions[0].versionNumber;
+    const aboutTitle = document.getElementById("about-title");
+    let versionUpdates = '';
+    aboutTitle.innerText = `About ${configData.appName} - version ${configData.appVersion}`;
+    if (compareVersions(latestVersion, configData.appVersion) > 0) {
+      versionUpdates = "New version available!";
+      configData.newVersion =  latestVersion;
+    } else {
+      console.log('No update available:' + latestVersion + 'this version:' + configData.appVersion);
+      versionUpdates = "You have the latest version!";
+    }
+    appNewsContent.innerText = versionUpdates;
+
+    jsonData.appVersions.forEach((version) => {
+      // Create a container for each version
+      const versionContainer = document.createElement("div");
+      versionContainer.className = "version-container"; // You can style this class as needed
+  
+      // Create elements for version number and date
+      const versionNumberElement = document.createElement("h2");
+      versionNumberElement.textContent = `Version ${version.versionNumber}`;
+      const versionDateElement = document.createElement("p");
+      versionDateElement.textContent = `Release Date: ${version.versionDate}`;
+  
+      // Create a list for version notes
+      const versionNotesList = document.createElement("ul");
+      version.versionNotes.forEach((note) => {
+        const noteItem = document.createElement("li");
+        noteItem.textContent = note;
+        versionNotesList.appendChild(noteItem);
+      });
+  
+      // Append elements to the version container
+      versionContainer.appendChild(versionNumberElement);
+      versionContainer.appendChild(versionDateElement);
+      versionContainer.appendChild(versionNotesList);
+  
+      // Append the version container to the app news content
+      appNewsContent.appendChild(versionContainer);
+    });
+
+
   })
   .catch(error => {
     console.error('Fetch error:', error);

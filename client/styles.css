@@ -94,8 +94,8 @@ article {
   position: absolute;
   font-size: 1.5vw;
   font-weight: bold;
-  top: 0.2vw;
-  left: 2.5vw;
+  top: 0.1vw;
+  left: 2.0vw;
 }
 
 .title {
@@ -153,7 +153,11 @@ article {
   display: visible;
   opacity: 1;
 }
-
+.main-content {
+  display:flex;
+  flex-direction: column;
+  align-items: end;
+}
 .image-info.active .extra-content {
   display: block;
   opacity: 1;
@@ -167,7 +171,7 @@ article {
 /* Style links when hovered */
 .image-info a:hover {
   color: var(--textColor); /* Change the link color to white on hover */
-  transform: scale(1.2);
+  
 }
 
 /* Style links when clicked */
@@ -418,7 +422,7 @@ TO-DO LIST WIDGET STYLES
   display: flex;
   justify-content: center;
   margin-top: 1vw;
-  width: 100%;
+  
 }
 .calendar-heading {
   font-size: 2vw;

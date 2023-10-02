@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
   configModal();
   updateTime(); 
   fetchTopTen();
+  aboutModal();
 
   const twentyMinutes = 20 * 60 * 1000; // 20 minutes in milliseconds
   setInterval(weatherWidget, twentyMinutes);
@@ -384,7 +385,28 @@ function todoWidget() {
   }
 };
 
+//
+// ABOUT MODAL
+//
+function aboutModal() {
+  const openAbout = document.getElementById('open-about-icon');
+  const closeAbout = document.getElementById('close-about');
+  const aboutModal = document.getElementById('about-modal');
+  
+  openAbout.addEventListener('click', function () {
+      aboutModal.style.display = 'block';
+      setTabTitle('about');
+  });
 
+  closeAbout.addEventListener('click', function () {
+      aboutModal.style.display = 'none';
+      setTabTitle('reset');
+  });
+
+  // TODO show app version
+  // TODO if version available > this one, show available version
+  // TODO show change log (always)
+};
 
 //
 // calendar widget
@@ -436,7 +458,7 @@ function calendarWidget() {
     // Generate the table header with the month and year
     let calendarHTML = `
         <table>
-            <caption class="calendar-heading">${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}<br>&nbsp;</caption>
+            <caption class="calendar-heading">${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}<hr></caption>
             <tr>
                 <th>Sun</th>
                 <th>Mon</th>
@@ -488,7 +510,7 @@ function processUpdates() {
   if (configData.runningDebug) console.log('in processUpdates-newVersion:',configData.newVersion);
   if (!configData.newVersion) return;
   if (configData.runningDebug) console.log('in processUpdates');
-  const iconElement = document.getElementById('open-config-icon');
+  const iconElement = document.getElementById('open-about-icon');
   if (iconElement) {
     // Check if the badge element already exists, and if not, create it
     let badgeElement = iconElement.querySelector('.badge');
