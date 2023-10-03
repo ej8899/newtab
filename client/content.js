@@ -138,6 +138,7 @@ function loadConfig() {
 }
 
 function saveConfig() {
+  if(configData.runningDebug) console.log('config data saving: ',configData)
   localStorage.setItem('configData', JSON.stringify(configData));
 }
 
@@ -166,7 +167,7 @@ function setAppDrawer() {
     dropboxApp.classList.add('app-hidden');
   }
 
-  if (configData.googledriveLinkLink) {
+  if (configData.googledriveLink) {
     googledriveApp.classList.add('app-available');
     googledriveApp.classList.remove('app-hidden');
   } else {
@@ -297,7 +298,7 @@ function fetchTopTen() {
 function notesWidget() {
   const openModalIcon = document.getElementById('open-modal-icon');
   const closeModalIcon = document.getElementById('close-modal-icon');
-  const modal = document.getElementById('modal');
+  const notesPanel = document.getElementById('notes-panel');
   const notesTextarea = document.getElementById('notes');
   let isModalOpen = false; // Track whether the modal is open
 
@@ -308,20 +309,15 @@ function notesWidget() {
   }
 
   // Function to open the modal
-  function openModal() {
-    modal.style.display = 'block';
-    // Center the modal on the screen
-    document.body.style.overflow = 'hidden'; // Prevent scrolling of the background content
-    isModalOpen = true;
+  function openModal() {    
     setTabTitle('notes');
+    notesPanel.classList.toggle('config-panel-open');
   }
 
   // Function to close the modal
   function closeModal() {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto'; // Restore scrolling of the background content
-      isModalOpen = false;
       setTabTitle('reset');
+      notesPanel.classList.toggle('config-panel-open');
   }
 
   // Event listener to open the modal
@@ -370,9 +366,6 @@ function notesWidget() {
       updateNotes();
   });
 
-  // Close the modal by default
-  closeModal();
-
   // Prevent modal from resetting position when re-opened
   window.addEventListener('resize', function () {
       if (isModalOpen) {
@@ -388,7 +381,7 @@ function notesWidget() {
 function todoWidget() {
   const openTodoList = document.getElementById('open-tasks-icon');
   const closeTodoList = document.getElementById('close-todo-list');
-  const todoModal = document.getElementById('todo-modal');
+  const todoModal = document.getElementById('todo-panel');
   const taskInput = document.getElementById('task');
   const addTaskButton = document.getElementById('add-task');
   const taskList = document.getElementById('task-list');
@@ -398,13 +391,13 @@ function todoWidget() {
   savedTasks.forEach(task => addTaskToUI(task));
 
   openTodoList.addEventListener('click', function () {
-      todoModal.style.display = 'block';
       setTabTitle('tasks');
+      todoModal.classList.toggle('config-panel-open');
   });
 
   closeTodoList.addEventListener('click', function () {
-      todoModal.style.display = 'none';
       setTabTitle('reset');
+      todoModal.classList.toggle('config-panel-open');
   });
 
   addTaskButton.addEventListener('click', addTaskFromInput);
@@ -455,16 +448,16 @@ function todoWidget() {
 function aboutModal() {
   const openAbout = document.getElementById('open-about-icon');
   const closeAbout = document.getElementById('close-about');
-  const aboutModal = document.getElementById('about-modal');
+  const aboutModal = document.getElementById('about-panel');
   
   openAbout.addEventListener('click', function () {
-      aboutModal.style.display = 'block';
       setTabTitle('about');
+      aboutModal.classList.toggle('config-panel-open');
   });
 
   closeAbout.addEventListener('click', function () {
-      aboutModal.style.display = 'none';
       setTabTitle('reset');
+      aboutModal.classList.toggle('config-panel-open');
   });
 
   // TODO show app version
@@ -497,20 +490,21 @@ function calendarWidget() {
       calendar.innerHTML = calendarHTML;
 
       // Show the calendar modal
-      calendarModal.style.display = 'block';
+      calendarModal.classList.toggle('config-panel-open');
       setTabTitle('calendar');
   });
 
   closeCalendarModal.addEventListener('click', function () {
-      // Close the calendar modal
-      calendarModal.style.display = 'none';
       setTabTitle('reset');
+      calendarModal.classList.toggle('config-panel-open');
   });
 
   // Function to generate the HTML for the calendar
   function generateCalendarHTML(firstDay) {
     const daysInMonth = new Date(firstDay.getFullYear(), firstDay.getMonth() + 1, 0).getDate();
     const startDay = firstDay.getDay(); // 0 (Sunday) to 6 (Saturday)
+    const today = new Date();
+    const dayNumber = today.getDay() + 1;
 
     // Define an array of month names for display purposes
     const monthNames = [
@@ -550,12 +544,16 @@ function calendarWidget() {
                 calendarHTML += '<td></td>';
             } else {
                 // Display the current day
-                calendarHTML += `<td class="calendar-day">${currentDay}</td>`;
+                if (dayNumber === currentDay) {
+                  calendarHTML += `<td class="calendar-day" align="center"><span class="calendar-today">${currentDay}</span></td>`;
+                } else {
+                  calendarHTML += `<td class="calendar-day" align="center">${currentDay}</td>`;
+                }
+                
                 currentDay++;
             }
         }
 
-        // End the current row
         calendarHTML += '</tr>';
 
         if (currentDay > daysInMonth) {
@@ -918,23 +916,35 @@ function configModal() {
   const saveButton = document.getElementById('saveConfig');
 
   openConfigIcon.addEventListener('click', () => {
-    configModal.style.display = 'block';
+    //configModal.style.display = 'block';
     setTabTitle('configure');
+    configModal.classList.toggle('config-panel-open');
   });
   closeModal.addEventListener("click", function () {
-    configModal.style.display = "none";
+    //configModal.style.display = "none";
     setTabTitle('reset');
+    configModal.classList.toggle('config-panel-open');
   });
+
+  // populate the form
+
+
+  document.getElementById("backgroundTheme").value = configData.backgroundTheme;
+  document.getElementById("imageTimer").value = configData.imageTimer;
+  document.getElementById("gitLink").value = configData.gitLink;
+  document.getElementById("googledriveLink").value = configData.googledriveLink;
 
   // process form save
   saveButton.addEventListener('click', function(event) {
-    event.preventDefault();
-
     const formElement = document.getElementById('configForm'); // Replace 'yourFormId' with your actual form ID
     const formData = new FormData(formElement);
+    event.preventDefault();
 
     // Access form fields and values
-    configData.backgroundTheme = formData.get('backgroundTheme'); // Replace 'fieldName' with the actual field name
+    configData.backgroundTheme = formData.get('backgroundTheme');
+    configData.imageTimer = formData.get('imageTimer');
+    configData.gitLink = formData.get('gitLink');
+    configData.googledriveLink = formData.get('googledriveLink');
 
     // TODO error checking
     // TODO save to localstorage

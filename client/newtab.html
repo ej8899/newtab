@@ -78,55 +78,48 @@
       </div>
 
 
-      <div id="modal" class="modal" style="display: none;">
-        <div class="modal-content">
-          <span class="close-button" id="close-modal-icon">&times;</span>
-          <h2>Quick Notes</h2>
-          <textarea id="notes" placeholder="Type your notes here..."></textarea>
-          <div class="modal-buttons">
-            <button id="copy-notes-button" class="search-button">Copy to Clipboard</button>
-            <button id="erase-notes-button" class="search-button">Erase Notes</button>
-        </div>
+      <div class="config-panel" id="notes-panel">
+        <span class="close-button" id="close-modal-icon">&times;</span>
+        <h2>Quick Notes</h2>
+        <textarea id="notes" placeholder="Type your notes here..."></textarea>
+        <div class="modal-buttons">
+          <button id="copy-notes-button" class="search-button">Copy to Clipboard</button>
+          <button id="erase-notes-button" class="search-button">Erase Notes</button>
         </div>
       </div>
 
-      <div id="todo-modal" class="modal" style="display: none;"">
-        <div class="todo-content modal-content">
-          <span class="close-button" id="close-todo-list">&times;</span>
-          <h2>To-Do List</h2>
-          <div>
-            <input type="text" id="task" placeholder="Enter a new task" class="search-bar">
-            <button id="add-task" class="add-task search-button">Add Task</button>
-            
-          </div>
-          <hr class="mtop10">
-          <ul id="task-list"></ul>
-        </div>
-    </div>
-
-    <div id="about-modal" class="modal" style="display: none;"">
-      <div class="about-content modal-content">
-        <span class="close-button" id="close-about">&times;</span>
-        <h2 id="about-title">About </h2>
-        <hr>
+      <div class="config-panel" id="todo-panel">
+        <span class="close-button" id="close-todo-list">&times;</span>
+        <h2>To-Do List</h2>
         <div>
-          Enjoying this application?<br>
-          Buy the devloper a Coffee
-          <hr>
-          <div id="app-news-content"></div>
+          <input type="text" id="task" placeholder="Enter a new task" class="search-bar">
+          <button id="add-task" class="add-task search-button">Add Task</button>
+          
         </div>
-        
+        <hr class="mtop10">
+        <ul id="task-list"></ul>
       </div>
-  </div>
+    
 
-    <div id="calendar-modal" class="modal" style="display:none;">
-      <div class="modal-content">
-        <span class="close-button" id="close-calendar-modal">&times;</span>
-        <div class="calendar-wrapper">
-        <div id="calendar" class="calendar-wrapper"></div>
-        </div>
+    <div class="config-panel" id="about-panel">
+      <span class="close-button" id="close-about">&times;</span>
+      <h2 id="about-title">About </h2>
+      <hr>
+      <div>
+        Enjoying this application?<br>
+        Buy the devloper a Coffee
+        <hr>
+        <div id="app-news-content"></div>
       </div>
     </div>
+
+    <div class="config-panel" id="calendar-modal">
+      <span class="close-button" id="close-calendar-modal">&times;</span>
+      <div class="calendar-wrapper">
+      <div id="calendar" class="calendar-wrapper"></div>
+      </div>
+    </div>
+
 
     <div id="imageModal" class="modal" style="display:none">
       <div class="modal-content">
@@ -142,47 +135,40 @@
       </div>
     </div>
 
-    <div id="configModal" class="modal" style="display:none">
-      <div class="modal-content">
-        <div>
-        <span class="close-button" id="closeConfigModal">&times;</span>
-        <h2>Configuration Settings</h2>
-        <hr>
-        <form id="configForm">
-          <br>
+    
+    <div class="config-panel" id="configModal">
+      <span class="close-button" id="closeConfigModal">&times;</span>
+      <h2>Configuration Settings</h2>
+      <hr>
+      <form id="configForm">
+        <br>
 
-          <!-- Background Theme -->
-          <label for="backgroundTheme">Background Theme:</label>
-          <input type="text" id="backgroundTheme" name="backgroundTheme" value=""><br><br>
+        <!-- Background Theme -->
+        <label for="backgroundTheme">Background Theme:</label>
+        <input type="text" id="backgroundTheme" name="backgroundTheme" value=""><br><br>
 
-          <!-- Image Timer -->
-          <label for="imageTimer">Image Timer (minutes):</label>
-          <input type="number" id="imageTimer" name="imageTimer" value="5"><br><br>
+        <!-- Image Timer -->
+        <label for="imageTimer">Image Timer (minutes):</label>
+        <input type="number" id="imageTimer" name="imageTimer" value="5"><br><br>
 
-          <!-- GitHub Link -->
-          <label for="gitLink">GitHub Link:</label>
-          <input type="text" id="gitLink" name="gitLink" value=""><br><br>
+        <!-- GitHub Link -->
+        <label for="gitLink">GitHub Link:</label>
+        <input type="text" id="gitLink" name="gitLink" value=""><br><br>
 
-          <!-- Calendar Link -->
-          <label for="calendarLink">Calendar Link:</label>
-          <input type="text" id="calendarLink" name="calendarLink" value=""><br><br>
+        <!-- Dropbox Link -->
+        <label for="dropboxLink">Dropbox Link:</label>
+        <input type="text" id="dropboxLink" name="dropboxLink" value=""><br><br>
 
-          <!-- Dropbox Link -->
-          <label for="dropboxLink">Dropbox Link:</label>
-          <input type="text" id="dropboxLink" name="dropboxLink" value=""><br><br>
+        <!-- Amazon Link -->
+        <label for="amazonLink">Amazon Link:</label>
+        <input type="text" id="amazonLink" name="amazonLink" value=""><br><br>
 
-          <!-- Amazon Link -->
-          <label for="amazonLink">Amazon Link:</label>
-          <input type="text" id="amazonLink" name="amazonLink" value=""><br><br>
-
-          <!-- Google Drive Link -->
-          <label for="googledriveLink">Google Drive Link:</label>
-          <input type="text" id="googledriveLink" name="googledriveLink" value="">
-          <br><br>
-        </form>
-        <button id="saveConfig" class="search-button">Save</button>
-      </div>
-      </div>
+        <!-- Google Drive Link -->
+        <label for="googledriveLink">Google Drive Link:</label>
+        <input type="text" id="googledriveLink" name="googledriveLink" value="">
+        <br><br>
+      </form>
+      <button id="saveConfig" class="search-button">Save</button>
     </div>
     
 
