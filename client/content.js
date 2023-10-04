@@ -825,10 +825,10 @@ function blacklistBackgrounds() {
 
 function reviewBlacklistBackgrounds() {
   const imageModal = document.getElementById("imageModal");
-  const modalImage = document.getElementById("modalImage");
-  const removeFromBlacklist = document.getElementById("removeFromBlacklist");
-  const prevButton = document.getElementById("prevButton");
-  const nextButton = document.getElementById("nextButton");
+  // const modalImage = document.getElementById("modalImage");
+  // const removeFromBlacklist = document.getElementById("removeFromBlacklist");
+  // const prevButton = document.getElementById("prevButton");
+  // const nextButton = document.getElementById("nextButton");
   const closeModal = document.getElementById("closeModal");
   const blacklistreviewButton = document.getElementById("blacklistreviewButton");
   
@@ -839,11 +839,43 @@ function reviewBlacklistBackgrounds() {
   if (localStorage.getItem("blacklist")) {
     blacklist = JSON.parse(localStorage.getItem("blacklist"));
     blacklistUrls = Object.keys(blacklist);
-    // console.log('blacklistUrls:',blacklistUrls)
   } else  {
     console.log('no photos in blacklist')
     return;
   }
+
+
+
+
+  // blacklistedimages = div ID for container:
+  const blacklistedImagesDiv = document.getElementById('blacklistedimages');
+  // display images in a vertical list
+  
+  blacklistUrls.forEach(function(url) {
+    const image = document.createElement('img');
+    image.className = "blacklistimage-preview";
+    image.src = url + '?q=75&w=280&fit=max';
+    image.alt = url;
+
+    const button = document.createElement('button');
+    button.className = "task-button";
+    button.textContent = 'remove from block list'; 
+
+    const containerDiv = document.createElement('div');
+    containerDiv.className = 'blockedimages-container';
+    containerDiv.appendChild(image);
+    containerDiv.appendChild(button);
+
+    blacklistedImagesDiv.appendChild(containerDiv);
+    button.addEventListener('click', function() {
+      blacklistedImagesDiv.removeChild(containerDiv);
+
+      const imageUrlToRemove = blacklistUrls[currentImageIndex];
+      delete blacklist[imageUrlToRemove];
+      localStorage.setItem("blacklist", JSON.stringify(blacklist));
+    });
+    currentImageIndex++;
+  });
 
 
   // Add a click event listener to open the modal
@@ -853,59 +885,21 @@ function reviewBlacklistBackgrounds() {
     setTabTitle('review blacklisted images');
     if (blacklistUrls.length > 0) {
       currentImageIndex = 0;
-      showImage();
-      imageModal.style.display = "block";
+      //showImage();
+      imageModal.classList.toggle('config-panel-open');
     }
   });
 
   // Add a click event listener to close the modal
   closeModal.addEventListener("click", function () {
-    imageModal.style.display = "none";
+    imageModal.classList.toggle('config-panel-open');
     setTabTitle('reset');
-  });
-
-  
-  // Function to show the current image
-  function showImage() {
-    modalImage.src = blacklistUrls[currentImageIndex] + '?q=75&w=400&fit=max';
-  }
-
-  // Add a click event listener to remove the current image from the blacklist
-  removeFromBlacklist.addEventListener("click", function () {
-    const imageUrlToRemove = blacklistUrls[currentImageIndex];
-    delete blacklist[imageUrlToRemove];
-    localStorage.setItem("blacklist", JSON.stringify(blacklist));
-    blacklistBackgrounds(); // refresh
-    blacklistUrls.splice(currentImageIndex, 1);
-    if (blacklistUrls.length === 0) {
-      imageModal.style.display = "none";
-    } else {
-      if (currentImageIndex >= blacklistUrls.length) {
-        currentImageIndex = blacklistUrls.length - 1;
-      }
-      showImage();
-    }
-  });
-
-  // Add click event listeners for navigation buttons
-  prevButton.addEventListener("click", function () {
-    if (currentImageIndex > 0) {
-      currentImageIndex--;
-      showImage();
-    }
-  });
-
-  nextButton.addEventListener("click", function () {
-    if (currentImageIndex < blacklistUrls.length - 1) {
-      currentImageIndex++;
-      showImage();
-    }
   });
 
   // Close the modal when the user clicks outside the modal content
   window.addEventListener("click", function (event) {
     if (event.target === imageModal) {
-      imageModal.style.display = "none";
+      imageModal.classList.toggle('config-panel-open');
       setTabTitle('reset');
     }
   });

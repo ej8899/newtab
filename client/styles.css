@@ -323,6 +323,9 @@ textarea {
 
 .modal-buttons {
   padding-top: 10px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 /*
@@ -522,10 +525,16 @@ TO-DO LIST WIDGET STYLES
 
 
 .blacklistimage-preview {
-
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
-
+.blockedimages-container {
+  align-items: center;
+  padding-top: 12px;
+  display:flex;
+  flex-direction: column;
+}
 
 .image-info-button {
   background-color: #4286f4d1;
@@ -567,7 +576,7 @@ TO-DO LIST WIDGET STYLES
   box-shadow: rgba(0, 0, 0, 0.22) 0px 25.6px 57.6px 0px, rgba(0, 0, 0, 0.18) 0px 4.8px 14.4px 0px;
   z-index: 999; /* Adjust z-index as needed */
   overflow-y: auto; /* Enable vertical scroll if content overflows */
-  transition: left 0.3s ease-in-out;
+  transition: left 0.2s ease-in-out;
   margin: 0px;
   padding: 10px;
   z-index: 2;
@@ -590,7 +599,7 @@ TO-DO LIST WIDGET STYLES
   width: 80%; /* Set the desired width for the search bar */
   padding: 10px;
   margin-top: 20px;
-  border: 1px solid #ccc;
+  border: 2px solid black;
   border-radius: 0.5rem; /* Rounded corners similar to Google's new tab page */
   outline: none;
   text-align: left; /* Align text to the left similar to Google's new tab page */
@@ -623,29 +632,36 @@ TO-DO LIST WIDGET STYLES
 }
 
 
-/* Style for the search button */
-.task-button {
-  background-color: #a7dbd8; /* Google's blue search button color */
-  color: black;
-  border: none;
-  border-radius: 1.5rem;
+
+
+
+
+h2 {
+  font-family: var(--font1);
+  font-size: 1.2rem;
+}
+
+.task-button{
+  background-color: #a7dbd8;
+  border: 2px solid black;
+  border-radius: 0.5rem;
   cursor: pointer;
-  padding: 10px 16px;
-  font-size: 16px;
-  transition: all var(--transitionTime);
-  box-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
+  padding: 10px;
+  font-weight: bold;
+  font-size:16px;
+  position:relative;
+  color:black;
+  box-shadow: 3px 4px 0 0 black;
 }
+
 .task-button:hover {
-  color: #3300ff;
-  box-shadow: 0px 0px 0px;
+  box-shadow: 0px 0px 0 0 black;
 }
 
-
-
-
-
-
-
+.version-container {
+  padding: 5px;
+  padding-left: 10px;
+}
 
 
 

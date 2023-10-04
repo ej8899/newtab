@@ -128,7 +128,7 @@ function fetchNews() {
     const latestVersion = jsonData.appVersions[0].versionNumber;
     const aboutTitle = document.getElementById("about-title");
     let versionUpdates = '';
-    aboutTitle.innerText = `About ${configData.appName} - version ${configData.appVersion}`;
+    aboutTitle.innerText = `${configData.appName} - version ${configData.appVersion}`;
     if (compareVersions(latestVersion, configData.appVersion) > 0) {
       versionUpdates = "New version available!";
       configData.newVersion =  latestVersion;

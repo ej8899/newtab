@@ -103,7 +103,7 @@
 
     <div class="config-panel" id="about-panel">
       <span class="close-button" id="close-about">&times;</span>
-      <h2 id="about-title">About </h2>
+      <h2 id="about-title"></h2>
       <hr>
       <div>
         Enjoying this application?<br>
@@ -129,25 +129,15 @@
       </div>
     </div>
 
-
-    <div id="imageModal" class="modal" style="display:none">
-      <div class="modal-content">
-        <span class="close-button" id="closeModal">&times;</span>
-        <img id="modalImage" src="" alt="Blacklisted Image" class="blacklistimage-preview">
-        <br>
-        <a id="removeFromBlacklist" href="#">Remove from Blacklist</a>
-        <br>
-        <div class="navigation">
-          <button id="prevButton" class="search-button">Previous</button>
-          <button id="nextButton" class="search-button">Next</button>
-        </div>
-      </div>
+    <div id="imageModal" class="config-panel">
+      <span class="close-button" id="closeModal">&times;</span>
+      <div id="blacklistedimages"></div>
     </div>
 
     
     <div class="config-panel" id="configModal">
       <span class="close-button" id="closeConfigModal">&times;</span>
-      <h2>Configuration Settings</h2>
+      <h2>Settings</h2>
       <hr>
       <form id="configForm">
         <br>
@@ -177,7 +167,7 @@
         <input type="text" id="googledriveLink" name="googledriveLink" value="">
         <br><br>
       </form>
-      <button id="saveConfig" class="search-button">Save</button>
+      <button id="saveConfig" class="task-button">Save</button>
     </div>
     
 
