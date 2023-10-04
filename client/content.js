@@ -505,8 +505,9 @@ function calendarWidget() {
   savedEvents.forEach(event => {
     const currentDate = event.date;
     if (currentDate !== lastLoggedDate) {
-      console.log(currentDate); // Log the date if it's different
+      //console.log(currentDate); // Log the date if it's different
       lastLoggedDate = currentDate; // Update lastLoggedDate
+      addDatetoUI(currentDate);
     }
     addEventToUI(event);
   });
@@ -540,12 +541,18 @@ function calendarWidget() {
         eventInput.value = '';
     }
 }
-
+  function addDatetoUI(date) {
+    const eventItem = document.createElement('li');
+    eventItem.className = 'event-date';
+    eventItem.innerHTML = `
+      <span class="event-text"><b>${date}</b></span>
+      `;
+      eventList.appendChild(eventItem);
+  }
   function addEventToUI(event) {
       const eventItem = document.createElement('li');
       eventItem.innerHTML = `
           <span class="event-text">${event.text}</span>
-          <span class="event-date">${event.date}</span>
           <span class="delete-button">&times;</span>
       `;
       eventList.appendChild(eventItem);

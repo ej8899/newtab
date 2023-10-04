@@ -315,9 +315,10 @@ textarea {
   width: 100%;
   height: 150px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
   resize: none;
+  box-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
 }
 
 .modal-buttons {
@@ -562,7 +563,7 @@ TO-DO LIST WIDGET STYLES
   width: 300px;
   left: -300px;
   height: 100vh; /* 100% viewport height */
-  background-color: white;
+  background-color: #f8d6b3;
   box-shadow: rgba(0, 0, 0, 0.22) 0px 25.6px 57.6px 0px, rgba(0, 0, 0, 0.18) 0px 4.8px 14.4px 0px;
   z-index: 999; /* Adjust z-index as needed */
   overflow-y: auto; /* Enable vertical scroll if content overflows */
@@ -590,13 +591,13 @@ TO-DO LIST WIDGET STYLES
   padding: 10px;
   margin-top: 20px;
   border: 1px solid #ccc;
-  border-radius: 1.5rem; /* Rounded corners similar to Google's new tab page */
+  border-radius: 0.5rem; /* Rounded corners similar to Google's new tab page */
   outline: none;
   text-align: left; /* Align text to the left similar to Google's new tab page */
   font-size: 16px; /* Adjust font size as needed */
   padding-left: 16px; /* Add some left padding similar to Google's new tab page */
   background-color: white; /* Background color for the search bar */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow similar to Google's new tab page */
+  box-shadow: 2px 4px 0px rgba(0, 0, 0, 1); /* Box shadow similar to Google's new tab page */
 }
 .task-wrapper {
   white-space: nowrap;
@@ -606,7 +607,7 @@ TO-DO LIST WIDGET STYLES
   padding: 10px;
   margin-top: 20px;
   border: 1px solid #ccc;
-  border-radius: 1.5rem; /* Rounded corners similar to Google's new tab page */
+  border-radius: 0.5rem; /* Rounded corners similar to Google's new tab page */
   outline: none;
   text-align: left; /* Align text to the left similar to Google's new tab page */
   font-size: 16px; /* Adjust font size as needed */
@@ -614,12 +615,30 @@ TO-DO LIST WIDGET STYLES
   background-color: white; /* Background color for the search bar */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow similar to Google's new tab page */
 }
+.event-date {
+  border-bottom: none !important;
+  padding-left:0 !important;
+  padding-top:5px !important;
+  padding-bottom:5px !important;
+}
 
 
-
-
-
-
+/* Style for the search button */
+.task-button {
+  background-color: #a7dbd8; /* Google's blue search button color */
+  color: black;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  padding: 10px 16px;
+  font-size: 16px;
+  transition: all var(--transitionTime);
+  box-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
+}
+.task-button:hover {
+  color: #3300ff;
+  box-shadow: 0px 0px 0px;
+}
 
 
 
@@ -641,7 +660,7 @@ TO-DO LIST WIDGET STYLES
   --weekHeaderBGColor:#4285f4;
   --todayTextColor:rgba(234,43,187);
   --dayActiveColor:rgb(68, 91, 222,0.9);
-  --dayHoverColor:rgba(222, 216, 68,0.3);
+  --dayHoverColor:rgba(164, 136, 238, 0.6);
   --borderColor:rgba(0,0,0,0.1);
   --fullDayHeight:6rem;
   --transitionTime:300ms;
@@ -677,7 +696,6 @@ TO-DO LIST WIDGET STYLES
 
 .display.week{
   font-size:1.2em;
-  border-radius:6px 6px 0 0;
   grid-area: W;
 }
 
@@ -691,8 +709,9 @@ TO-DO LIST WIDGET STYLES
 .week{
   display: grid;
   justify-content:center;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+  box-shadow: 2px 4px 0px 0 rgb(0,0,0);
   grid-template-columns: repeat(7, 1fr);
+  border: 1px solid black;
 }
 
 .header.week{
