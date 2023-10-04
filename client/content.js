@@ -854,8 +854,9 @@ function reviewBlacklistBackgrounds() {
   blacklistUrls.forEach(function(url) {
     const image = document.createElement('img');
     image.className = "blacklistimage-preview";
-    image.src = url + '?q=75&w=280&fit=max';
+    image.src = url + '?q=75&w=270&fit=max';
     image.alt = url;
+    image.loading = 'lazy';
 
     const button = document.createElement('button');
     button.className = "task-button";
