@@ -83,7 +83,7 @@
         <h2>Quick Notes</h2>
         <textarea id="notes" placeholder="Type your notes here..."></textarea>
         <div class="modal-buttons">
-          <button id="copy-notes-button" class="search-button">Copy to Clipboard</button>
+          <button id="copy-notes-button" class="search-button">Copy Notes</button>
           <button id="erase-notes-button" class="search-button">Erase Notes</button>
         </div>
       </div>
@@ -91,13 +91,12 @@
       <div class="config-panel" id="todo-panel">
         <span class="close-button" id="close-todo-list">&times;</span>
         <h2>To-Do List</h2>
-        <div>
-          <input type="text" id="task" placeholder="Enter a new task" class="search-bar">
-          <button id="add-task" class="add-task search-button">Add Task</button>
-          
+        <div class="task-wrapper">
+          <input type="text" id="task" placeholder="Enter a new task" class="task-bar">
+          <button id="add-task" class="add-task search-button"><i class="fa-solid fa-plus"></i></button>
         </div>
         <hr class="mtop10">
-        <ul id="task-list"></ul>
+        <ul id="task-list" class="task-list"></ul>
       </div>
     
 
@@ -117,6 +116,15 @@
       <span class="close-button" id="close-calendar-modal">&times;</span>
       <div class="calendar-wrapper">
       <div id="calendar" class="calendar-wrapper"></div>
+      </div>
+      <div class="task-wrapper">
+        <input type="date" id="date" class="task-bar"><br>
+        <input type="text" id="event" placeholder="Enter a new item" class="task-bar">
+        <button id="add-event" class="add-task search-button"><i class="fa-solid fa-plus"></i></button>
+        <hr class="mtop10">
+      </div>
+      <div>
+        <ul id="event-list" class="task-list"></ul>
       </div>
     </div>
 

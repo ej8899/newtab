@@ -566,6 +566,76 @@ function calendarWidget() {
 
     return calendarHTML;
   }
+
+  // process adding events:
+  const eventInput = document.getElementById('event');
+  const dateInput = document.getElementById('date');
+  const addEventButton = document.getElementById('add-event');
+  const eventList = document.getElementById('event-list');
+
+  // Load events from local storage on page load
+  const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+  savedEvents.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateA - dateB;
+  });
+  let lastLoggedDate = null; 
+  
+  savedEvents.forEach(event => {
+    const currentDate = event.date;
+
+    if (currentDate !== lastLoggedDate) {
+      console.log(currentDate); // Log the date if it's different
+      lastLoggedDate = currentDate; // Update lastLoggedDate
+    }
+    addEventToUI(event);
+  });
+
+  addEventButton.addEventListener('click', addEventFromInput);
+  eventInput.addEventListener('keydown', handleEventInput);
+
+  function handleEventInput(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        addEventFromInput();
+    }
+  }
+
+  function addEventFromInput() {
+    const eventText = eventInput.value.trim();
+    const eventDate = dateInput.value.trim();
+
+    if (eventText !== '') {
+        const event = { text: eventText, date: eventDate, completed: false };
+        savedEvents.push(event);
+        localStorage.setItem('events', JSON.stringify(savedEvents));
+        addEventToUI(event);
+        eventInput.value = '';
+    }
+}
+
+  function addEventToUI(event) {
+      const eventItem = document.createElement('li');
+      eventItem.innerHTML = `
+          <span class="event-text">${event.text}</span>
+          <span class="event-date">${event.date}</span>
+          <span class="delete-button">&times;</span>
+      `;
+      eventList.appendChild(eventItem);
+
+      // Add event listener to delete a task
+      const deleteButton = eventItem.querySelector('.delete-button');
+      deleteButton.addEventListener('click', function () {
+          const index = savedEvents.indexOf(event);
+          if (index !== -1) {
+              savedEvents.splice(index, 1);
+              localStorage.setItem('events', JSON.stringify(savedEvents));
+              eventItem.remove();
+          }
+      });
+  }
+
 }
 
 function processUpdates() {
