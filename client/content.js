@@ -475,20 +475,6 @@ function calendarWidget() {
   const calendar = document.getElementById('calendar');
 
   openCalendarLink.addEventListener('click', function () {
-      // Create a date object for the current month
-      const currentDate = new Date();
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-
-      // Create a new date object for the first day of the current month
-      const firstDay = new Date(year, month, 1);
-
-      // Generate the HTML for the calendar
-      const calendarHTML = generateCalendarHTML(firstDay);
-
-      // Set the calendar HTML content
-      calendar.innerHTML = calendarHTML;
-
       // Show the calendar modal
       calendarModal.classList.toggle('config-panel-open');
       setTabTitle('calendar');
@@ -499,73 +485,7 @@ function calendarWidget() {
       calendarModal.classList.toggle('config-panel-open');
   });
 
-  // Function to generate the HTML for the calendar
-  function generateCalendarHTML(firstDay) {
-    const daysInMonth = new Date(firstDay.getFullYear(), firstDay.getMonth() + 1, 0).getDate();
-    const startDay = firstDay.getDay(); // 0 (Sunday) to 6 (Saturday)
-    const today = new Date();
-    const dayNumber = today.getDay() + 1;
-
-    // Define an array of month names for display purposes
-    const monthNames = [
-        "January", "February", "March", "April",
-        "May", "June", "July", "August",
-        "September", "October", "November", "December"
-    ];
-
-    // Generate the table header with the month and year
-    let calendarHTML = `
-        <table>
-            <caption class="calendar-heading">${monthNames[firstDay.getMonth()]} ${firstDay.getFullYear()}<hr></caption>
-            <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-            </tr>
-    `;
-
-    // Initialize variables for tracking the day and row
-    let currentDay = 1;
-    let currentRow = 2; // Start from the second row
-
-    // Loop through each row
-    for (let row = 1; row <= 6; row++) {
-        // Start a new row
-        calendarHTML += '<tr>';
-
-        // Loop through each column (day of the week)
-        for (let col = 0; col < 7; col++) {
-            if ((row === 1 && col < startDay) || currentDay > daysInMonth) {
-                // Empty cells before the start of the month or after the end of the month
-                calendarHTML += '<td></td>';
-            } else {
-                // Display the current day
-                if (dayNumber === currentDay) {
-                  calendarHTML += `<td class="calendar-day" align="center"><span class="calendar-today">${currentDay}</span></td>`;
-                } else {
-                  calendarHTML += `<td class="calendar-day" align="center">${currentDay}</td>`;
-                }
-                
-                currentDay++;
-            }
-        }
-
-        calendarHTML += '</tr>';
-
-        if (currentDay > daysInMonth) {
-            break;
-        }
-    }
-
-    // Close the table
-    calendarHTML += '</table>';
-
-    return calendarHTML;
-  }
+  
 
   // process adding events:
   const eventInput = document.getElementById('event');
@@ -584,7 +504,6 @@ function calendarWidget() {
   
   savedEvents.forEach(event => {
     const currentDate = event.date;
-
     if (currentDate !== lastLoggedDate) {
       console.log(currentDate); // Log the date if it's different
       lastLoggedDate = currentDate; // Update lastLoggedDate
@@ -604,7 +523,14 @@ function calendarWidget() {
 
   function addEventFromInput() {
     const eventText = eventInput.value.trim();
-    const eventDate = dateInput.value.trim();
+    let eventDate = dateInput.value.trim();
+    if (!eventDate) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+      const day = String(today.getDate()).padStart(2, '0');
+      eventDate = `${year}-${month}-${day}`;
+    }
 
     if (eventText !== '') {
         const event = { text: eventText, date: eventDate, completed: false };
@@ -635,7 +561,6 @@ function calendarWidget() {
           }
       });
   }
-
 }
 
 function processUpdates() {

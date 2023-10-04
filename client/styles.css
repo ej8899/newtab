@@ -39,7 +39,7 @@ main {
   background-image: url('vignette.png'); /* Set the PNG vignette image URL */
   background-size: cover; /* Resize the overlay to cover the entire container */
   opacity: var(--vignetteOpacity); /* Adjust the opacity as desired */
-  z-index: 1;
+  z-index: 0;
 }
 
 .main-fade-in {
@@ -600,4 +600,299 @@ TO-DO LIST WIDGET STYLES
 }
 .task-wrapper {
   white-space: nowrap;
+}
+.event-bar {
+  width: 80%; /* Set the desired width for the search bar */
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 1.5rem; /* Rounded corners similar to Google's new tab page */
+  outline: none;
+  text-align: left; /* Align text to the left similar to Google's new tab page */
+  font-size: 16px; /* Adjust font size as needed */
+  padding-left: 16px; /* Add some left padding similar to Google's new tab page */
+  background-color: white; /* Background color for the search bar */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow similar to Google's new tab page */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root{
+  --font1:'Nova Round', cursive;
+  --font2: 'Margarine', cursive;
+  --color1: rgb(68, 91, 222,1);
+  --weekHeaderBGColor:#4285f4;
+  --todayTextColor:rgba(234,43,187);
+  --dayActiveColor:rgb(68, 91, 222,0.9);
+  --dayHoverColor:rgba(222, 216, 68,0.3);
+  --borderColor:rgba(0,0,0,0.1);
+  --fullDayHeight:6rem;
+  --transitionTime:300ms;
+}
+
+.calendar-wrapper{
+  box-sizing:content-box;
+  display:flex;
+  overflow-x: hidden;
+  justify-content: center;
+}
+
+.calendar{
+  position:absolute;
+  transform:initial;
+  font-family:var(--font2);
+  display: inline-grid;
+  grid-template:
+      "M M M M M M M"
+      "W W W W W W W"
+      "Days Days Days Days Days Days Days"
+}
+
+/*Headings*/
+.display.month{
+  font-size: 2rem;
+  margin: 0 auto;
+}
+
+.display.week div{
+  padding:0 0.2em;
+}
+
+.display.week{
+  font-size:1.2em;
+  border-radius:6px 6px 0 0;
+  grid-area: W;
+}
+
+/* Individual Units*/
+
+.calendar .header{
+  font-family:var(--font1);
+  text-align:center;
+}
+
+.week{
+  display: grid;
+  justify-content:center;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3);
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.header.week{
+  background-color:var(--weekHeaderBGColor);
+  color:white;
+}
+
+.calendar .row{
+  display:flex;
+  flex-flow:row nowrap;
+}
+
+.days{
+  width:100%;
+  grid-area: Days;
+  grid-auto-rows: var(--fullDayHeight);
+}
+
+.day{
+  cursor:pointer;
+  position:relative;
+  border-collapse:collapse;
+  border-top:1px solid var(--borderColor);
+  padding:2px;
+}
+
+.day.today{
+  color:var(--todayTextColor);
+}
+
+.day.today:before{
+  content:"";
+  position:absolute;
+  background-color:var(--color1);
+  filter:hue-rotate(40deg);
+  height:5px;
+  width:5px;
+  border-radius:50%;
+  top:4px;
+  right:5px;
+  z-index:-1;
+}
+
+
+.day:not(:nth-child(7n+0)){
+  border-right:1px solid var(--borderColor);
+}
+
+.day.active {
+  color:white  !important;
+  background-color:var(--dayActiveColor)!important;
+}
+
+.blank.day{
+  background-color: rgba(30,30,30, 0.2);
+  color:hsl(240,20%,50%);
+  filter:grayscale(0.5);
+  opacity:0.4;
+}
+
+.day:hover, .day:active, .blank.day:hover, .blank.day:active{
+  background-color:var(--dayHoverColor);
+}
+
+/* mini class styling*/
+.mini .days{
+  grid-auto-rows: min-content;
+}
+
+.calendar-wrapper.mini{
+  width:20rem;
+  height:12rem;
+}
+
+.mini .week{
+  grid-auto-columns: fit-content(0.5rem);
+  grid-auto-rows: fit-content(0.5rem);
+}
+
+.mini .day{
+  text-align:center;
+  font-size:1.2rem;
+  padding:0;
+}
+
+/*UI Components*/
+
+.calendar .mainheader{
+  grid-area: M;
+  display:flex;
+  flex-flow:row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-transform:uppercase;
+}
+
+.calendar .arrow{
+  transform:scale(1.2);
+  
+  height:1em;
+  width:1em;
+  color: black;
+  line-height:0.8em;
+  text-align:center;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  cursor:pointer;
+  margin:0.5em;
+}
+
+.calendar .arrow.left:after{
+  content:"\02039";
+}
+
+.calendar .arrow.right:after{
+  content:"\0203A";
+}
+
+/* Animations */
+
+.anim-slide-left-in{
+  animation: kfSlideLeftIn var(--transitionTime) linear ;
+}
+
+.anim-slide-left-out{
+  animation: kfSlideLeftOut var(--transitionTime) linear ;
+}
+
+.anim-slide-right-in{
+  animation: kfSlideLeftOut var(--transitionTime) linear reverse;
+}
+
+.anim-slide-right-out{
+  animation: kfSlideLeftIn var(--transitionTime) linear reverse;
+}
+
+@keyframes kfSlideLeftIn{
+  0%{
+    opacity:0;
+    transform:translate(100%);
+  }
+  100%{
+    opacity:1;
+    transform:translate(0);
+  }
+}
+
+@keyframes kfSlideLeftOut{
+  0%{
+    opacity:1;
+    transform:translate(0);
+  }
+  100%{
+    opacity:0;
+    transform:translate(-100%);
+  }
+}
+
+
+
+
+/*For Demo formatting*/
+body{
+  display:flex;
+  flex-flow:row wrap;
+  justify-content:center;
+  font-family:Trebuchet, sans-serif;
+}
+
+#input-date{
+  height:10em;
+}
+
+/*Google fonts*/
+/* latin-ext */
+@font-face {
+  font-family: 'Margarine';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Margarine'), local('Margarine-Regular'), url(https://fonts.gstatic.com/s/margarine/v8/qkBXXvoE6trLT9Y7YLyu7Z5KoAU.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Margarine';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Margarine'), local('Margarine-Regular'), url(https://fonts.gstatic.com/s/margarine/v8/qkBXXvoE6trLT9Y7YLyu455K.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Nova Round';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Nova Round'), local('NovaRound'), url(https://fonts.gstatic.com/s/novaround/v11/flU9Rqquw5UhEnlwTJYTUYDUeA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }

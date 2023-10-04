@@ -20,6 +20,7 @@
     <script src="config.js" defer></script>
     <script src="content.js" defer></script>
     <script src="api.js" defer></script>
+    <script src="calendar.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" />
 
@@ -115,10 +116,10 @@
     <div class="config-panel" id="calendar-modal">
       <span class="close-button" id="close-calendar-modal">&times;</span>
       <div class="calendar-wrapper">
-      <div id="calendar" class="calendar-wrapper"></div>
+        <div id="thecalendar"></div>
       </div>
       <div class="task-wrapper">
-        <input type="date" id="date" class="task-bar"><br>
+        <input type="hidden" id="date" class="task-bar"><br>
         <input type="text" id="event" placeholder="Enter a new item" class="task-bar">
         <button id="add-event" class="add-task search-button"><i class="fa-solid fa-plus"></i></button>
         <hr class="mtop10">
