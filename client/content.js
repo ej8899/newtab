@@ -64,13 +64,14 @@ function updateTime() {
   let amPm = "";
 
   // Check the clockType configuration
-  if (configData.clockType === 12) {
+  if (configData.clockType === null) {
       // Convert to 12-hour format
       amPm = hours >= 12 ? "pm" : "am";
       hours = hours % 12 || 12;
   } else {
       // Use 24-hour format (default)
       amPm = ""; // No AM/PM indicator in 24-hour format
+      hours = now.getHours();
   }
 
   // Add leading zeros to minutes if needed
@@ -1090,6 +1091,7 @@ function configModal() {
   } else {
     document.getElementById("amazonLink").checked = false;
   }
+  document.getElementById("clockType").checked = configData.clockType;
   
   // process form save
   saveButton.addEventListener('click', function(event) {
@@ -1100,12 +1102,13 @@ function configModal() {
     // Access form fields and values
     configData.backgroundTheme = formData.get('backgroundTheme');
     configData.imageTimer = formData.get('imageTimer');
-    console.log('googledrive status:',formData.get('googledriveLink'));
+   // console.log('googledrive status:',formData.get('googledriveLink'));
     configData.gitLink = formData.get('gitLink');
     configData.googledriveLink = formData.get('googledriveLink'); // checkboxes are null or ""
     configData.dropboxLink = formData.get('dropboxLink');
     configData.amazonLink = formData.get('amazonLink');
-
+    configData.clockType = formData.get('clockType');
+console.log('clockType:',formData.get('clockType'));
     // TODO error checking
     // TODO save to localstorage
     saveConfig();

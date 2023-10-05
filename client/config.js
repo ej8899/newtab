@@ -16,7 +16,7 @@ let configData = {
   showSearch: true, // TODO - implement this feature
   showTopten: true, // TODO - implement this feature (top 10 exists, just conditionally render)
   appBarSticky: true, // TODO - implement this -- true is app bar always open, otherwise slide open when mouse is 50px(?) within left edge
-  clockType: 12, // or 12 for 12h format
+  
   imageTimer: 15,  // changes every x minutes
   widgetTransparency: 0.5, // TODO - global for the transparency level of all widgets / see CSS vars for now
   showTimeandDate: true,  // TODO - not yet implemented - date & time always on
@@ -25,7 +25,8 @@ let configData = {
   newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
 
 
-  gitLink: '',  // TODO - github link
+  clockType: null, // null for 12h format, "on" for 24h format
+  gitLink: '',  
   calendarLink: '',  // TODO - if blank show basic calendar, otherwise 'none' for no calendar, or URL to google etc.
   dropboxLink: 'yes',
   amazonLink: 'yes',
