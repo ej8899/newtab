@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
   processUpdates();
   weatherWidget();
   blacklistBackgrounds();
-  reviewBlacklistBackgrounds();
+  //reviewBlacklistBackgrounds();
   configModal();
   updateTime(); 
   fetchTopTen();
@@ -125,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function () {
   setInterval(updateTime, 1000);
 
   //const openTodoList = document.getElementById('open-tasks-icon');
+  const blacklistreviewButton = document.getElementById("blacklistreviewButton");
+  blacklistreviewButton.addEventListener("click", reviewBlacklistBackgrounds);
 
   
   // close panel if open and click outside of it
@@ -948,12 +950,12 @@ function blacklistBackgrounds() {
       // Optionally, you can display a message or perform other actions here
       console.log("Image blacklisted:",backgroundImageUrl);
       opensnack('blocked image','warn')
-      reviewBlacklistBackgrounds();
+      //reviewBlacklistBackgrounds();
     } else {
       opensnack('already blocked','warn')
     }
     // refresh the review list
-    reviewBlacklistBackgrounds();
+    //reviewBlacklistBackgrounds();
   });
 
   function stripQueryParams(url) {
@@ -973,9 +975,10 @@ function reviewBlacklistBackgrounds() {
   // const nextButton = document.getElementById("nextButton");
   const closeModal = document.getElementById("closeModal");
   const blacklistreviewButton = document.getElementById("blacklistreviewButton");
-  
+
+  console.log('in reviewblacklistbackgrounds')
+ 
   let blacklistUrls = [];
-  let currentImageIndex = 0;
 
   // Load blacklist URLs from localStorage
   if (localStorage.getItem("blacklist")) {
@@ -987,14 +990,24 @@ function reviewBlacklistBackgrounds() {
     return;
   }
 
+  //blacklistUrls = Object.keys(blacklist);
+  setTabTitle('review blacklisted images');
+  if (blacklistUrls.length > 0) {
+    //showImage();
+    imageModal.classList.toggle('config-panel-open');
+  } else {
+    return;
+  }
+
 
 
 
   // blacklistedimages = div ID for container:
   const blacklistedImagesDiv = document.getElementById('blacklistedimages');
+  blacklistedImagesDiv.innerHTML = '';
   // display images in a vertical list
   
-  blacklistUrls.forEach(function(url) {
+  blacklistUrls.forEach(function(url,index) {
     const image = document.createElement('img');
     image.className = "blacklistimage-preview";
     image.src = url + '?q=75&w=270&fit=max';
@@ -1014,40 +1027,22 @@ function reviewBlacklistBackgrounds() {
     button.addEventListener('click', function() {
       blacklistedImagesDiv.removeChild(containerDiv);
 
-      const imageUrlToRemove = blacklistUrls[currentImageIndex];
+      const imageUrlToRemove = blacklistUrls[index];
+      console.log('blacklisturls:',blacklistUrls)
+      console.log(imageUrlToRemove)
+      console.log(index)
       delete blacklist[imageUrlToRemove];
       localStorage.setItem("blacklist", JSON.stringify(blacklist));
     });
-    currentImageIndex++;
-  });
-
-
-  // Add a click event listener to open the modal
-  blacklistreviewButton.addEventListener("click", function () {
-    console.log('blacklistreviewButton click')
-    // Get the URLs from the blacklist object
-    blacklistUrls = Object.keys(blacklist);
-    setTabTitle('review blacklisted images');
-    if (blacklistUrls.length > 0) {
-      currentImageIndex = 0;
-      //showImage();
-      imageModal.classList.toggle('config-panel-open');
-    }
   });
 
   // Add a click event listener to close the modal
-  closeModal.addEventListener("click", function () {
+  closeModal.addEventListener("click", closeWindow);
+  function closeWindow() {
     imageModal.classList.toggle('config-panel-open');
     setTabTitle('reset');
-  });
-
-  // Close the modal when the user clicks outside the modal content
-  window.addEventListener("click", function (event) {
-    if (event.target === imageModal) {
-      imageModal.classList.toggle('config-panel-open');
-      setTabTitle('reset');
-    }
-  });
+    closeModal.removeEventListener("click",closeWindow);
+  }
 }
 
 function configModal() {
