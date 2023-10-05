@@ -12,7 +12,7 @@ function cropDescription(description, maxLength) {
 
 // Function to fetch data and handle storage
 function fetchDataAndUpdateStorage() {
-  console.log(configData.backgroundTheme);
+  console.log("background search word:",configData.backgroundTheme);
   if (configData.backgroundTheme === 'meetguinness') {
     fetch(`https://erniejohnson.ca/apps/yourtab/meetguinness/privatephotos.php`)
     .then((response) => response.json())
@@ -106,7 +106,9 @@ function handleImageData(imageResponse) {
     mainElement.classList.add("main-fade-in");
 }
 
+//
 // API end point for app updates / change-log
+//
 function fetchNews() {
   const phpUrl = 'https://erniejohnson.ca/tools/newtab-version.php';
 

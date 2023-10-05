@@ -923,12 +923,11 @@ function blacklistBackgrounds() {
   const blacklist = JSON.parse(localStorage.getItem("blacklist")) || {};
   // TODO return if no blacklist items
 
-  // Add a click event listener to the button
   blacklistButton.addEventListener("click", function () {
     
-    // Get the current background image URL of the mainElement
     const computedStyle = getComputedStyle(mainElement);
-    const backgroundImageUrl = computedStyle.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+    let backgroundImageUrl = computedStyle.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+    backgroundImageUrl = stripQueryParams(backgroundImageUrl);
     // TODO - strip the other stuff off this - should be just this:
     // https://images.unsplash.com/photo-1612273320616-3498071b307d
     // and not above, plus this:
@@ -947,17 +946,23 @@ function blacklistBackgrounds() {
       // mainElement.style.backgroundImage = `url(NEW_BACKGROUND_IMAGE_URL)`;
   
       // Optionally, you can display a message or perform other actions here
-      //console.log("Image blacklisted:",backgroundImageUrl);
+      console.log("Image blacklisted:",backgroundImageUrl);
       opensnack('blocked image','warn')
       reviewBlacklistBackgrounds();
     } else {
-      // URL is already in the blacklist, so you can show a message or do nothing
-      //console.log("Image is already blacklisted.");
       opensnack('already blocked','warn')
     }
     // refresh the review list
     reviewBlacklistBackgrounds();
   });
+
+  function stripQueryParams(url) {
+    const index = url.indexOf('?');
+    if (index !== -1) {
+      return url.substring(0, index);
+    }
+    return url;
+  }
 }
 
 function reviewBlacklistBackgrounds() {
