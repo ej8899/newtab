@@ -301,14 +301,30 @@ NOTES WIDGET STYLES
   overflow-x: hidden;
 }
 
+
 .close-button {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px;
+
+  color: black;
   cursor: pointer;
-  font-size: 24px;
-  color: red;
+  font-size: 12px;
+  
+  transition: all var(--transitionTime);
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #F8D6B3;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  margin-right: 4px;
+}
+.close-button:hover {
+  background-color: #FF6B6B;
 }
 
 textarea {
@@ -369,7 +385,7 @@ TO-DO LIST WIDGET STYLES
 .task-list .delete-button {
   color: black;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 12px;
   
   transition: all var(--transitionTime);
   border: 2px solid black;
@@ -680,7 +696,7 @@ h2 {
 }
 
 .task-button:hover {
-  box-shadow: 3px 4px 0 0 orange;
+  background-color: orange;
 }
 
 .version-container {
@@ -716,6 +732,7 @@ h2 {
 
 .calendar{
   position:absolute;
+  width:270px;
   transform:initial;
   font-family:var(--font2);
   display: inline-grid;
@@ -816,6 +833,9 @@ h2 {
 .day:hover, .day:active, .blank.day:hover, .blank.day:active{
   background-color:var(--dayHoverColor);
 }
+.day-event {
+  background-color: green;
+}
 
 /* mini class styling*/
 .mini .days{
@@ -824,7 +844,7 @@ h2 {
 
 .calendar-wrapper.mini{
   width:20rem;
-  height:12rem;
+  height:14.5rem;
 }
 
 .mini .week{
@@ -979,4 +999,206 @@ h2 {
 .panel-scrollable-element {
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
+}
+
+
+
+
+#snackbar {
+  opacity: 0;
+  min-width: 250px;
+  
+  color: black;
+  text-align: center;
+  padding: 16px;
+  position: fixed;
+  z-index: 999;
+  left: 2%;
+  bottom: 10px;
+  font-size: 15px;
+  font-family: "Lexend Mega", sans-serif;
+  box-shadow: 2px 3px 0px #000000;
+  
+  transition: all 400ms ease;
+
+  border: 3px solid black;
+  border-radius: 2px;
+  padding: 10px;
+
+  background-color: #339a37;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+#snackbar.show {
+  opacity:1;
+  bottom:30px;
+}
+
+
+
+/*
+FORM STYLES
+*/
+input[type=text],
+select {
+  transition: all 0.3s ease;
+  border: 2px solid #000;
+  padding: 1em;
+  background: #fff;
+  font-size: 1em;
+  box-shadow: inset 0.25em 0.25em rgba(0, 0, 0, 0.1);
+  min-width: 16em;
+}
+input[type=text]:active, input[type=text]:focus,
+select:active,
+select:focus {
+  transform: translate(-0.1em, -0.1em);
+  box-shadow: 0.25em 0.25em;
+  outline: none;
+}
+
+/* <select> styles */
+select {
+  /* Reset */
+  appearance: none;
+  outline: 0;
+  border: 2px solid #000;
+  font: inherit;
+  box-shadow: none;
+  width: 18em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/1/1e/Font_Awesome_5_solid_arrow-down.svg) no-repeat right 0.9em center/1em, linear-gradient(to left, #ccc 3em, white 3em);
+  padding-right: 3em;
+  color: #000;
+  cursor: pointer;
+  /* <option> colors */
+  /* Remove IE arrow */
+}
+select option {
+  color: inherit;
+  background-color: white;
+  border: 1px solid #000;
+  border-top: 0;
+}
+select::-ms-expand {
+  display: none;
+}
+input[type=checkbox],
+input[type=radio] {
+  position: relative !important;
+  appearance: none;
+  margin: 8px;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+input[type=checkbox]:focus,
+input[type=radio]:focus {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0 0 #000;
+}
+input[type=checkbox]:before,
+input[type=radio]:before {
+  content: "";
+  display: block;
+  box-sizing: content-box;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #000;
+  transition: 0.2s border-color ease;
+}
+input[type=checkbox]:checked:before,
+input[type=radio]:checked:before {
+  transition: 0.5s border-color ease;
+}
+input[type=checkbox]:disabled:before,
+input[type=radio]:disabled:before {
+  border-color: #ccc;
+  background-color: #ccc;
+}
+input[type=checkbox]:after,
+input[type=radio]:after {
+  content: "";
+  display: block;
+  position: absolute;
+  box-sizing: content-box;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+  background-color: #3f00ff;
+  width: 18px;
+  height: 18px;
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+input[type=checkbox][type=radio],
+input[type=radio][type=radio] {
+  border-radius: 100%;
+}
+input[type=checkbox][type=radio]:before,
+input[type=radio][type=radio]:before {
+  border-radius: 100vh;
+}
+input[type=checkbox][type=radio]:after,
+input[type=radio][type=radio]:after {
+  width: 18px;
+  height: 18px;
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+input[type=checkbox][type=radio]:checked:after,
+input[type=radio][type=radio]:checked:after {
+  animation: toggleOnRadio 0.2s ease forwards;
+}
+input[type=checkbox][type=checkbox]:before,
+input[type=radio][type=checkbox]:before {
+  border-radius: 0;
+  transition: 0.2s border-color ease, 0.2s background-color ease;
+}
+input[type=checkbox][type=checkbox]:after,
+input[type=radio][type=checkbox]:after {
+  width: 10.8px;
+  height: 18px;
+  border-radius: 0;
+  transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  background-color: transparent;
+  box-shadow: 4px 4px 0px 0px #3f00ff;
+}
+input[type=checkbox][type=checkbox]:checked:after,
+input[type=radio][type=checkbox]:checked:after {
+  animation: toggleOnCheckbox 0.2s ease forwards;
+}
+input[type=checkbox][type=checkbox]:checked:not(:disabled):before,
+input[type=radio][type=checkbox]:checked:not(:disabled):before {
+  background-color: #3f00ff;
+}
+input[type=checkbox][type=checkbox]:not(:disabled):after,
+input[type=radio][type=checkbox]:not(:disabled):after {
+  box-shadow: 4px 4px 0px 0px white;
+}
+
+@keyframes toggleOnCheckbox {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -85%) scale(0.9) rotate(45deg);
+  }
+  100% {
+    transform: translate(-50%, -85%) scale(0.8) rotate(45deg);
+  }
+}
+@keyframes toggleOnRadio {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
 }

@@ -1,6 +1,21 @@
 // content.js
 loadConfig();
 
+
+// snackbar open handler
+// TODO implement text and style
+function opensnack(text,style) {
+  let snackBar = document.getElementById("snackbar");
+  if (text) snackBar.innerText = text;
+  snackBar.className = "show";
+  setTimeout(function(){ snackBar.className = snackBar.className.replace("show", ""); }, 4000);
+}
+
+// snackbar close handler
+function closesnack(e){
+  e.parentElement.className = e.parentElement.className.replace("show", "");
+}
+
 //
 // search widget
 //
@@ -140,6 +155,7 @@ function loadConfig() {
 function saveConfig() {
   if(configData.runningDebug) console.log('config data saving: ',configData)
   localStorage.setItem('configData', JSON.stringify(configData));
+  opensnack('saved','success');
 }
 
 //
@@ -151,7 +167,7 @@ function setAppDrawer() {
   const googledriveApp = document.querySelector('#app-gdrive');
   const amazonApp = document.querySelector('#app-amazon');
 
-  if (configData.gitLink) {
+  if (configData.gitLink !==null) {
     gitApp.classList.add('app-available');
     gitApp.classList.remove('app-hidden');
   } else {
@@ -159,7 +175,7 @@ function setAppDrawer() {
     gitApp.classList.add('app-hidden');
   }
 
-  if (configData.dropboxLink) {
+  if (configData.dropboxLink !== null) {
     dropboxApp.classList.add('app-available');
     dropboxApp.classList.remove('app-hidden');
   } else {
@@ -167,7 +183,7 @@ function setAppDrawer() {
     dropboxApp.classList.add('app-hidden');
   }
 
-  if (configData.googledriveLink) {
+  if (configData.googledriveLink !== null) {
     googledriveApp.classList.add('app-available');
     googledriveApp.classList.remove('app-hidden');
   } else {
@@ -175,7 +191,7 @@ function setAppDrawer() {
     googledriveApp.classList.add('app-hidden');
   }
 
-  if (configData.amazonLink) {
+  if (configData.amazonLink !=null) {
     amazonApp.classList.add('app-available');
     amazonApp.classList.remove('app-hidden');
   } else {
@@ -335,16 +351,23 @@ function notesWidget() {
   // Function to copy all notes to the clipboard
   function copyAllNotesToClipboard() {
     if (notesTextarea) {
-        // Create a temporary textarea element to copy text to clipboard
-        const tempTextarea = document.createElement('textarea');
-        tempTextarea.value = notesTextarea.value;
-        document.body.appendChild(tempTextarea);
-        tempTextarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempTextarea);
-        alert('Notes copied to clipboard');
+      if(!notesTextarea.value) {
+        opensnack("no notes to copy",'warn');
+        return;
+      }
+      console.log("notes copied:",notesTextarea.value)
+      // Create a temporary textarea element to copy text to clipboard
+      const tempTextarea = document.createElement('textarea');
+      tempTextarea.value = notesTextarea.value;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextarea);
+      //alert('Notes copied to clipboard');
+      opensnack("notes copied to clipboard",'success');
     } else {
-        alert('There are no notes to copy.');
+        //alert('There are no notes to copy.');
+        opensnack("no notes to copy",'warn');
     }
   }
   function updateNotes() {
@@ -388,7 +411,12 @@ function todoWidget() {
 
   // Load tasks from local storage on page load
   const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  savedTasks.forEach(task => addTaskToUI(task));
+  if(savedTasks) {
+    savedTasks.forEach(task => addTaskToUI(task));
+  } else {
+    //addTaskToUI("no tasks yet");
+  }
+
 
   openTodoList.addEventListener('click', function () {
       setTabTitle('tasks');
@@ -425,7 +453,7 @@ function todoWidget() {
       const taskItem = document.createElement('li');
       taskItem.innerHTML = `
           <span class="task-text">${task.text}</span>
-          <span class="delete-button">&times;</span>
+          <span class="delete-button"><i class="fa-solid fa-x"></i></span>
       `;
       taskList.appendChild(taskItem);
 
@@ -508,6 +536,7 @@ function calendarWidget() {
       //console.log(currentDate); // Log the date if it's different
       lastLoggedDate = currentDate; // Update lastLoggedDate
       addDatetoUI(currentDate);
+      addDatetoCalendar(currentDate);
     }
     addEventToUI(event);
   });
@@ -553,7 +582,7 @@ function calendarWidget() {
       const eventItem = document.createElement('li');
       eventItem.innerHTML = `
           <span class="event-text">${event.text}</span>
-          <span class="delete-button">&times;</span>
+          <span class="delete-button"><i class="fa-solid fa-x"></i></span>
       `;
       eventList.appendChild(eventItem);
 
@@ -568,6 +597,42 @@ function calendarWidget() {
           }
       });
   }
+
+  function addDatetoCalendar(currentDate) {
+    const dayElements = document.querySelectorAll('.day');
+    let targetElement = null;
+
+    const parts = currentDate.split('-');
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
+
+    dayElements.forEach(function (dayElement) {
+      const dataMonth = dayElement.getAttribute('data-month');
+      const dataDay = dayElement.getAttribute('data-day');
+      const dataYear = dayElement.getAttribute('data-year');
+
+      if (
+        dataMonth === month &&
+        dataDay === day &&
+        dataYear === year
+      ) {
+        // Found the matching element
+        targetElement = dayElement;
+        // Break out of the loop since you found the target
+        return;
+      }
+    });
+
+    if (targetElement) {
+      // Do something with the target element
+      console.log('Found the target element:', targetElement);
+      targetElement.classList.add('day-event');
+    } else {
+      // Target element not found
+    }
+  }
+
 }
 
 function processUpdates() {
@@ -793,6 +858,7 @@ function blacklistBackgrounds() {
 
   // Add a click event listener to the button
   blacklistButton.addEventListener("click", function () {
+    
     // Get the current background image URL of the mainElement
     const computedStyle = getComputedStyle(mainElement);
     const backgroundImageUrl = computedStyle.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
@@ -814,11 +880,13 @@ function blacklistBackgrounds() {
       // mainElement.style.backgroundImage = `url(NEW_BACKGROUND_IMAGE_URL)`;
   
       // Optionally, you can display a message or perform other actions here
-      console.log("Image blacklisted:",backgroundImageUrl);
+      //console.log("Image blacklisted:",backgroundImageUrl);
+      opensnack('blocked image','warn')
       reviewBlacklistBackgrounds();
     } else {
       // URL is already in the blacklist, so you can show a message or do nothing
-      console.log("Image is already blacklisted.");
+      //console.log("Image is already blacklisted.");
+      opensnack('already blocked','warn')
     }
   });
 }
@@ -927,7 +995,7 @@ function configModal() {
 
 
   document.getElementById("backgroundTheme").value = configData.backgroundTheme;
-  document.getElementById("imageTimer").value = configData.imageTimer;
+  document.getElementById("imageTimer").value = configData.loadConfigimageTimer;
   document.getElementById("gitLink").value = configData.gitLink;
   document.getElementById("googledriveLink").value = configData.googledriveLink;
 
@@ -941,7 +1009,7 @@ function configModal() {
     configData.backgroundTheme = formData.get('backgroundTheme');
     configData.imageTimer = formData.get('imageTimer');
     configData.gitLink = formData.get('gitLink');
-    configData.googledriveLink = formData.get('googledriveLink');
+    configData.googledriveLink = formData.get('googledriveLink'); // checkboxes are null or ""
 
     // TODO error checking
     // TODO save to localstorage
