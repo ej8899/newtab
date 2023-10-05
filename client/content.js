@@ -531,7 +531,7 @@ function calendarWidget() {
   let lastLoggedDate = null; 
   
   savedEvents.forEach(event => {
-    const currentDate = event.date;
+    const currentDate = removePaddingFromDate(event.date);
     if (currentDate === getFormattedDate('today')) {
       // set badge on app panel - we have event today
       console.log('yes we have event for today');
@@ -1078,4 +1078,15 @@ function setIconBadge(elementID) {
       iconElement.appendChild(badgeElement);
     }
   }
+}
+
+function removePaddingFromDate(dateString) {
+  const [year, month, day] = dateString.split('-');
+  const formattedYear = parseInt(year).toString();
+  const formattedMonth = parseInt(month).toString();
+  const formattedDay = parseInt(day).toString();
+  
+  const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+  
+  return formattedDate;
 }
