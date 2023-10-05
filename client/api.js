@@ -129,14 +129,15 @@ function fetchNews() {
     const aboutTitle = document.getElementById("about-title");
     let versionUpdates = '';
     aboutTitle.innerText = `${configData.appName} - version ${configData.appVersion}`;
+    
+    const appUpdateStatusDiv = document.getElementById("app-updatestatus");
     if (compareVersions(latestVersion, configData.appVersion) > 0) {
       versionUpdates = "New version available!";
       configData.newVersion =  latestVersion;
     } else {
-      console.log('No update available:' + latestVersion + 'this version:' + configData.appVersion);
-      versionUpdates = "You have the latest version!";
+      versionUpdates = "You're up to date!";
     }
-    appNewsContent.innerText = versionUpdates;
+    appUpdateStatusDiv.innerText = versionUpdates; //app-updatestatus
 
     jsonData.appVersions.forEach((version) => {
       // Create a container for each version
