@@ -142,29 +142,38 @@
         <br>
 
         <!-- Background Theme -->
-        <label for="backgroundTheme">Background Theme:</label>
+        <label for="backgroundTheme">Background Search:</label>
         <input type="text" id="backgroundTheme" name="backgroundTheme" value=""><br><br>
 
         <!-- Image Timer -->
         <label for="imageTimer">Image Timer (minutes):</label>
-        <input type="number" id="imageTimer" name="imageTimer" value="5"><br><br>
+        <input type="text" id="imageTimer" name="imageTimer" value="5"><br><br>
 
-        <!-- GitHub Link -->
-        <label for="gitLink">GitHub Link:</label>
-        <input type="text" id="gitLink" name="gitLink" value=""><br><br>
+        Show Apps:
+        <div class="config-showapps">
+          <!-- GitHub Link -->
+          <span class="config-showapps-item">
+            <input type="checkbox" id="gitLink" name="gitLink" checked>
+            <label for="gitLink">GitHub Link:</label>
+          </span>
 
-        <!-- Dropbox Link -->
-        <label for="dropboxLink">Dropbox Link:</label>
-        <input type="text" id="dropboxLink" name="dropboxLink" value=""><br><br>
-
-        <!-- Amazon Link -->
-        <label for="amazonLink">Amazon Link:</label>
-        <input type="checkbox" id="amazonLink" name="amazonLink" checked><br>
-
-        <!-- Google Drive Link -->
-        <label for="googledriveLink">Google Drive Link:</label> 
-        <input type="checkbox" id="googledriveLink" name="googledriveLink" checked><br>
-        <br><br>
+          <!-- Dropbox Link -->
+          <span class="config-showapps-item">
+            <input type="checkbox" id="dropboxLink" name="dropboxLink" checked>
+            <label for="dropboxLink">Dropbox Link:</label>
+          </span>
+          <!-- Amazon Link -->
+          <span class="config-showapps-item">
+            <input type="checkbox" id="amazonLink" name="amazonLink" checked>
+            <label for="amazonLink">Amazon Link:</label>
+          </span>
+          <!-- Google Drive Link -->
+          <span class="config-showapps-item">
+            <input type="checkbox" id="googledriveLink" name="googledriveLink" checked>
+            <label for="googledriveLink">Google Drive Link:</label> 
+          </span>
+        </div>
+        
       </form>
       <button id="saveConfig" class="task-button">Save</button>
     </div>

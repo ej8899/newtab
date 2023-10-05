@@ -1041,6 +1041,7 @@ h2 {
 FORM STYLES
 */
 input[type=text],
+input[type=number],
 select {
   transition: all 0.3s ease;
   border: 2px solid #000;
@@ -1201,4 +1202,18 @@ input[type=radio][type=checkbox]:not(:disabled):after {
   100% {
     transform: translate(-50%, -50%) scale(0.8);
   }
+}
+
+.config-showapps {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  padding:10px;
+  margin-bottom: 10px;
+}
+.config-showapps-item {
+  display:flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
 }

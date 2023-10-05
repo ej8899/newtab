@@ -992,13 +992,33 @@ function configModal() {
   });
 
   // populate the form
-
-
   document.getElementById("backgroundTheme").value = configData.backgroundTheme;
-  document.getElementById("imageTimer").value = configData.loadConfigimageTimer;
-  document.getElementById("gitLink").value = configData.gitLink;
-  document.getElementById("googledriveLink").value = configData.googledriveLink;
+  document.getElementById("imageTimer").value = configData.imageTimer;
 
+  if(configData.gitLink !== null) {
+    document.getElementById("gitLink").checked = true;
+  } else {
+    document.getElementById("gitLink").checked = false;
+  }
+  
+  if(configData.googledriveLink !== null) {
+    document.getElementById("googledriveLink").checked = true;
+  } else {
+    document.getElementById("googledriveLink").checked = false;
+  }
+
+  if(configData.dropboxLink !== null) {
+    document.getElementById("dropboxLink").checked = true;
+  } else {
+    document.getElementById("dropboxLink").checked = false;
+  }
+
+  if(configData.amazonLink !== null) {
+    document.getElementById("amazonLink").checked = true;
+  } else {
+    document.getElementById("amazonLink").checked = false;
+  }
+  
   // process form save
   saveButton.addEventListener('click', function(event) {
     const formElement = document.getElementById('configForm'); // Replace 'yourFormId' with your actual form ID
@@ -1008,8 +1028,11 @@ function configModal() {
     // Access form fields and values
     configData.backgroundTheme = formData.get('backgroundTheme');
     configData.imageTimer = formData.get('imageTimer');
+    console.log('googledrive status:',formData.get('googledriveLink'));
     configData.gitLink = formData.get('gitLink');
     configData.googledriveLink = formData.get('googledriveLink'); // checkboxes are null or ""
+    configData.dropboxLink = formData.get('dropboxLink');
+    configData.amazonLink = formData.get('amazonLink');
 
     // TODO error checking
     // TODO save to localstorage
