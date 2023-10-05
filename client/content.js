@@ -996,6 +996,7 @@ function reviewBlacklistBackgrounds() {
     //showImage();
     imageModal.classList.toggle('config-panel-open');
   } else {
+    opensnack('no photos in block list','error');
     return;
   }
 
