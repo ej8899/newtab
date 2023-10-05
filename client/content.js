@@ -532,8 +532,13 @@ function calendarWidget() {
   
   savedEvents.forEach(event => {
     const currentDate = event.date;
+    if (currentDate === getFormattedDate('today')) {
+      // set badge on app panel - we have event today
+      console.log('yes we have event for today');
+      setIconBadge('open-calendar-icon');
+    }
     if (currentDate !== lastLoggedDate) {
-      //console.log(currentDate); // Log the date if it's different
+      console.log(currentDate); // Log the date if it's different
       lastLoggedDate = currentDate; // Update lastLoggedDate
       addDatetoUI(currentDate);
       addDatetoCalendar(currentDate);
@@ -639,17 +644,8 @@ function processUpdates() {
   if (configData.runningDebug) console.log('in processUpdates-newVersion:',configData.newVersion);
   if (!configData.newVersion) return;
   if (configData.runningDebug) console.log('in processUpdates');
-  const iconElement = document.getElementById('open-about-icon');
-  if (iconElement) {
-    // Check if the badge element already exists, and if not, create it
-    let badgeElement = iconElement.querySelector('.badge');
-    if (!badgeElement) {
-      badgeElement = document.createElement('span');
-      badgeElement.className = 'badge';
-      badgeElement.textContent = '*';
-      iconElement.appendChild(badgeElement);
-    }
-  }
+
+  setIconBadge('open-about-icon');
 }
 
 
@@ -1048,4 +1044,38 @@ function setTabTitle(newTitle) {
     return;
   }
   document.title = newTitle + " - " + configData.appName;
+}
+
+
+function getFormattedDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1; // January is 0, so we add 1
+  const day = today.getDate();
+
+  // Convert each part to a string and pad with a leading zero if needed
+  const formattedYear = year.toString();
+  // const formattedMonth = month < 10 ? `0${month}` : month.toString();
+  // const formattedDay = day < 10 ? `0${day}` : day.toString();
+  const formattedMonth = month.toString();
+  const formattedDay = day.toString();
+
+  // Concatenate the parts with '-' to get the desired format
+  const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
+
+  return formattedDate;
+}
+
+function setIconBadge(elementID) {
+  const iconElement = document.getElementById(elementID);
+  if (iconElement) {
+    // Check if the badge element already exists, and if not, create it
+    let badgeElement = iconElement.querySelector('.badge');
+    if (!badgeElement) {
+      badgeElement = document.createElement('span');
+      badgeElement.className = 'badge';
+      badgeElement.textContent = '*';
+      iconElement.appendChild(badgeElement);
+    }
+  }
 }
