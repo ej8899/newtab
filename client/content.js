@@ -124,6 +124,20 @@ document.addEventListener('DOMContentLoaded', function () {
   setInterval(weatherWidget, twentyMinutes);
   setInterval(updateTime, 1000);
 
+  // close panel if open and click outside of it
+  
+  document.addEventListener('click', function (event) {
+    const clickX = event.clientX;
+    const edgeOffset = 300; // 300px is width of app panel
+
+    if (clickX >= edgeOffset) {
+      // Clicked outside of the specified offset, close the panel
+      const appPanel = document.querySelector('.config-panel-open');
+      if (appPanel) appPanel.classList.remove('config-panel-open');
+      console.log('closing:',appPanel)
+    }
+  });
+  
 
   // image info dynamic html show/hide
   const imageInfo = document.querySelector('.image-info');
@@ -904,7 +918,8 @@ function reviewBlacklistBackgrounds() {
     blacklist = JSON.parse(localStorage.getItem("blacklist"));
     blacklistUrls = Object.keys(blacklist);
   } else  {
-    console.log('no photos in blacklist')
+    //console.log('no photos in blacklist')
+    opensnack('no photos in block list','error');
     return;
   }
 
@@ -1074,8 +1089,10 @@ function setIconBadge(elementID) {
     if (!badgeElement) {
       badgeElement = document.createElement('span');
       badgeElement.className = 'badge';
-      badgeElement.textContent = '*';
+      //badgeElement.textContent = '*';
+      badgeElement.innerHTML = '<i class="fa-solid fa-certificate"></i>';
       iconElement.appendChild(badgeElement);
+      //iconElement.parentNode.insertBefore(badgeElement,iconElement);
     }
   }
 }
