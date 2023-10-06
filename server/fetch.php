@@ -1,6 +1,6 @@
 <?php
-// Enable CORS headers to allow requests from your extension's origin
-header("Access-Control-Allow-Origin: *"); // You can replace * with your extension's origin if possible
+// Enable CORS headers to allow requests from  extension's origin
+header("Access-Control-Allow-Origin: *"); // replace * with your extension's origin if possible
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization");
 
@@ -17,18 +17,20 @@ https://erniejohnson.ca/tools/fetch.php?keyword=wolf
 $api_key = $_SERVER['UNSPLASH_API_KEY'];
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : 'nature'; // Default to 'nature' if no keyword is provided
 
-// Set up the API endpoint
-$endpoint = 'https://api.unsplash.com/photos/random';
-$query = http_build_query([
-    'query' => $keyword,
-    'client_id' => $api_key,
-    'orientation' => 'landscape',
-]);
-
-$url = $endpoint . '?' . $query;
+if ($keyword === 'trends') {
+    $endpoint = 'https://api.unsplash.com/topics?client_id=' . $api_key;
+} else {
+    $endpoint = 'https://api.unsplash.com/photos/random';
+    $query = http_build_query([
+        'query' => $keyword,
+        'client_id' => $api_key,
+        'orientation' => 'landscape',
+    ]);
+    $endpoint .= '?' . $query;
+}
 
 // Initialize cURL session
-$ch = curl_init($url);
+$ch = curl_init($endpoint);
 
 // Set cURL options
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -46,7 +48,11 @@ if ($response === false) {
     $data = json_decode($response, true);
 
     // Check if the response contains an image URL
-    if (isset($data['urls']['regular'])) {
+    if (isset($data[0]['id'])) {
+      // Return the Unsplash API data as JSON (topics)
+      header('Content-Type: application/json');
+      echo $response;
+    } elseif (isset($data['urls']['regular'])) {
         // Return the Unsplash API data as JSON
         header('Content-Type: application/json');
         echo $response;
