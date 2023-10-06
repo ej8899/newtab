@@ -124,20 +124,25 @@ document.addEventListener('DOMContentLoaded', function () {
   setInterval(weatherWidget, twentyMinutes);
   setInterval(updateTime, 1000);
 
-  // close panel if open and click outside of it
+  //const openTodoList = document.getElementById('open-tasks-icon');
+
   
+  // close panel if open and click outside of it
   document.addEventListener('click', function (event) {
     const clickX = event.clientX;
     const edgeOffset = 300; // 300px is width of app panel
-
-    if (clickX >= edgeOffset) {
+    
+    if (event.target.id === 'blacklistreviewButton') {
+      return; // Ignore clicks on this button
+    }
+    if (clickX > edgeOffset) {
       // Clicked outside of the specified offset, close the panel
       const appPanel = document.querySelector('.config-panel-open');
       if (appPanel) appPanel.classList.remove('config-panel-open');
+      setTabTitle('reset');
       console.log('closing:',appPanel)
     }
   });
-  
 
   // image info dynamic html show/hide
   const imageInfo = document.querySelector('.image-info');
@@ -147,6 +152,8 @@ document.addEventListener('DOMContentLoaded', function () {
   imageInfo.addEventListener('mouseout', function () {
     imageInfo.classList.remove('active');
   });
+
+  
 });
 
 
@@ -422,25 +429,38 @@ function todoWidget() {
   const taskInput = document.getElementById('task');
   const addTaskButton = document.getElementById('add-task');
   const taskList = document.getElementById('task-list');
+  //taskList.innerHTML='';
 
   // Load tasks from local storage on page load
   const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  if(savedTasks) {
-    savedTasks.forEach(task => addTaskToUI(task));
-  } else {
-    //addTaskToUI("no tasks yet");
+  savedTasks.forEach(task => addTaskToUI(task));
+
+  // checkZeroTasks();
+
+  function checkZeroTasks() {
+    if(savedTasks.length > 0) {
+      taskList.classList.remove('app-hidden');
+      taskList.innerHTML='';
+      savedTasks.forEach(task => addTaskToUI(task));
+    } else {
+      //addTaskToUI({text:'all caught up!'});
+      console.log('no tasks')
+      taskList.classList.add('app-hidden');
+    }
   }
 
+  openTodoList.addEventListener('click', openTasks);
+  function openTasks() {
+    setTabTitle('tasks');
+    todoModal.classList.toggle('config-panel-open');
+  }
 
-  openTodoList.addEventListener('click', function () {
-      setTabTitle('tasks');
-      todoModal.classList.toggle('config-panel-open');
-  });
-
-  closeTodoList.addEventListener('click', function () {
-      setTabTitle('reset');
-      todoModal.classList.toggle('config-panel-open');
-  });
+  closeTodoList.addEventListener('click', closeTasks);
+  function closeTasks() {
+    console.log('close task list button')
+    setTabTitle('reset');
+    todoModal.classList.toggle('config-panel-open');
+  }
 
   addTaskButton.addEventListener('click', addTaskFromInput);
   taskInput.addEventListener('keydown', handleTaskInput);
@@ -452,7 +472,8 @@ function todoWidget() {
     }
   }
 
-  function addTaskFromInput() {
+  function addTaskFromInput(e) {
+    //e.stopPropagation();
     const taskText = taskInput.value.trim();
     if (taskText !== '') {
         const task = { text: taskText, completed: false };
@@ -460,6 +481,7 @@ function todoWidget() {
         localStorage.setItem('tasks', JSON.stringify(savedTasks));
         addTaskToUI(task);
         taskInput.value = '';
+        checkZeroTasks();
     }
 }
 
@@ -479,6 +501,7 @@ function todoWidget() {
               savedTasks.splice(index, 1);
               localStorage.setItem('tasks', JSON.stringify(savedTasks));
               taskItem.remove();
+              checkZeroTasks();
           }
       });
   }
@@ -587,6 +610,8 @@ function calendarWidget() {
         localStorage.setItem('events', JSON.stringify(savedEvents));
         addEventToUI(event);
         eventInput.value = '';
+    } else {
+      addEventToUI({text:'no upcoming events'});
     }
 }
   function addDatetoUI(date) {
@@ -898,6 +923,8 @@ function blacklistBackgrounds() {
       //console.log("Image is already blacklisted.");
       opensnack('already blocked','warn')
     }
+    // refresh the review list
+    reviewBlacklistBackgrounds();
   });
 }
 
@@ -960,6 +987,7 @@ function reviewBlacklistBackgrounds() {
 
   // Add a click event listener to open the modal
   blacklistreviewButton.addEventListener("click", function () {
+    console.log('blacklistreviewButton click')
     // Get the URLs from the blacklist object
     blacklistUrls = Object.keys(blacklist);
     setTabTitle('review blacklisted images');
