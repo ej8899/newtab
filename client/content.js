@@ -582,7 +582,7 @@ function calendarWidget() {
         if (currentDate === getFormattedDate('today')) {
           // set badge on app panel - we have event today
           console.log('yes we have event for today');
-          setIconBadge('open-calendar-icon');
+          setIconBadge('app-calendar');
         }
         if (currentDate !== lastLoggedDate) {
           console.log(currentDate); // Log the date if it's different
@@ -718,7 +718,7 @@ function processUpdates() {
   if (!configData.newVersion) return;
   if (configData.runningDebug) console.log('in processUpdates');
 
-  setIconBadge('open-about-icon');
+  setIconBadge('app-about');
 }
 
 
