@@ -433,9 +433,9 @@ function todoWidget() {
 
   // Load tasks from local storage on page load
   const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  savedTasks.forEach(task => addTaskToUI(task));
+  //savedTasks.forEach(task => addTaskToUI(task));
 
-  // checkZeroTasks();
+  checkZeroTasks();
 
   function checkZeroTasks() {
     if(savedTasks.length > 0) {
@@ -538,6 +538,7 @@ function calendarWidget() {
   const closeCalendarModal = document.getElementById('close-calendar-modal');
   const calendarModal = document.getElementById('calendar-modal');
   const calendar = document.getElementById('calendar');
+ 
 
   openCalendarLink.addEventListener('click', function () {
       // Show the calendar modal
@@ -566,22 +567,35 @@ function calendarWidget() {
     return dateA - dateB;
   });
   let lastLoggedDate = null; 
-  
-  savedEvents.forEach(event => {
-    const currentDate = removePaddingFromDate(event.date);
-    if (currentDate === getFormattedDate('today')) {
-      // set badge on app panel - we have event today
-      console.log('yes we have event for today');
-      setIconBadge('open-calendar-icon');
+
+  checkZeroEvents();
+
+  function checkZeroEvents() {
+    if(savedEvents.length > 0) {
+      eventList.classList.remove('app-hidden');
+      eventList.innerHTML='';
+      //savedEvents.forEach(task => addEventToUI(task));
+      savedEvents.forEach(event => {
+        const currentDate = removePaddingFromDate(event.date);
+        if (currentDate === getFormattedDate('today')) {
+          // set badge on app panel - we have event today
+          console.log('yes we have event for today');
+          setIconBadge('open-calendar-icon');
+        }
+        if (currentDate !== lastLoggedDate) {
+          console.log(currentDate); // Log the date if it's different
+          lastLoggedDate = currentDate; // Update lastLoggedDate
+          addDatetoUI(currentDate);
+          addDatetoCalendar(currentDate);
+        }
+        addEventToUI(event);
+      });
+    } else {
+      //addTaskToUI({text:'all caught up!'});
+      console.log('no tasks')
+      eventList.classList.add('app-hidden');
     }
-    if (currentDate !== lastLoggedDate) {
-      console.log(currentDate); // Log the date if it's different
-      lastLoggedDate = currentDate; // Update lastLoggedDate
-      addDatetoUI(currentDate);
-      addDatetoCalendar(currentDate);
-    }
-    addEventToUI(event);
-  });
+  }
 
   addEventButton.addEventListener('click', addEventFromInput);
   eventInput.addEventListener('keydown', handleEventInput);
@@ -610,6 +624,23 @@ function calendarWidget() {
         localStorage.setItem('events', JSON.stringify(savedEvents));
         addEventToUI(event);
         eventInput.value = '';
+checkZeroEvents();
+        // duplicate:
+        // savedEvents.forEach(event => {
+        //   const currentDate = removePaddingFromDate(event.date);
+        //   if (currentDate === getFormattedDate('today')) {
+        //     // set badge on app panel - we have event today
+        //     console.log('yes we have event for today');
+        //     setIconBadge('open-calendar-icon');
+        //   }
+        //   if (currentDate !== lastLoggedDate) {
+        //     console.log(currentDate); // Log the date if it's different
+        //     lastLoggedDate = currentDate; // Update lastLoggedDate
+        //     addDatetoUI(currentDate);
+        //     addDatetoCalendar(currentDate);
+        //   }
+        //   addEventToUI(event);
+        // });
     } else {
       addEventToUI({text:'no upcoming events'});
     }
@@ -638,6 +669,7 @@ function calendarWidget() {
               savedEvents.splice(index, 1);
               localStorage.setItem('events', JSON.stringify(savedEvents));
               eventItem.remove();
+              checkZeroEvents();
           }
       });
   }
