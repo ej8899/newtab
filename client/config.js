@@ -14,7 +14,6 @@ let configData = {
   showTasks: false, // TODO - implement this feature
   showNotes: false, // TODO - implement this feature
   showSearch: true, // TODO - implement this feature
-  showTopten: true, // TODO - implement this feature (top 10 exists, just conditionally render)
   appBarSticky: true, // TODO - implement this -- true is app bar always open, otherwise slide open when mouse is 50px(?) within left edge
 
   widgetTransparency: 0.5, // TODO - global for the transparency level of all widgets / see CSS vars for now
@@ -23,7 +22,10 @@ let configData = {
   newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
 
 
+
+
   // TODO items that are done:
+  showTopten: true, // TODO - implement this feature (top 10 exists, just conditionally render)
   backgroundTheme: 'meetguinness',
   imageTimer: 15,  // changes every x minutes
   clockType: null, // null for 12h format, "on" for 24h format

@@ -174,12 +174,26 @@ function loadConfig() {
     if(configData.runningDebug) console.log("loading config data...");
     console.log('new config data:',configData)
   }
+  applyConfig();
 }
 
 function saveConfig() {
   if(configData.runningDebug) console.log('config data saving: ',configData)
   localStorage.setItem('configData', JSON.stringify(configData));
   opensnack('saved','success');
+  applyConfig();
+}
+
+//
+// any config changes, reload applicable widgets//
+function applyConfig() {
+  if (configData.showTopten != null) {
+    const widget = document.querySelector('#top10Container');
+    widget.classList.remove("app-hidden");
+  } else {
+    const widget = document.querySelector('#top10Container');
+    widget.classList.add("app-hidden");
+  }
 }
 
 //
@@ -1092,6 +1106,9 @@ function configModal() {
     document.getElementById("amazonLink").checked = false;
   }
   
+  document.getElementById("topTen").checked = configData.showTopten || false;
+
+
   document.getElementById("clockType").checked = configData.clockType || false;
   
   // process form save
@@ -1109,7 +1126,8 @@ function configModal() {
     configData.dropboxLink = formData.get('dropboxLink');
     configData.amazonLink = formData.get('amazonLink');
     configData.clockType = formData.get('clockType');
-console.log('clockType:',formData.get('clockType'));
+    configData.showTopten =  formData.get('topTen');
+
     // TODO error checking
     // TODO save to localstorage
     saveConfig();
