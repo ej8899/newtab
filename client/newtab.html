@@ -153,7 +153,7 @@
         <label for="imageTimer">Image Timer (minutes):</label>
         <input type="text" id="imageTimer" name="imageTimer" value="5"><br><br>
 
-        Show Apps:
+        Show Links:
         <div class="config-showapps">
           <!-- GitHub Link -->
           <span class="config-showapps-item">
@@ -178,6 +178,22 @@
           </span>
         </div>
         
+        Show Apps & Widgets:
+        <div class="config-showapps">
+          <!-- top 10 (link history) -->
+          <span class="config-showapps-item">
+            <input type="checkbox" id="topTen" name="topTen" checked>
+            <label for="topTen">Show Top 10</label> 
+          </span>
+        </div>
+
+        <div class="checkbox_item citem_3">
+          <label class="checkbox_wrap">Clock:
+            <input id="clockType" type="checkbox" name="clockType" class="checkbox_inp">
+            <span class="checkbox_mark"></span>
+          </label>
+        </div>
+
       </form>
       <button id="saveConfig" class="task-button">Save</button>
     </div>

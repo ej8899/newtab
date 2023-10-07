@@ -1091,7 +1091,8 @@ function configModal() {
   } else {
     document.getElementById("amazonLink").checked = false;
   }
-  document.getElementById("clockType").checked = configData.clockType;
+  
+  document.getElementById("clockType").checked = configData.clockType || false;
   
   // process form save
   saveButton.addEventListener('click', function(event) {
