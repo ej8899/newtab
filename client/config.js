@@ -10,7 +10,6 @@ let configData = {
   backgroundStyle: 'landscape', // TODO - implement this feature
   showIconLabels: true, // TODO - implement this feature (label under the app bar icons)
   showClock: true, // TODO - implement this feature
-  showWeather: true, // TODO - implement this feature
   showTasks: false, // TODO - implement this feature
   showNotes: false, // TODO - implement this feature
   showSearch: true, // TODO - implement this feature
@@ -22,15 +21,15 @@ let configData = {
   newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
 
 
-
+  showWeather: true, // TODO - implement this feature
 
   // TODO items that are done:
-  showTopten: true, // TODO - implement this feature (top 10 exists, just conditionally render)
-  backgroundTheme: 'meetguinness',
+  showTopten: true, 
+  backgroundTheme: 'dogs',
   imageTimer: 15,  // changes every x minutes
   clockType: null, // null for 12h format, "on" for 24h format
-  gitLink: '',  
-  calendarLink: '',  // TODO - if blank show basic calendar, otherwise 'none' for no calendar, or URL to google etc.
+  gitLink: '',
+  calendarLink: '',
   dropboxLink: 'yes',
   amazonLink: 'yes',
   googledriveLink: '',

@@ -194,6 +194,14 @@ function applyConfig() {
     const widget = document.querySelector('#top10Container');
     widget.classList.add("app-hidden");
   }
+
+  if (configData.showWeather != null) {
+    const widget = document.querySelector('#wxinfo');
+    widget.classList.remove("app-hidden");
+  } else {
+    const widget = document.querySelector('#wxinfo');
+    widget.classList.add("app-hidden");
+  }
 }
 
 //
@@ -1107,9 +1115,8 @@ function configModal() {
   }
   
   document.getElementById("topTen").checked = configData.showTopten || false;
-
-
   document.getElementById("clockType").checked = configData.clockType || false;
+  document.getElementById("weatherApp").checked = configData.showWeather || false;
   
   // process form save
   saveButton.addEventListener('click', function(event) {
@@ -1127,6 +1134,7 @@ function configModal() {
     configData.amazonLink = formData.get('amazonLink');
     configData.clockType = formData.get('clockType');
     configData.showTopten =  formData.get('topTen');
+    configData.showWeather =  formData.get('weatherApp');
 
     // TODO error checking
     // TODO save to localstorage

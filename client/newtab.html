@@ -55,7 +55,7 @@
         
         <div id="clock-time" class="clock"></div>
 
-        <div class="wxinfo">
+        <div class="wxinfo" id="wxinfo">
           <div class="weathercon"><i class='fas fa-sun' style='color: #d36326;'></i></div>
           <h2 class="location">fetching weather</h2>
           <h2>&nbsp;&nbsp;</h2>
@@ -183,7 +183,12 @@
           <!-- top 10 (link history) -->
           <span class="config-showapps-item">
             <input type="checkbox" id="topTen" name="topTen" checked>
-            <label for="topTen">Show Top 10</label> 
+            <label for="topTen">Top 10 History</label> 
+          </span>
+          <!-- show weather -->
+          <span class="config-showapps-item">
+            <input type="checkbox" id="weatherApp" name="weatherApp" checked>
+            <label for="weatherApp">Weather</label> 
           </span>
         </div>
 
