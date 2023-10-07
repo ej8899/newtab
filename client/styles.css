@@ -1349,3 +1349,23 @@ input[type=radio][type=checkbox]:not(:disabled):after {
 .checkbox_item.citem_3 .checkbox_wrap .checkbox_inp:checked ~ .checkbox_mark:before{
 	left: 100px;
 }
+
+.app-socialblock {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #a7dbd8;
+  background-color: yellow;
+  padding:10px;
+  margin-bottom: 10px;
+  margin-top:10px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.socicons {
+  font-size: 26px;
+  /* text-shadow: 2px 4px 0px rgba(0, 0, 0, 1); */
+  color:#a7dbd8;
+  color:black;
+  padding:5px;
+}

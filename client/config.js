@@ -21,10 +21,11 @@ let configData = {
   newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
 
 
-  showWeather: true, // TODO - implement this feature
+  
 
-  // TODO items that are done:
+  // items that are implemented in settings switches:
   showTopten: true, 
+  showWeather: true,
   backgroundTheme: 'dogs',
   imageTimer: 15,  // changes every x minutes
   clockType: null, // null for 12h format, "on" for 24h format
