@@ -3,7 +3,7 @@ loadConfig();
 
 
 // snackbar open handler
-// TODO implement text and style
+// TODO implement  style
 function opensnack(text,style) {
   let snackBar = document.getElementById("snackbar");
   if (text) snackBar.innerText = text;
@@ -550,9 +550,7 @@ function aboutModal() {
       aboutModal.classList.toggle('config-panel-open');
   });
 
-  // TODO show app version
   // TODO if version available > this one, show available version
-  // TODO show change log (always)
 };
 
 //
@@ -825,6 +823,7 @@ function checkForUpdatesOncePerDay(jsonData, configData) {
 //
 //
 function weatherWidget() {
+  // TODO check our cache in localstorage for valid weather object with current date
   navigator.geolocation.getCurrentPosition(wxSuccess, wxError);
 }
 
@@ -855,7 +854,7 @@ function weather(lat, long) {
       return response.json();
     })
     .then(data => {
-      display(data);
+      displayWx(data);
     })
     .catch(error => {
       console.error('Error:', error);
@@ -863,8 +862,21 @@ function weather(lat, long) {
 }
 
 
-function display(data) {
+function displayWx(data) {
   console.log("WEATHER:",data)
+  // TODO - capture invalid response (lat: 35, lon: 139)
+  if(data.coord.lon === 139 && data.coord.lat === 35) {
+    console.log('weatherwidget: error receiving correct data');
+    // TODO count failures - if too many in a row, just fail the process until app reset (kill the initial setInterval too!)
+    // TODO create a delay then grab lat/long again and try once more?
+    setTimeout(function() {
+      console.log("retry entire weather fetch w new coords");
+      weatherWidget();
+    }, 5000);
+    return;
+  } else {
+    // TODO reset the weather failure counter as we must have valid coords returned in wx fetch
+  }
   let city = data.name.toUpperCase();
   let temp =
     Math.round(data.main.temp_max) +
@@ -953,7 +965,7 @@ function blacklistBackgrounds() {
     const computedStyle = getComputedStyle(mainElement);
     let backgroundImageUrl = computedStyle.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
     backgroundImageUrl = stripQueryParams(backgroundImageUrl);
-    // TODO - strip the other stuff off this - should be just this:
+    // above strips the unsplash url to clean it and simplify
     // https://images.unsplash.com/photo-1612273320616-3498071b307d
     // and not above, plus this:
     // ?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1MDM5Mzh8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTU2ODkzODR8&ixlib=rb-4.0.3&q=85
@@ -1154,7 +1166,6 @@ function configModal() {
     }
 
     // TODO error checking
-    // TODO save to localstorage
     saveConfig();
   });
 

@@ -1354,7 +1354,7 @@ input[type=radio][type=checkbox]:not(:disabled):after {
   border: 2px solid black;
   border-radius: 5px;
   background-color: #a7dbd8;
-  background-color: yellow;
+  background-color:#fd0;
   padding:10px;
   margin-bottom: 10px;
   margin-top:10px;
@@ -1385,4 +1385,25 @@ input[type=radio][type=checkbox]:not(:disabled):after {
 }
 .settings-input-fullwidth {
   width: 100%;
+}
+
+.savebutton-wrapper {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width:100%;
+  padding-top: 10px;
+  margin-top: 10px;
+  position: relative;
+}
+.savebutton-wrapper:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  width: 80%;
+  margin: auto;
+  border-top: 2px solid purple;
 }
