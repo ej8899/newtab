@@ -1383,3 +1383,6 @@ input[type=radio][type=checkbox]:not(:disabled):after {
 .formtable td {
   text-align: center;
 }
+.settings-input-fullwidth {
+  width: 100%;
+}
