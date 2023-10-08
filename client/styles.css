@@ -1407,3 +1407,9 @@ input[type=radio][type=checkbox]:not(:disabled):after {
   margin: auto;
   border-top: 2px solid purple;
 }
+
+#erasenotes-confirmation {
+  z-index:2;
+}
+
+

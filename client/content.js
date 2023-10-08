@@ -422,13 +422,37 @@ function notesWidget() {
   }
 
   // Function to erase notes
+  const noteButtons = document.getElementById('note-buttons'); // copy/erase notes panel
+  const confirmErase = document.getElementById('confirm-erase'); // confirm erase panel
   function eraseNotes() {
-    // const notesTextArea = document.getElementById('text');
-    if (confirm('Are you sure you want to erase all notes?')) {
-        notesTextarea.value = '';
-        updateNotes();
-    }
+    // hide note-buttons div
+    noteButtons.classList.add("app-hidden");
+    noteButtons.classList.remove("app-available");
+
+    // show confirm-erase div 
+    confirmErase.classList.add("app-available");
+    confirmErase.classList.remove("app-hidden");
   }
+
+  const noEraseButton = document.getElementById('noerase');
+  const yesEraseButton = document.getElementById('yeserase');
+  noEraseButton.addEventListener('click', () => {
+    console.log("no button")
+    noteButtons.classList.add("app-available");
+    noteButtons.classList.remove("app-hidden");
+    confirmErase.classList.add("app-hidden");
+    confirmErase.classList.remove("app-available");
+  });
+  yesEraseButton.addEventListener('click', () => {
+    console.log("yes button");
+    opensnack('erased','warn');
+    notesTextarea.value = '';
+    updateNotes();
+    noteButtons.classList.add("app-available");
+    noteButtons.classList.remove("app-hidden");
+    confirmErase.classList.add("app-hidden");
+    confirmErase.classList.remove("app-available");
+  });
 
   // Event listener to save notes in local storage
   notesTextarea.addEventListener('input', function () {
