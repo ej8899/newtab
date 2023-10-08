@@ -1095,8 +1095,6 @@ function configModal() {
   document.querySelectorAll('input[type="radio"][name="timer-group"]').forEach(function (radioButton) {
     if (parseInt(radioButton.value, 10) === configData.imageTimer) {
       radioButton.checked = true;
-    } else {
-      radioButton.checked = false;
     }
   });
 
