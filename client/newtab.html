@@ -162,10 +162,23 @@
         <input type="text" id="backgroundTheme" name="backgroundTheme" value=""><br><br>
 
         <!-- Image Timer -->
-        <label for="imageTimer">Image Timer (minutes):</label>
-        <input type="text" id="imageTimer" name="imageTimer" value="5"><br><br>
-
-        Show Links:
+        Change Image Time (minutes):
+        <table class="formtable">
+          <tr>
+            <td>15m</td>
+            <td>30m</td>
+            <td>60m</td>
+            <td>120m</td>
+          </tr>
+          <tr>
+            <td><input type="radio" id="r1" name="timer-group" value="15"></td>
+            <td><input type="radio" id="r2" name="timer-group" value="30"></td>
+            <td><input type="radio" id="r3" name="timer-group" value="60" checked="checked"></td>
+            <td><input type="radio" id="r4" name="timer-group" value="120"></td>
+          </tr>
+        </table>
+          
+        Show App Links:
         <div class="config-showapps">
           <!-- GitHub Link -->
           <span class="config-showapps-item">

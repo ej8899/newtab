@@ -1369,3 +1369,17 @@ input[type=radio][type=checkbox]:not(:disabled):after {
   color:black;
   padding:5px;
 }
+
+
+
+.formtable {
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  padding:10px;
+  margin-bottom: 10px;
+}
+.formtable td {
+  text-align: center;
+}

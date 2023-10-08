@@ -1088,7 +1088,18 @@ function configModal() {
 
   // populate the form
   document.getElementById("backgroundTheme").value = configData.backgroundTheme;
-  document.getElementById("imageTimer").value = configData.imageTimer;
+  //document.getElementById("imageTimer").value = configData.imageTimer;
+
+  // deal with the image change timer (default to 60mins)
+  document.querySelector('input[type="radio"][name="timer-group"][value="60"]').checked = true;
+  document.querySelectorAll('input[type="radio"][name="timer-group"]').forEach(function (radioButton) {
+    if (parseInt(radioButton.value, 10) === configData.imageTimer) {
+      radioButton.checked = true;
+    } else {
+      radioButton.checked = false;
+    }
+  });
+
 
   if(configData.gitLink !== null) {
     document.getElementById("gitLink").checked = true;
@@ -1126,7 +1137,7 @@ function configModal() {
 
     // Access form fields and values
     configData.backgroundTheme = formData.get('backgroundTheme');
-    configData.imageTimer = formData.get('imageTimer');
+    //configData.imageTimer = formData.get('imageTimer');
    // console.log('googledrive status:',formData.get('googledriveLink'));
     configData.gitLink = formData.get('gitLink');
     configData.googledriveLink = formData.get('googledriveLink'); // checkboxes are null or ""
@@ -1135,6 +1146,14 @@ function configModal() {
     configData.clockType = formData.get('clockType');
     configData.showTopten =  formData.get('topTen');
     configData.showWeather =  formData.get('weatherApp');
+
+    const selectedValue = document.querySelector('input[type="radio"][name="timer-group"]:checked').value;
+    if (selectedValue) {
+      const selectedNumber = parseInt(selectedValue, 10);
+      if (!isNaN(selectedNumber)) {
+        configData.imageTimer = selectedNumber;
+      }
+    }
 
     // TODO error checking
     // TODO save to localstorage
