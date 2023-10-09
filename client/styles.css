@@ -675,9 +675,6 @@ TO-DO LIST WIDGET STYLES
 
 
 
-
-
-
 h2 {
   font-family: var(--font1);
   font-size: 1.2rem;
@@ -1336,12 +1333,15 @@ input[type=radio][type=checkbox]:not(:disabled):after {
 .checkbox_item.citem_3 .checkbox_wrap .checkbox_mark:before{
 	content: "12h";
 	background: #f0f0f0;
+  padding-top:2px;
 }
 
 .checkbox_item.citem_3 .checkbox_wrap .checkbox_mark:after{
 	content: "24h";
 	left: -100px;
-	background: #34bfa3;
+	background: #3f00ff;
+  color: white;
+  padding-top:2px;
 }
 
 .checkbox_item.citem_3 .checkbox_wrap .checkbox_inp:checked ~ .checkbox_mark:after{
