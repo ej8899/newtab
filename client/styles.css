@@ -348,7 +348,9 @@ textarea {
   display:flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
+
 
 /*
 TO-DO LIST WIDGET STYLES
@@ -1415,3 +1417,6 @@ input[type=radio][type=checkbox]:not(:disabled):after {
 }
 
 
+.confirm-sure {
+  font-size:18px;
+}
