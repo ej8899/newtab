@@ -1102,6 +1102,7 @@ function configModal() {
   const openConfigIcon = document.getElementById("open-config-icon");
   const closeModal = document.getElementById("closeConfigModal");
   const saveButton = document.getElementById('saveConfig');
+  const configForm = document.getElementById('configForm');
 
   openConfigIcon.addEventListener('click', () => {
     //configModal.style.display = 'block';
@@ -1155,13 +1156,22 @@ function configModal() {
   document.getElementById("clockType").checked = configData.clockType || false;
   document.getElementById("weatherApp").checked = configData.showWeather || false;
   
-  // process form save
-  saveButton.addEventListener('click', function(event) {
+  saveButton.addEventListener('click', formClickHandler);
+  configForm.addEventListener('keypress',function(event) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+      event.preventDefault();
+      formClickHandler();
+    }
+  });
+
+
+  //saveButton.addEventListener('click', function(event) {
+  function formClickHandler() {
     const formElement = document.getElementById('configForm'); // Replace 'yourFormId' with your actual form ID
     const formData = new FormData(formElement);
     let fetchNewImage = false;
 
-    event.preventDefault();
+    
 
     // Access form fields and values
     const newBackgroundTheme = sanitizeInput(formData.get('backgroundTheme'));
@@ -1193,7 +1203,8 @@ function configModal() {
     if(fetchNewImage) {
       fetchDataAndUpdateStorage(true);
     }
-  });
+//  });
+  }
 
 }
 
