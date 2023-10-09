@@ -297,8 +297,7 @@ function fetchTopTen() {
         const badge = document.createElement('span');
         badge.classList.add('block-badge');
         badge.innerHTML = '<i class="fa-solid fa-minus fa-2xs"></i>';
-       
-       
+
         // create a container div for each website block
         const websiteContainer = document.createElement("div");
         websiteContainer.className = "website-item"; 
@@ -585,7 +584,6 @@ function calendarWidget() {
   const closeCalendarModal = document.getElementById('close-calendar-modal');
   const calendarModal = document.getElementById('calendar-modal');
   const calendar = document.getElementById('calendar');
- 
 
   openCalendarLink.addEventListener('click', function () {
       // Show the calendar modal
@@ -597,8 +595,6 @@ function calendarWidget() {
       setTabTitle('reset');
       calendarModal.classList.toggle('config-panel-open');
   });
-
-  
 
   // process adding events:
   const eventInput = document.getElementById('event');
@@ -671,23 +667,7 @@ function calendarWidget() {
         localStorage.setItem('events', JSON.stringify(savedEvents));
         addEventToUI(event);
         eventInput.value = '';
-checkZeroEvents();
-        // duplicate:
-        // savedEvents.forEach(event => {
-        //   const currentDate = removePaddingFromDate(event.date);
-        //   if (currentDate === getFormattedDate('today')) {
-        //     // set badge on app panel - we have event today
-        //     console.log('yes we have event for today');
-        //     setIconBadge('open-calendar-icon');
-        //   }
-        //   if (currentDate !== lastLoggedDate) {
-        //     console.log(currentDate); // Log the date if it's different
-        //     lastLoggedDate = currentDate; // Update lastLoggedDate
-        //     addDatetoUI(currentDate);
-        //     addDatetoCalendar(currentDate);
-        //   }
-        //   addEventToUI(event);
-        // });
+        checkZeroEvents();
     } else {
       addEventToUI({text:'no upcoming events'});
     }

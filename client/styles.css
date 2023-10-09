@@ -685,6 +685,7 @@ h2 {
 
 .task-button{
   background-color: #a7dbd8;
+  background-color: orange;
   border: 2px solid black;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -703,6 +704,7 @@ h2 {
 
 .task-button:hover {
   background-color: orange;
+  background-color: teal;;
 }
 
 
