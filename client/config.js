@@ -20,9 +20,6 @@ let configData = {
   vignetteLevel: 0, // TODO - this should adjust the opacity of our vignette mask / see CSS vars for now
   newTabs: false,  // true is any bookmarks and searches open in new tab, otherwise this tab // TODO - implement htis
 
-
-  
-
   // items that are implemented in settings switches:
   showTopten: true, 
   showWeather: true,
