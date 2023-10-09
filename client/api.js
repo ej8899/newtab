@@ -11,7 +11,7 @@ function cropDescription(description, maxLength) {
 
 
 // Function to fetch data and handle storage
-function fetchDataAndUpdateStorage() {
+function fetchDataAndUpdateStorage(force) {
   console.log("background search word:",configData.backgroundTheme);
   if (configData.backgroundTheme === 'meetguinness') {
     fetch(`https://erniejohnson.ca/apps/yourtab/meetguinness/privatephotos.php`)
@@ -33,21 +33,24 @@ function fetchDataAndUpdateStorage() {
     })
     .catch((err) => console.error(err));
   } else {
-      // Check if data exists in local storage and the timestamp is within the last 60 minutes
       const storedData = localStorage.getItem('imageData');
       const storedTimestamp = localStorage.getItem('timestamp');
       const currentTimestamp = new Date().getTime();
+      // if we haven't set the 'force' input param to true, let's check for cache - but
+      // if force is true, we'll just get new image regardless
+      if(!force) {
+        // Check if data exists in local storage and the timestamp is within the last 60 minutes
+        if (storedData && storedTimestamp) {
+          const timeDiff = currentTimestamp - parseInt(storedTimestamp, 10);
+          const minutesPassed = timeDiff / (1000 * 60);
 
-      if (storedData && storedTimestamp) {
-        const timeDiff = currentTimestamp - parseInt(storedTimestamp, 10);
-        const minutesPassed = timeDiff / (1000 * 60);
-
-        if (minutesPassed < configData.imageTimer) {
-          // Data is recent, use it
-          if (configData.runningDebug) console.log('using: cached image data');
-          const imageResponse = JSON.parse(storedData);
-          handleImageData(imageResponse);
-          return;
+          if (minutesPassed < configData.imageTimer) {
+            // Data is recent, use it
+            if (configData.runningDebug) console.log('using: cached image data');
+            const imageResponse = JSON.parse(storedData);
+            handleImageData(imageResponse);
+            return;
+          }
         }
       }
     // Fetch new data if no data is present or it's outdated
@@ -85,8 +88,9 @@ function handleImageData(imageResponse) {
     if (!imageURL) imageURL = "default.jpg";
     mainElement.style.backgroundImage = `url(${imageURL})`;
 
-    const imageInfoDiv = document.querySelector('.main-content');
-
+    const imageInfoDiv = document.querySelector('.image-info-content');
+    // erase any prior content
+    imageInfoDiv.innerHTML = "";
     // Assuming you have the following variables
     const imageDescription = imageResponse.description;
     const imageAuthor = 'by: ' + imageResponse.user.name;

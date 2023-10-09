@@ -1013,6 +1013,9 @@ function blacklistBackgrounds() {
     } else {
       opensnack('already blocked','warn')
     }
+    // grab a new bg image
+    fetchDataAndUpdateStorage(true); // true param forces a refresh regardless of timer
+
     // refresh the review list
     //reviewBlacklistBackgrounds();
   });
@@ -1167,12 +1170,19 @@ function configModal() {
   saveButton.addEventListener('click', function(event) {
     const formElement = document.getElementById('configForm'); // Replace 'yourFormId' with your actual form ID
     const formData = new FormData(formElement);
+    let fetchNewImage = false;
+
     event.preventDefault();
 
     // Access form fields and values
-    configData.backgroundTheme = formData.get('backgroundTheme');
-    //configData.imageTimer = formData.get('imageTimer');
-   // console.log('googledrive status:',formData.get('googledriveLink'));
+    const newBackgroundTheme = formData.get('backgroundTheme');
+    // different search word entered, we'll need to force refresh
+    if(newBackgroundTheme != configData.backgroundTheme) {
+      fetchNewImage = true;
+      configData.backgroundTheme = newBackgroundTheme;
+    }
+    // configData.backgroundTheme = formData.get('backgroundTheme');
+    
     configData.gitLink = formData.get('gitLink');
     configData.googledriveLink = formData.get('googledriveLink'); // checkboxes are null or ""
     configData.dropboxLink = formData.get('dropboxLink');
@@ -1191,6 +1201,9 @@ function configModal() {
 
     // TODO error checking
     saveConfig();
+    if(fetchNewImage) {
+      fetchDataAndUpdateStorage(true);
+    }
   });
 
 }
