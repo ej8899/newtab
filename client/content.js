@@ -522,7 +522,8 @@ function todoWidget() {
 
   function addTaskFromInput(e) {
     //e.stopPropagation();
-    const taskText = taskInput.value.trim();
+    let taskText = taskInput.value.trim();
+    taskText = sanitizeInput(taskText);
     if (taskText !== '') {
         const task = { text: taskText, completed: false };
         savedTasks.push(task);
@@ -656,9 +657,10 @@ function calendarWidget() {
   }
 
   function addEventFromInput() {
-    const eventText = eventInput.value.trim();
+    let eventText = eventInput.value.trim();
     let eventDate = dateInput.value.trim();
-
+    eventText = sanitizeInput(eventText);
+    
     // default to today if no date is selected
     if (!eventDate) {
       const today = new Date();
@@ -1162,7 +1164,7 @@ function configModal() {
     event.preventDefault();
 
     // Access form fields and values
-    const newBackgroundTheme = formData.get('backgroundTheme');
+    const newBackgroundTheme = sanitizeInput(formData.get('backgroundTheme'));
     // different search word entered, we'll need to force refresh
     if(newBackgroundTheme != configData.backgroundTheme) {
       fetchNewImage = true;
@@ -1249,4 +1251,13 @@ function removePaddingFromDate(dateString) {
   const formattedDate = `${formattedYear}-${formattedMonth}-${formattedDay}`;
   
   return formattedDate;
+}
+
+function sanitizeInput(input) {
+  // Remove HTML tags
+  const sanitizedText = input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // Remove JavaScript event handlers (e.g., onclick, onmouseover)
+  const sanitizedTextWithoutEvents = sanitizedText.replace(/on\w+="[^"]*"/g, "");
+  
+  return sanitizedTextWithoutEvents;
 }
