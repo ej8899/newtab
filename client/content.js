@@ -601,19 +601,24 @@ function calendarWidget() {
   const dateInput = document.getElementById('date');
   const addEventButton = document.getElementById('add-event');
   const eventList = document.getElementById('event-list');
-
-  // Load events from local storage on page load
-  const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
-  savedEvents.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateA - dateB;
-  });
   let lastLoggedDate = null; 
+  let savedEvents = {};
+
+  
+  
 
   checkZeroEvents();
 
   function checkZeroEvents() {
+    lastLoggedDate = null;
+    // Load events from local storage on page load
+    savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+    savedEvents.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA - dateB;
+    });
+
     if(savedEvents.length > 0) {
       eventList.classList.remove('app-hidden');
       eventList.innerHTML='';
@@ -653,6 +658,8 @@ function calendarWidget() {
   function addEventFromInput() {
     const eventText = eventInput.value.trim();
     let eventDate = dateInput.value.trim();
+
+    // default to today if no date is selected
     if (!eventDate) {
       const today = new Date();
       const year = today.getFullYear();
@@ -669,7 +676,7 @@ function calendarWidget() {
         eventInput.value = '';
         checkZeroEvents();
     } else {
-      addEventToUI({text:'no upcoming events'});
+      //addEventToUI({text:'no upcoming events'});
     }
 }
   function addDatetoUI(date) {
@@ -720,9 +727,9 @@ function calendarWidget() {
         dataDay === day &&
         dataYear === year
       ) {
-        // Found the matching element
+        // Found  matching element
         targetElement = dayElement;
-        // Break out of the loop since you found the target
+        // Break out of the loop -> found the target
         return;
       }
     });
