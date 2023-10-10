@@ -1246,6 +1246,7 @@ function getFormattedDate() {
 }
 
 function setIconBadge(elementID,status) {
+  console.log('setting badge on ',elementID)
   const iconElement = document.getElementById(elementID);
   if (iconElement) {
     // Check if the badge element already exists, and if not, create it
