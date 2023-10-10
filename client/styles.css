@@ -1438,7 +1438,7 @@ https://webdesign.tutsplus.com/css-tooltip-magic--cms-28082t
 [tooltip]::before,
 [tooltip]::after {
   text-transform: none; /* opinion 2 */
-  font-size: 1em; /* opinion 3 */
+  font-size: 0.9em; /* opinion 3 */
   line-height: 1;
   user-select: none;
   pointer-events: none;
