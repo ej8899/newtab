@@ -318,17 +318,17 @@ function fetchTopTen() {
             websiteLink.appendChild(websiteImage);
           websiteContainer.appendChild(websiteTitle);
           websiteContainer.appendChild(badge);
-   
+
          // top ten dynamic html show/hide (blacklist badge)
          //const badgeToggle= document.querySelector('.website-item');
-         websiteContainer.addEventListener('mouseover', function () {
-           badge.classList.add('block-badge-active');
-         });
- 
-         websiteContainer.addEventListener('mouseout', function () {
-           badge.classList.remove('block-badge-active');
-         });
-       
+          websiteContainer.addEventListener('mouseover', function () {
+            badge.classList.add('block-badge-active');
+          });
+
+          websiteContainer.addEventListener('mouseout', function () {
+            badge.classList.remove('block-badge-active');
+          });
+
         // Attach an event listener to the badge to handle blacklist functionality
         badge.addEventListener('click', function (event) {
           event.stopPropagation(); // Prevent the link from being triggered
@@ -338,8 +338,10 @@ function fetchTopTen() {
             blacklist.push(website.url);
             localStorage.setItem('browserhistoryBlacklist', JSON.stringify(blacklist));
             console.log(`${website.url} has been added to the blacklist.`);
+            fetchTopTen();
           } else {
             console.log(`${website.url} is already in the blacklist.`);
+            fetchTopTen();
           }
         });
       
