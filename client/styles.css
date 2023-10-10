@@ -1508,7 +1508,7 @@ https://webdesign.tutsplus.com/css-tooltip-magic--cms-28082t
 /* KEYFRAMES */
 @keyframes tooltips-horz {
   to {
-    opacity: .9;
+    opacity: 1.0;
     transform: translate(0, -50%);
   }
 }

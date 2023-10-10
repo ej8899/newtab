@@ -642,6 +642,7 @@ function calendarWidget() {
     } else {
       //addTaskToUI({text:'all caught up!'});
       console.log('no tasks')
+      setIconBadge('app-calendar',"remove");
       eventList.classList.add('app-hidden');
     }
   }
@@ -1244,7 +1245,7 @@ function getFormattedDate() {
   return formattedDate;
 }
 
-function setIconBadge(elementID) {
+function setIconBadge(elementID,status) {
   const iconElement = document.getElementById(elementID);
   if (iconElement) {
     // Check if the badge element already exists, and if not, create it
@@ -1256,6 +1257,9 @@ function setIconBadge(elementID) {
       badgeElement.innerHTML = '<i class="fa-solid fa-certificate"></i>';
       iconElement.appendChild(badgeElement);
       //iconElement.parentNode.insertBefore(badgeElement,iconElement);
+    }
+    if (status === 'remove') {
+      badgeElement.innerHTML="";
     }
   }
 }
