@@ -619,7 +619,7 @@ function calendarWidget() {
       const dateB = new Date(b.date);
       return dateA - dateB;
     });
-
+    addDatetoCalendar('2023-01-01',true); // erase all marked dates
     if(savedEvents.length > 0) {
       eventList.classList.remove('app-hidden');
       eventList.innerHTML='';
@@ -710,7 +710,7 @@ function calendarWidget() {
       });
   }
 
-  function addDatetoCalendar(currentDate) {
+  function addDatetoCalendar(currentDate,remove) {
     const dayElements = document.querySelectorAll('.day');
     let targetElement = null;
 
@@ -718,12 +718,18 @@ function calendarWidget() {
     const year = parts[0];
     const month = parts[1];
     const day = parts[2];
+    if(remove) {
+      dayElements.forEach(function (dayElement) {
+        dayElement.classList.remove('day-event');
+      });
+      return;
+    }
 
     dayElements.forEach(function (dayElement) {
       const dataMonth = dayElement.getAttribute('data-month');
       const dataDay = dayElement.getAttribute('data-day');
       const dataYear = dayElement.getAttribute('data-year');
-
+  
       if (
         dataMonth === month &&
         dataDay === day &&
