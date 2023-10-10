@@ -1200,6 +1200,7 @@ function configModal() {
 
     // TODO error checking
     saveConfig();
+    setAppDrawer();
     if(fetchNewImage) {
       fetchDataAndUpdateStorage(true);
     }
