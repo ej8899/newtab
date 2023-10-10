@@ -1481,7 +1481,7 @@ https://webdesign.tutsplus.com/css-tooltip-magic--cms-28082t
 [tooltip]:hover::after {
   display: block;
   box-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
-  transform: rotate(-3deg);
+  transform: scale(1.1) translateX(-20%) rotate(3deg) !important;
 }
 
 /* don't show empty tooltips */
@@ -1490,8 +1490,6 @@ https://webdesign.tutsplus.com/css-tooltip-magic--cms-28082t
   display: none !important;
 }
 
-
-
 /* FLOW: RIGHT */
 [tooltip][flow^="right"]::before {
   top: 50%;
@@ -1499,6 +1497,7 @@ https://webdesign.tutsplus.com/css-tooltip-magic--cms-28082t
   border-right-color: black;
   right: calc(0em - 5px);
   transform: translate(.5em, -50%);
+  display:none;
 }
 [tooltip][flow^="right"]::after {
   top: 50%;
@@ -1507,8 +1506,6 @@ https://webdesign.tutsplus.com/css-tooltip-magic--cms-28082t
 }
 
 /* KEYFRAMES */
-
-
 @keyframes tooltips-horz {
   to {
     opacity: .9;
