@@ -611,6 +611,7 @@ function calendarWidget() {
   checkZeroEvents();
 
   function checkZeroEvents() {
+    setIconBadge('app-calendar',"remove");
     lastLoggedDate = null;
     // Load events from local storage on page load
     savedEvents = JSON.parse(localStorage.getItem('events')) || [];
@@ -1248,6 +1249,7 @@ function getFormattedDate() {
 function setIconBadge(elementID,status) {
   console.log('setting badge on ',elementID)
   const iconElement = document.getElementById(elementID);
+
   if (iconElement) {
     // Check if the badge element already exists, and if not, create it
     let badgeElement = iconElement.querySelector('.badge');
@@ -1260,7 +1262,8 @@ function setIconBadge(elementID,status) {
       //iconElement.parentNode.insertBefore(badgeElement,iconElement);
     }
     if (status === 'remove') {
-      badgeElement.innerHTML="";
+      //let badgeElement = calendarIcon.querySelector('.badge');
+      badgeElement.remove();
     }
   }
 }
