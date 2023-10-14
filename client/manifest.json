@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
   "name": "YourTab!",
-  "description": "Generates a random wildlife background, allow for fixed links when user opens a new browser tab.",
+  "description": "Generates a random background (based on a user search word), with options for fixed links, top 10 links and several useful tools for your new tab page.",
   "version": "0.0.1",
   "author": "Ernie Johnson",
   "action": {
     "default_icon": { "16": "icon16.png", "32": "icon32.png" },
-    "default_title": "NewTab!"
+    "default_title": "YourTab!"
   },
   "icons": {
     "16": "icon16.png",
